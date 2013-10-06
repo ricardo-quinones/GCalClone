@@ -1,0 +1,43 @@
+/* header styling */
+
+header.nav-bar {
+  top: 0;
+  right: 0;
+  left: 0;
+  min-width: 800px;
+  background: #555;
+  margin-bottom: 30px;
+}
+
+header:after, .nav-pin-right:after {
+  clear: both;
+  display: block;
+  content: "";
+}
+
+header a {
+  color: #fff;
+  font-size: 22px;
+}
+
+#logo {
+  float: left;
+  margin: 15px 0px 15px 50px;
+  font-size: 30px;
+}
+
+#logo:hover {
+  color: white;
+}
+
+.nav-pin-right {
+  float: right;
+}
+
+.nav-pin-right li {
+  float: left;
+  display: block;
+  padding-right: 20px;
+  padding-top: 19px;
+  padding-bottom: 19px;
+}

@@ -11,3 +11,106 @@
  *= require_self
  *= require_tree .
  */
+
+
+/*@import url(http://fonts.googleapis.com/css?family=Quicksand:400,700);*/
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,300italic);
+
+/* strip all styling */
+
+html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li, nav, div, span, input, textarea, header, footer, form, button, label {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-family: 'Lato', sans-serif;
+  line-height: 1;
+  vertical-align: middle;
+  text-decoration: none;
+  outline: 0;
+  list-style: none;
+  color: black;
+  font-weight: 100;
+}
+
+
+/* universal */
+
+html {
+  overflow-y: scroll
+}
+
+body {
+  padding-top: 0px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* typography */
+
+h1 {
+  font-size: 40px;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+}
+
+h2 {
+  font-size: 25px;
+  letter-spacing: -1px;
+}
+
+p {
+  font-size: 14px;
+  line-height: 1.4em;
+}
+
+a:hover {
+  color: rgb(150, 160, 180);
+}
+
+/* input and textarea */
+
+input {
+  border: 1px solid #888;
+  height: 40px;
+  border-radius: 10px;
+}
+
+input:hover {
+  border: 1px solid #111;
+}
+
+input[type=submit]:hover {
+  box-shadow: 1px 1px 3px #888888;
+}
+
+input:focus, input:active {
+  border: 1px solid rgb(100, 190, 220);
+}
+
+input[type=text], input[type=password] {
+  padding-left: 13px;
+  width: 358px;
+  font-size: 18px;
+}
+
+label {
+  font-size: 20px;
+}
+
+.button-lrg {
+  font-size: 22px;
+  color: white;
+  padding-left: 40px;
+  padding-right: 40px;
+  background-color: #ccc;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#ccc), to(#999))
+}
+
+.button-lrg:hover {
+  background-color: #aaa;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#aaa), to(#777));
+  border: 1px solid #888;
+}

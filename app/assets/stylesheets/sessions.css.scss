@@ -1,0 +1,46 @@
+// Place all the styles related to the sessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+div.form-box {
+  position: relative;
+  display: block;
+  width: 360px;
+  margin: auto;
+}
+
+div.form-box:after {
+  clear: both;
+  display: block;
+  content: "";
+}
+
+h1 {
+  text-align: center
+}
+
+.form-row {
+  width: 360;
+  margin-bottom: 20px;
+}
+
+.form-row:after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+.form-row label {
+  float: left;
+  margin-bottom: 10px;
+}
+
+.form-row input[type=text], input[type=password] {
+  float: left;
+}
+
+input[type=submit] {
+  display: block;
+  margin: auto;
+  text-align: center;
+}

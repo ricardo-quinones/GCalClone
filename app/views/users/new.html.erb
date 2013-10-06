@@ -1,0 +1,17 @@
+<% provide(:title, "Sign up") %>
+<h1>Create an Account</h1>
+
+<div class="form-box">
+  <%= form_for(:user, url: users_url) do |f| %>
+
+    <%= f.text_field :email, placeholder: "Enter your email" %>
+
+    <%= f.text_field :name, placeholder: "Enter your name" %>
+
+    <%= f.password_field :password, placeholder: "Create a password" %>
+
+    <%= f.password_field :password_confirmation, placeholder: "Confirm your password" %>
+
+    <%= f.submit "Sign up for MyCal", class: "button-lrg" %>
+  <% end %>
+</div>
