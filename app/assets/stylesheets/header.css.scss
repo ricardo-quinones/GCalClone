@@ -5,8 +5,9 @@ header.nav-bar {
   right: 0;
   left: 0;
   min-width: 800px;
-  background: #555;
+  background: #888;
   margin-bottom: 30px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#888), to(#555))
 }
 
 header:after, .nav-pin-right:after {
@@ -17,13 +18,13 @@ header:after, .nav-pin-right:after {
 
 header a {
   color: #fff;
-  font-size: 22px;
+  font-size: 24px;
 }
 
 #logo {
   float: left;
   margin: 15px 0px 15px 50px;
-  font-size: 30px;
+  font-size: 32px;
 }
 
 #logo:hover {
@@ -34,10 +35,35 @@ header a {
   float: right;
 }
 
-.nav-pin-right li {
+.nav-pin-right > li {
+  position: relative;
   float: left;
   display: block;
-  padding-right: 20px;
-  padding-top: 19px;
-  padding-bottom: 19px;
+  right: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+#account {
+  color: #fff;
+}
+
+#account:hover {
+  color: rgb(150, 160, 180);
+}
+
+#account:hover .drop-down {
+  display: block;
+}
+
+#account .drop-down {
+  right: 0px;
+  top: 43px;
+}
+
+#account .drop-down li a {
+  text-align: right
 }

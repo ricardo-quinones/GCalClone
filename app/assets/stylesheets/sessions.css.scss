@@ -5,7 +5,7 @@
 div.form-box {
   position: relative;
   display: block;
-  width: 360px;
+  width: 373px;
   margin: auto;
 }
 
@@ -20,7 +20,7 @@ h1 {
 }
 
 .form-row {
-  width: 360;
+  width: 373;
   margin-bottom: 20px;
 }
 
@@ -42,5 +42,13 @@ h1 {
 input[type=submit] {
   display: block;
   margin: auto;
+  margin-bottom: 20px;
+}
+
+p {
   text-align: center;
+}
+
+p a:hover {
+  text-decoration: underline;
 }

@@ -1,6 +1,16 @@
 <header class="nav-bar">
   <%= link_to "MyCal", root_url, id: "logo" %>
   <ul class="nav-pin-right">
-    <li><%= link_to "Sign in", new_session_url %></li>
+    <% if signed_in? %>
+      <li id="account">Account
+        <ul class="drop-down">
+          <li><%= link_to "Profile", "#" %></li>
+          <li><%= link_to "Settings", "#" %></li>
+          <li><%= link_to "Sign out", session_url, method: :delete %></li>
+        </ul>
+      </li>
+    <% else %>
+      <li><%= link_to "Sign in", new_session_url unless current_page?(new_session_url)%></li>
+    <% end %>
   </ul>
 </header>

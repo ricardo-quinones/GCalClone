@@ -3,6 +3,7 @@
 
 <div class="form-box">
   <%= form_for(:user, url: users_url) do |f| %>
+    <%= render 'shared/error_messages' %>
 
     <%= f.text_field :email, placeholder: "Enter your email" %>
 

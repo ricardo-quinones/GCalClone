@@ -2,16 +2,18 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :name
   attr_reader :name
 
-  before_save :ensure_token
+  before_save :generate_token
   before_save { email.downcase! }
 
   EMAIL_REGEX = /\A[^\W_]([\w+\-]|(?<!\.)\.)+@[^\W_]([a-z\d\-]|(?<!\.)\.)+(?<!\.)\.[a-z]+\z/i
-  validates_presence_of :name,  :email
+  validates_presence_of :name,  on: :create
 
-  validate :no_middle_names
+  validate :no_middle_names, on: :create
   validates :first_name, :last_name, length: { maximum: 50 }
 
-  validates :email, format: { with: EMAIL_REGEX }, uniqueness: { case_sensitive: false }
+  validates :email, presence: true,
+                    format: { with: EMAIL_REGEX },
+                    uniqueness: { case_sensitive: false }
 
   has_secure_password
   validates :password, on: :create, presence: true,
@@ -28,8 +30,9 @@ class User < ActiveRecord::Base
     password.nil?
   end
 
-  def ensure_token
-    self.token = SecureRandom.urlsafe_base64(16)
+  def reset_token!
+    generate_token
+    self.save!
   end
 
   def name=(name)
@@ -41,6 +44,12 @@ class User < ActiveRecord::Base
   end
 
   def no_middle_names
-    errors.add(:first_name, "Only first and last names") if self.name.split(" ").length > 2
+    errors[:base] << "Only first and last names" if self.name.split(" ").length > 2
+  end
+
+  private
+
+  def generate_token
+    self.token = SecureRandom.urlsafe_base64(16)
   end
 end
