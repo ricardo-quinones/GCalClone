@@ -1,14 +1,12 @@
-<h3>My Calendars</h3>
-
-<ul class="calender-list">
+<ul class="owned-calenders">
+  <li class="cal-list-title"><a href="/#">My Calendars</a>
   <% calendars.each(function (calendar) { %>
-    <li class="cal-list-item">
-      <ul>
+      <ul class="cal-list-item">
         <li class="cal-color"></li>
         <li>
-          <a class="cal-list-item" href="/#"><%= calendar.get('title') %></a>
+          <a class="calendar" href="/#"><%= calendar.get('title') %></a>
         </li>
       </ul>
-    </li>
   <% }); %>
+  </li>
 </ul>

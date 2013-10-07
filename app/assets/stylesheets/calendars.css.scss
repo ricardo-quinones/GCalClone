@@ -2,12 +2,74 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-div#calendar-views {
-  position: relative;
-  width: 100%;
+#calendar-views {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 45px;
+}
+
+#calendar-views:after {
+  content: "";
+  display: block;
+  clear: both;
 }
 
 #sidebar {
   float: left;
-  overflow-y: scroll;
+  margin: 0px auto;
+  width: 180px;
+  top: 0px;
+  border-top: 1px solid #bbb;
+  border-right: 1px solid #bbb;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+#sidebar:hover {
+  overflow: auto;
+}
+
+.owned-calendars {
+  float: left;
+}
+
+.owned-calendars:after {
+  display: block;
+  clear: both;
+  content: "";
+}
+
+.cal-list-title > a {
+  display: block;
+  font-size: 20px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  text-align: center;
+  border-bottom: 1px solid #bbb;
+  margin-bottom: 5px;
+}
+
+.cal-list-item:after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+.cal-list-item li {
+  display: block;
+  float: left;
+}
+
+.cal-color {
+  display: block;
+  background: rgb(220, 170, 100);
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+  margin: 5px;
+}
+
+.calendar {
+  padding: 5px;
 }
