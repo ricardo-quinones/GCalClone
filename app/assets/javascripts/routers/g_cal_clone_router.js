@@ -4,15 +4,15 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
   },
 
   routes: {
-    "": "sidebar"
+    "": "agenda"
   },
 
-  sidebar: function () {
-    var calendarsSidebarView = new GCalClone.Views.CalendarsSidebar({
+  agenda: function () {
+    var calendarsAgendaView = new GCalClone.Views.CalendarsAgenda({
       collection: this.calendars
     });
 
-    calendarsSidebarView.render();
+    calendarsAgendaView.render();
   }
 
 });

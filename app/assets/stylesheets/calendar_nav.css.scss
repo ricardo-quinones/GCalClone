@@ -1,0 +1,31 @@
+#calendar-nav {
+  position: relative;
+  width: auto;
+}
+
+#calendar-nav:after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+#calendar-nav ul {
+  float: left;
+  display: block;
+  width: auto;
+}
+
+#calendar-nav ul:after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+.toggle {
+  display: block;
+  float: left;
+  padding: 7px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
