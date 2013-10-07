@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+time_zone = User.find(2).time_zone
+
+Calendar.create(owner_id: 2, title: "Work",
+  description: "My work calendar", time_zone: time_zone)
+

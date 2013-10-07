@@ -1,3 +1,1 @@
-GCalClone.Models.Event = Backbone.Model.extend({
-  
-});
+GCalClone.Models.Event = Backbone.Model.extend({});

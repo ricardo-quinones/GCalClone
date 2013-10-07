@@ -1,0 +1,14 @@
+<h3>My Calendars</h3>
+
+<ul class="calender-list">
+  <% calendars.each(function (calendar) { %>
+    <li class="cal-list-item">
+      <ul>
+        <li class="cal-color"></li>
+        <li>
+          <a class="cal-list-item" href="/#"><%= calendar.get('title') %></a>
+        </li>
+      </ul>
+    </li>
+  <% }); %>
+</ul>

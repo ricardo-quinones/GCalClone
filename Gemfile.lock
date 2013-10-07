@@ -50,6 +50,8 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     debug_inspector (0.0.2)
+    detect_timezone_rails (0.0.5)
+      railties (>= 3.1)
     eco (1.0.0)
       coffee-script
       eco-source
@@ -126,6 +128,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   coffee-rails (~> 3.2.1)
+  detect_timezone_rails
   jquery-rails
   pg
   rails (= 3.2.14)

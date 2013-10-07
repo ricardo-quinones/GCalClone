@@ -4,5 +4,6 @@ GCalClone::Application.routes.draw do
 
   resources :users, only: [:create, :new, :update]
   resource :session, only: [:create, :new, :destroy]
-  resources :events, except: [:show, :new]
+  resources :events, except: [:show, :new, :edit]
+  resources :calendars, except: [:show, :new, :edit]
 end

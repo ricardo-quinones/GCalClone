@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :password, :password_confirmation, :name
+  attr_accessible :email, :password, :password_confirmation, :name, :time_zone
   attr_reader :name
 
   before_save :generate_token
@@ -26,7 +26,8 @@ class User < ActiveRecord::Base
 
   after_validation { self.errors.messages.delete(:password_digest) }
 
-  has_many :events, class_name: "Event", foreign_key: :owner_id, dependent: :destroy
+  has_many :events, class_name: "Event", foreign_key: :creator_id
+  has_many :calendars, class_name: "Calendar", foreign_key: :owner_id, dependent: :destroy
 
   def password_nil?
     password.nil?

@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.serializeJSON
+//= require detect_timezone
+//= require jquery.detect_timezone
 //= require underscore
 //= require backbone
 //= require g_cal_clone

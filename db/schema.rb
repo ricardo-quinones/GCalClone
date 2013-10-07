@@ -11,22 +11,36 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131007000833) do
+ActiveRecord::Schema.define(:version => 20131007133024) do
 
-  create_table "events", :force => true do |t|
-    t.string   "title",      :default => ""
-    t.datetime "start_date",                    :null => false
-    t.datetime "end_date",                      :null => false
-    t.string   "location"
-    t.integer  "owner_id",                      :null => false
-    t.boolean  "all_day",    :default => false
-    t.string   "time_zone",                     :null => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+  create_table "calendars", :force => true do |t|
+    t.integer  "owner_id",    :null => false
+    t.string   "time_zone",   :null => false
+    t.string   "title",       :null => false
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
+  add_index "calendars", ["owner_id"], :name => "index_calendars_on_owner_id"
+  add_index "calendars", ["time_zone"], :name => "index_calendars_on_time_zone"
+  add_index "calendars", ["title"], :name => "index_calendars_on_title"
+
+  create_table "events", :force => true do |t|
+    t.string   "title",       :default => ""
+    t.datetime "start_date",                     :null => false
+    t.datetime "end_date",                       :null => false
+    t.string   "location"
+    t.integer  "creator_id",                     :null => false
+    t.integer  "calendar_id",                    :null => false
+    t.boolean  "all_day",     :default => false
+    t.string   "time_zone",                      :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "events", ["calendar_id"], :name => "index_events_on_calendar_id", :unique => true
   add_index "events", ["end_date"], :name => "index_events_on_end_date"
-  add_index "events", ["owner_id"], :name => "index_events_on_owner_id", :unique => true
   add_index "events", ["start_date"], :name => "index_events_on_start_date"
   add_index "events", ["title"], :name => "index_events_on_title"
 
@@ -35,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20131007000833) do
     t.string   "last_name",       :null => false
     t.string   "email",           :null => false
     t.string   "password_digest", :null => false
+    t.string   "time_zone",       :null => false
     t.string   "token",           :null => false
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false

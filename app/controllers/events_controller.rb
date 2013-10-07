@@ -22,7 +22,7 @@ class EventsController < ApplicationController
   end
 
   def update
-    @event = Event.find(param[:event])
+    @event = Event.find(param[:id])
 
     if @event.update_attributes
       render json: @event
