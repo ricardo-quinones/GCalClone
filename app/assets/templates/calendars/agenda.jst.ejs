@@ -1,0 +1,9 @@
+<h2>Agenda</h2>
+<ul>
+  <% events.each(function (event) { %>
+
+    <li class="event">
+      <a href="/"><%= event.get("title") %></a>
+    </li>
+  <% }); %>
+</ul>

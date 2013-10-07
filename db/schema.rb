@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(:version => 20131007133024) do
     t.datetime "updated_at",                     :null => false
   end
 
-  add_index "events", ["calendar_id"], :name => "index_events_on_calendar_id", :unique => true
+  add_index "events", ["creator_id"], :name => "index_events_on_creator_id"
   add_index "events", ["end_date"], :name => "index_events_on_end_date"
   add_index "events", ["start_date"], :name => "index_events_on_start_date"
   add_index "events", ["title"], :name => "index_events_on_title"

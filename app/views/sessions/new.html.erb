@@ -8,13 +8,13 @@
       <%= f.label :email %>
       <%= f.text_field :email %>
     </div>
-    
+
     <div class="form-row">
       <%= f.label :password %>
       <%= f.password_field :password %>
     </div>
 
-    <%= f.submit "Sign in", class: "button-lrg" %>
+    <%= f.submit "Sign in", class: "button-lrg button" %>
   <% end %>
 
   <p>Not a user? <%= link_to "Sign up",new_user_url %>.</p>

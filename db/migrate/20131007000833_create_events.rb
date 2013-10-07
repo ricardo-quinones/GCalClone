@@ -13,7 +13,7 @@ class CreateEvents < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :events, :calendar_id, unique: true
+    add_index :events, :creator_id
     add_index :events, :title
     add_index :events, :start_date
     add_index :events, :end_date

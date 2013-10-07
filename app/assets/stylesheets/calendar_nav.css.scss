@@ -1,6 +1,10 @@
 #calendar-nav {
   position: relative;
   width: auto;
+  min-width: 900px;
+  margin-bottom: 30px;
+  padding-left: 200px;
+
 }
 
 #calendar-nav:after {
@@ -13,6 +17,9 @@
   float: left;
   display: block;
   width: auto;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  margin: 0px 30px;
 }
 
 #calendar-nav ul:after {
@@ -21,11 +28,22 @@
   clear: both;
 }
 
-.toggle {
+.nav-button {
   display: block;
   float: left;
   padding: 7px;
   padding-right: 15px;
   padding-left: 15px;
+  border-right: 1px solid #eee;
+  cursor: pointer;
+  color: white;
+  background-color: #ccc;
 }
 
+.nav-button:last-child {
+  border-right: none;
+}
+
+.nav-button:hover {
+  box-shadow: 1px 1px 4px #888888;
+}
