@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
 
   after_validation { self.errors.messages.delete(:password_digest) }
 
+  has_many: :events, class_name: "Event", foreign_key: :owner_id, dependent: :destroy
+
   def password_nil?
     password.nil?
   end
