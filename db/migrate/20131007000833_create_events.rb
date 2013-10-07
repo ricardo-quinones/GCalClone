@@ -7,6 +7,7 @@ class CreateEvents < ActiveRecord::Migration
       t.string :location
       t.integer :owner_id, null: false
       t.boolean :all_day, default: false
+      t.string :time_zone, null: false
 
       t.timestamps
     end
