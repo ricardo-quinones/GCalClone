@@ -5,23 +5,10 @@
 
 // Sidebar
 
-#calendar-views {
-  left: 0;
-  right: 0;
-  bottom: 45px;
-}
-
-#calendar-views:after {
-  content: "";
-  display: block;
-  clear: both;
-}
-
 #sidebar {
   float: left;
   margin: 0px auto;
-  width: auto;
-  max-width: 200px;
+  width: 200px;
   top: 0px;
   border-top: 1px solid #bbb;
   border-right: 1px solid #bbb;
@@ -76,7 +63,7 @@
 
 .cal-list-item:hover .drop-down {
   display: block;
-  left: 180px;
+  left: 200px;
 }
 
 .cal-color {

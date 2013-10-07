@@ -1,0 +1,11 @@
+#calendar-views {
+  left: 0;
+  right: 0;
+  bottom: 45px;
+}
+
+#calendar-views:after {
+  content: "";
+  display: block;
+  clear: both;
+}
