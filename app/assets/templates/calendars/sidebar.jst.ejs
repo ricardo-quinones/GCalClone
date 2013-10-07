@@ -1,12 +1,10 @@
-<ul class="owned-calenders">
+<ul class="calenders" id="owned-calendars">
   <li class="cal-list-title"><a href="/#">My Calendars</a>
-  <% calendars.each(function (calendar) { %>
-      <ul class="cal-list-item">
-        <li class="cal-color"></li>
-        <li>
-          <a class="calendar" href="/#"><%= calendar.get('title') %></a>
-        </li>
-      </ul>
-  <% }); %>
+    <%= JST['calendars/sidebar/list']({ calendars: calendars }) %>
+  </li>
+</ul>
+<ul class="calenders">
+  <li class="cal-list-title"><a href="/#">Shared Calendars</a>
+    <%= JST['calendars/sidebar/list']({ calendars: calendars }) %>
   </li>
 </ul>

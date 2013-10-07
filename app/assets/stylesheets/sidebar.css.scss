@@ -1,0 +1,93 @@
+// Place all the styles related to the Calendars controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+// Sidebar
+
+#calendar-views {
+  left: 0;
+  right: 0;
+  bottom: 45px;
+}
+
+#calendar-views:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+#sidebar {
+  float: left;
+  margin: 0px auto;
+  width: auto;
+  max-width: 200px;
+  top: 0px;
+  border-top: 1px solid #bbb;
+  border-right: 1px solid #bbb;
+  border-bottom: 1px solid #bbb;
+  border-radius: 5px;
+}
+
+#sidebar:hover {
+//  overflow: auto;
+}
+
+.calendars {
+  float: left;
+  width: auto;
+  border-top: 1px solid #bbb;
+}
+
+.calendars:after {
+  display: block;
+  clear: both;
+  content: "";
+}
+
+.cal-list-title > a {
+  display: block;
+  font-size: 20px;
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #bbb;
+  margin-bottom: 5px;
+  border-top: 1px solid #bbb;
+}
+
+#owned-calendars a {
+ border-top: none;
+}
+
+.cal-list-item:after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+.cal-list-item:last-child {
+  margin-bottom: 5px;
+}
+
+.cal-list-item > li {
+  display: block;
+  float: left;
+}
+
+.cal-list-item:hover .drop-down {
+  display: block;
+  left: 180px;
+}
+
+.cal-color {
+  display: block;
+  background: rgb(220, 170, 100);
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+  margin: 5px;
+}
+
+.calendar {
+  padding: 5px;
+}

@@ -141,7 +141,7 @@ label {
   padding-bottom: 8px;
 }
 
-.drop-down li a:hover {
+.menu:hover {
   background: #eee;
   color: #444;
 }

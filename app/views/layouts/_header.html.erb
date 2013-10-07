@@ -4,9 +4,14 @@
     <% if signed_in? %>
       <li id="account">Account
         <ul class="drop-down">
-          <li><%= link_to "Profile", "#" %></li>
-          <li><%= link_to "Settings", "#" %></li>
-          <li><%= link_to "Sign out", session_url, method: :delete %></li>
+          <li><%= link_to "Profile", "#", class: "menu" %></li>
+          <li><%= link_to "Settings", "#", class: "menu" %></li>
+          <li>
+            <%= link_to "Sign out",
+              session_url,
+              method: :delete,
+              class: "menu" %>
+          </li>
         </ul>
       </li>
     <% else %>
