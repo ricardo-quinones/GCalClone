@@ -6,7 +6,10 @@ class CalendarsController < ApplicationController
     @calendars = Calendar.find_all_by_owner_id(current_user.id)
     respond_to do |format|
       format.json {
-        render json: @calendars.as_json(include: [:events])
+        render json: @calendars.as_json(include: { :events => {
+          methods: [:local_start_date, :local_end_date],
+          except: [:start_date, :end_date]
+        }})
       }
     end
   end

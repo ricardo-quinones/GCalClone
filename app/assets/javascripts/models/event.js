@@ -16,15 +16,15 @@ GCalClone.Models.Event = Backbone.Model.extend({
   ],
 
   startDate: function () {
-    return this.get('start_date');
+    return this.get('local_start_date');
   },
 
   endDate: function () {
-    return this.get('end_date');
+    return this.get('local_end_date');
   },
 
   startMonth: function () {
-    return this.monthNames[this.startDate().getMonth()];
+    return monthNames[this.startDate().getMonth()];
   },
 
   startDayOfMonth: function () {
@@ -38,7 +38,7 @@ GCalClone.Models.Event = Backbone.Model.extend({
   },
 
   endMonth: function () {
-    return this.monthNames[this.endDate().getMonth()];
+    return monthNames[this.endDate().getMonth()];
   },
 
   endDayOfMonth: function () {

@@ -1,12 +1,13 @@
 <h2>Agenda</h2>
 
 <ul>
+  <% console.log(events.where({local_start_date: new Date()}));  %>
   <% events.each(function (event) { %>
+    <ul></ul>
     <li class="event">
       <a href="/#"><%= event.startMonth() %></a>
       <a href="/#"><%= event.startDayOfMonth() %></a>
       <a href="/#"><%= event.startTime()  %></a>
-      <a href="/#"><%= event.startDate()  %></a>
     </li>
   <% }); %>
 </ul>

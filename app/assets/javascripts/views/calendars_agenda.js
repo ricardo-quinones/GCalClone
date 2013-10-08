@@ -21,8 +21,7 @@ GCalClone.Views.CalendarsAgenda = Backbone.View.extend({
 
     calendarsSidebarView.render();
     self.$el.html(self.template({
-      events: self.collection,
-      today: new Date().getTime()
+      events: self.collection
     }));
 
     return self;
