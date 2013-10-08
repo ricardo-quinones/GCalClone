@@ -31,22 +31,36 @@ GCalClone.Views.CalendarsAgenda = Backbone.View.extend({
     self = this;
     $agenda = $("<ul>");
     self.collection.each(function (calEvent) {
-      var dayId = calEvent.dayId()
+      if (calEvent.startDate() > currentDate()) {
+        var dayId = calEvent.dayId()
+        var doesntHaveTag = ($agenda.find("#" + dayId).length == 0)
+        var allDay = calEvent.allDay()
+        console.log(calEvent.startDate());
+        console.log(calEvent.allDay());
 
-      // dayId doesn't exist
-      if ($agenda.find("#" + dayId).length == 0) {
-        $agenda.append(JST['calendars/agenda/new_day']({
-          dayId: dayId,
-          calEvent: calEvent
-        }));
+        if (doesntHaveTag) {
+          $agenda.append(JST['calendars/agenda/new_day']({
+            dayId: dayId,
+            calEvent: calEvent
+          }));
+        }
+        else {
+          if (calEvent.allDay()) {
+            $agenda
+              .find("#" + dayId + " .all-day-events")
+              .append(JST['calendars/agenda/all_day_event']({
+                calEvent: calEvent
+            }));
+          }
+          else {
+            $agenda
+              .find("#" + dayId + " .events")
+              .append(JST['calendars/agenda/new_event']({
+                calEvent: calEvent
+            }));
+          };
+        };
       }
-
-      // dayId exists
-      else {
-        $agenda.find("#" + dayId).append(JST['calendars/agenda/new_event']({
-          calEvent: calEvent
-        }));
-      };
     });
 
     return $agenda;

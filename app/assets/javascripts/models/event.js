@@ -1,19 +1,8 @@
 GCalClone.Models.Event = Backbone.Model.extend({
 
-  monthNames: [
-    "january",
-    "february",
-    "march",
-    "april",
-    "may",
-    "june",
-    "july",
-    "august",
-    "september",
-    "october",
-    "november",
-    "december"
-  ],
+  allDay: function () {
+    return this.get('all_day');
+  },
 
   startDate: function () {
     return this.get('local_start_date');
@@ -60,7 +49,7 @@ GCalClone.Models.Event = Backbone.Model.extend({
   },
 
   dayId: function () {
-    return "d" + this.startYear() + "-" + this.startMonth() + "-" + this.startDayOfMonth() + "d";
+    return this.startYear() + "-" + this.startMonth() + "-" + this.startDayOfMonth();
   },
 
   timeRange: function () {

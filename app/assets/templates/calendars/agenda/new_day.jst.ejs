@@ -5,5 +5,16 @@
       <li class="agenda-month"><%= calEvent.startMonth() %></li>
     </ul>
   </li>
-  <%= JST['calendars/agenda/new_event']({ calEvent: calEvent }) %>
+  <li>
+    <ul class="all-day-events">
+      <% if (calEvent.allDay()) { %>
+        <%= JST['calendars/agenda/all_day_event']({ calEvent: calEvent }) %>
+      <% };  %>
+    </ul>
+  </li>
+  <li class="events">
+    <% if (!calEvent.allDay()) { %>
+      <%= JST['calendars/agenda/new_event']({ calEvent: calEvent }) %>
+    <% };  %>
+  </li>
 </ul>

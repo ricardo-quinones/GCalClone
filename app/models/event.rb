@@ -4,6 +4,7 @@ class Event < ActiveRecord::Base
 
   before_validation :adjust_dates
 
+  validates :all_day, :inclusion => {:in => [true, false]}
   validates_presence_of :calendar_id, :start_date, :end_date,
     :time_zone, :creator_id
 
