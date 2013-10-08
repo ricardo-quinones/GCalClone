@@ -19,11 +19,36 @@ GCalClone.Views.CalendarsAgenda = Backbone.View.extend({
       collection: self.options.calendars
     });
 
+    $agenda = self.renderAgendaItems();
+
     calendarsSidebarView.render();
-    self.$el.html(self.template({
-      events: self.collection
-    }));
+    self.$el.html($agenda);
 
     return self;
+  },
+
+  renderAgendaItems: function () {
+    self = this;
+    $agenda = $("<ul>");
+    self.collection.each(function (calEvent) {
+      var dayId = calEvent.dayId()
+
+      // dayId doesn't exist
+      if ($agenda.find("#" + dayId).length == 0) {
+        $agenda.append(JST['calendars/agenda/new_day']({
+          dayId: dayId,
+          calEvent: calEvent
+        }));
+      }
+
+      // dayId exists
+      else {
+        $agenda.find("#" + dayId).append(JST['calendars/agenda/new_event']({
+          calEvent: calEvent
+        }));
+      };
+    });
+
+    return $agenda;
   }
 });

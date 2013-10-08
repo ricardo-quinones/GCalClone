@@ -6,10 +6,11 @@
 // Sidebar
 
 #sidebar {
+  display: block;
   float: left;
-  margin: 0px auto;
-  width: 200px;
-  top: 0px;
+  margin: 0 auto;
+  width: 13%;
+  min-width: 200px;
   border-top: 1px solid #bbb;
   border-right: 1px solid #bbb;
   border-bottom: 1px solid #bbb;
@@ -63,7 +64,7 @@
 
 .cal-list-item:hover .drop-down {
   display: block;
-  left: 200px;
+  left: 13%;
 }
 
 .cal-color {

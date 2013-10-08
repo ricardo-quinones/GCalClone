@@ -1,0 +1,9 @@
+<ul id="<%= dayId %>" class="days-agenda">
+  <li>
+    <ul class="agenda-day">
+      <li class="agenda-day-number"><%= calEvent.startDayOfMonth() %></li>
+      <li class="agenda-month"><%= calEvent.startMonth() %></li>
+    </ul>
+  </li>
+  <%= JST['calendars/agenda/new_event']({ calEvent: calEvent }) %>
+</ul>
