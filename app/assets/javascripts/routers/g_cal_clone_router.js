@@ -1,6 +1,11 @@
 GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
   initialize: function (calendars) {
     this.calendars = calendars;
+    this.currentUser = GCalClone.currentUser
+
+    this.$settingsView = $('#settings-views');
+    this.$calendarView = $('#calendar-views');
+
     var eventPojos = [];
 
     this.calendars.each(function (calendar) {
@@ -20,15 +25,31 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
   },
 
   routes: {
-    "": "agenda"
+    "": "agenda",
+    "user_settings": "userSettings"
   },
 
   agenda: function () {
+    this.$settingsView.empty();
+
     var calendarsAgendaView = new GCalClone.Views.CalendarsAgenda({
-      collection: this.events, calendars: this.calendars
+      el: this.$calendarView,
+      collection: this.events,
+      calendars: this.calendars
     });
 
     calendarsAgendaView.render();
+  },
+
+  userSettings: function () {
+    this.$calendarView.empty();
+
+    var userSettingsView = new GCalClone.Views.UserSettings({
+      el: this.$settingsView,
+      model: this.currentUser
+    });
+
+    userSettingsView.render();
   }
 
 });

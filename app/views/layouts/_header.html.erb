@@ -4,8 +4,7 @@
     <% if signed_in? %>
       <li id="account">Account
         <ul class="drop-down">
-          <li><%= link_to "Profile", "#", class: "menu" %></li>
-          <li><%= link_to "Settings", "#", class: "menu" %></li>
+          <li><%= link_to "Settings", "#/user_settings", class: "menu" %></li>
           <li>
             <%= link_to "Sign out",
               session_url,

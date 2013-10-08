@@ -1,5 +1,5 @@
 GCalClone.Views.CalendarsSidebar = Backbone.View.extend({
-  el: '#sidebar',
+  el: $("<section>").attr("id", "sidebar"),
 
   template: JST['calendars/sidebar'],
 

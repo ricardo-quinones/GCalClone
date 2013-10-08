@@ -5,6 +5,8 @@ window.GCalClone = {
   Routers: {},
   initialize: function() {
     GCalClone.calendars = new GCalClone.Collections.Calendars;
+    GCalClone.currentUser = new GCalClone.Models.User({id: CURRENT_USER_ID});
+    GCalClone.currentUser.fetch();
 
     GCalClone.calendars.fetch({
       success: function (calendars) {

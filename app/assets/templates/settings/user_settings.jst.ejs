@@ -1,0 +1,38 @@
+<h1>User Settings Page</h1>
+
+<div class="form-box">
+  <form>
+    <label>Email
+      <input type="text" name="user[email]" value="<%= user.get("email") %>">
+    </label>
+
+    <label>First name
+      <input
+        type="text"
+        name="user[first_name]"
+        value="<%= user.get("first_name") %>">
+    </label>
+
+    <label>Last name
+      <input type="text"
+        name="user[last_name]"
+        value="<%= user.get("last_name") %>">
+    </label>
+
+    <label>Timezone
+      <input type="text" name="user[time_zone]" value="" id="some_name">
+    </label>
+
+    <label>Password
+      <input type="password" name="user[password]">
+    </label>
+
+    <label>Password Confirmation
+      <input type="password" name="user[password_confirmation]">
+    </label>
+
+    <input type="submit" value="Save changes"></p>
+  </form>
+</div>
+
+<a href="/#">Back To Calendars</a>
