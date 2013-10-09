@@ -1,0 +1,32 @@
+#cal-settings-sidebar {
+  width: 210px;
+  border-right: 1px solid #999;
+  border-top: 1px solid #999;
+  border-radius: 5px;
+}
+
+.calendar-settings-list a {
+  display: block;
+  width: 203px;
+  padding-left: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.calendar-settings-list a:hover {
+  background: #bbb;
+  color: #555;
+}
+
+.calendar-settings-list a:active {
+  background: #555;
+  color: #fff;
+}
+
+h3 {
+  font-size: 25px;
+  padding-left: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+

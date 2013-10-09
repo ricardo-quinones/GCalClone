@@ -2,18 +2,20 @@ GCalClone.Views.CalendarsIndex = Backbone.View.extend({
 
   template: JST['calendars/index'],
 
-  events: {
-    'click #update-calendar': 'update'
+  initialize: function () {
+    var self = this;
+
+    var renderCallback = self.render.bind(self)
+
+    self.listenTo(self.collection, 'add', renderCallback);
+    self.listenTo(self.collection, 'change', renderCallback);
+    self.listenTo(self.collection, 'remove', renderCallback);
   },
 
   render: function () {
     var self = this;
-    var auth_token = $('meta[name=\"csrf-token\"').attr("content");
 
-    self.$el.html(self.template({
-      calendar: this.model,
-      auth_token: auth_token
-     }));
+    self.$el.html(self.template({ calendars: this.collection }));
 
     return self;
   },

@@ -1,6 +1,6 @@
-GCalClone.Views.UserSettings = Backbone.View.extend({
+GCalClone.Views.EditUser = Backbone.View.extend({
 
-  template: JST['users/settings'],
+  template: JST['users/edit'],
 
   events: {
     'click #update-user': 'update'
@@ -8,12 +8,8 @@ GCalClone.Views.UserSettings = Backbone.View.extend({
 
   render: function () {
     var self = this;
-    var auth_token = $('meta[name=\"csrf-token\"').attr("content");
 
-    self.$el.html(self.template({
-      user: this.model,
-      auth_token: auth_token
-    }));
+    self.$el.html(self.template({ user: this.model }));
 
     return self;
   },

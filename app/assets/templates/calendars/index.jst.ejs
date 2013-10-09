@@ -1,0 +1,25 @@
+
+<div id="cal-settings-sidebar">
+  <ul class="calendar-settings-list">
+    <h3>My Calendars</h3>
+    <% calendars.each(function (calendar) { %>
+      <li><a href="#"><%= calendar.get('title') %></a></li>
+    <% }); %>
+  </ul>
+
+
+
+  <ul class="calendar-settings-list">
+    <h3>Shared Calendars</h3>
+    <% calendars.each(function (calendar) { %>
+      <li><a href="#"><%= calendar.get('title') %></a></li>
+    <% }); %>
+  </ul>
+
+  <br>
+  <br>
+  <a href="/#">Create New Calendar</a>
+  <a href="/#">Back To Calendar</a>
+</div>
+
+

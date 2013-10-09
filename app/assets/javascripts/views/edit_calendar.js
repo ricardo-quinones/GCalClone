@@ -1,6 +1,6 @@
-GCalClone.Views.CalendarSettings = Backbone.View.extend({
+GCalClone.Views.EditCalendar = Backbone.View.extend({
 
-  template: JST['calendars/settings'],
+  template: JST['calendars/edit'],
 
   events: {
     'click #update-calendar': 'update'
@@ -8,12 +8,8 @@ GCalClone.Views.CalendarSettings = Backbone.View.extend({
 
   render: function () {
     var self = this;
-    var auth_token = $('meta[name=\"csrf-token\"').attr("content");
 
-    self.$el.html(self.template({
-      calendar: this.model,
-      auth_token: auth_token
-     }));
+    self.$el.html(self.template({ calendar: this.model }));
 
     return self;
   },

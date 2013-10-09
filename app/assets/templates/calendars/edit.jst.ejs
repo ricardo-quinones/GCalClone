@@ -1,10 +1,8 @@
-<h1>Calendar Settings Page</h1>
+<% var title = (calendar.isNew() ? "Create new Calendar" : calendar.get("title")) %>
+<h1><%= title %></h1>
 
 <div class="form-box">
   <form>
-
-    <input type="hidden" name="authenticity_token" value="<%= auth_token %>">
-
     <label>Title
       <input type="text" name="calendar[title]" value="<%= calendar.get("title") %>">
     </label>
@@ -24,8 +22,7 @@
 
     </label>
 
-    <input type="submit" value="Save changes" id="update-calendar">
+    <% var elId = (calendar.isNew() ? "create-calendar" : "update-calendar") %>
+    <input type="submit" value="Save changes" id="<%= elId %>">
   </form>
 </div>
-
-<a href="/#">Back To Calendar</a>
