@@ -145,7 +145,3 @@ label {
   background: #eee;
   color: #444;
 }
-
-.form-box input[type=text], input[type=password] {
-  margin-bottom: 30px;
-}

@@ -12,10 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.serializeJSON
-//= require jquery.timezone-picker
 //= require detect_timezone
 //= require jquery.detect_timezone
+//= require jquery.serializeJSON
 //= require underscore
 //= require backbone
 //= require g_cal_clone

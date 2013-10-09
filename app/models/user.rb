@@ -3,14 +3,16 @@ class User < ActiveRecord::Base
   attr_reader :name
 
   before_save :generate_token
-  before_save { email.downcase! }
 
-  EMAIL_REGEX = /\A[^\W_]([\w+\-]|(?<!\.)\.)+@[^\W_]([a-z\d\-]|(?<!\.)\.)+(?<!\.)\.[a-z]+\z/i
+  before_validation { email.downcase! }
+  EMAIL_REGEX = /\A[^\W_]([\w+\-]|(?<!\.)\.)+@[^\W_]([a-z\d\-]|(?<!\.)\.)+(?<!\.)\.[a-z]+\z/
   validates_presence_of :name,  on: :create
 
   validate :no_middle_names, on: :create
   validates :first_name, :last_name, length: { maximum: 50 }
 
+  before_validation { email.downcase! }
+  EMAIL_REGEX = /\A[^\W_]([\w+\-]|(?<!\.)\.)+@[^\W_]([a-z\d\-]|(?<!\.)\.)+(?<!\.)\.[a-z]+\z/
   validates :email, presence: true,
                     format: { with: EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
