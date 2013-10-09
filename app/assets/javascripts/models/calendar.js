@@ -1,1 +1,3 @@
-GCalClone.Models.Calendar = Backbone.Model.extend({});
+GCalClone.Models.Calendar = Backbone.Model.extend({
+  urlRoot: "/calendars"
+});

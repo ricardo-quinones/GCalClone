@@ -1,0 +1,31 @@
+<h1>Calendar Settings Page</h1>
+
+<div class="form-box">
+  <form>
+
+    <input type="hidden" name="authenticity_token" value="<%= auth_token %>">
+
+    <label>Title
+      <input type="text" name="calendar[title]" value="<%= calendar.get("title") %>">
+    </label>
+
+    <label>Description
+      <textarea
+        name="calendar[description]"><%= calendar.get("description") %></textarea>
+
+    <label>Timezone
+      <select name="calendar[time_zone]">
+        <% _(TIME_ZONES).each(function (timeZone) { %>
+          <% var name = timeZone.name %>
+          <% var selected = (calendar.get("time_zone") == name ? "selected" : "") %>
+          <option value="<%= name %>" <%= selected %>><%= name %></option>
+        <% }); %>
+      </select>
+
+    </label>
+
+    <input type="submit" value="Save changes" id="update-calendar">
+  </form>
+</div>
+
+<a href="/#">Back To Calendar</a>

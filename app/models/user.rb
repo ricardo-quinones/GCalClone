@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
     :first_name, :last_name
   attr_reader :name
 
-  before_save :generate_token
+  before_save :ensure_token
 
   before_validation { email.downcase! }
   EMAIL_REGEX = /\A[^\W_]([\w+\-]|(?<!\.)\.)+@[^\W_]([a-z\d\-]|(?<!\.)\.)+(?<!\.)\.[a-z]+\z/
@@ -31,6 +31,10 @@ class User < ActiveRecord::Base
   has_many :events, class_name: "Event", foreign_key: :creator_id
   has_many :calendars, class_name: "Calendar", foreign_key: :owner_id, dependent: :destroy
 
+  def self.generate_token
+    SecureRandom.urlsafe_base64(16)
+  end
+
   def password_nil?
     password.nil?
   end
@@ -42,7 +46,7 @@ class User < ActiveRecord::Base
   end
 
   def reset_token!
-    generate_token
+    self.token = User.generate_token
     self.save!
   end
 
@@ -60,7 +64,7 @@ class User < ActiveRecord::Base
 
   private
 
-  def generate_token
-    self.token = SecureRandom.urlsafe_base64(16)
+  def ensure_token
+    self.token ||= User.generate_token
   end
 end

@@ -27,7 +27,7 @@ class CalendarsController < ApplicationController
   def update
     @calendar = Calendar.find(params[:id])
 
-    if @calendar.update_attributes
+    if @calendar.update_attributes(params[:calendar])
       render json: @calendar
     else
       render json: @calendar.errors.full_messages, status: 422

@@ -1,9 +1,9 @@
-GCalClone.Views.UserSettings = Backbone.View.extend({
+GCalClone.Views.CalendarsIndex = Backbone.View.extend({
 
-  template: JST['users/settings'],
+  template: JST['calendars/index'],
 
   events: {
-    'click #update-user': 'update'
+    'click #update-calendar': 'update'
   },
 
   render: function () {
@@ -11,9 +11,9 @@ GCalClone.Views.UserSettings = Backbone.View.extend({
     var auth_token = $('meta[name=\"csrf-token\"').attr("content");
 
     self.$el.html(self.template({
-      user: this.model,
+      calendar: this.model,
       auth_token: auth_token
-    }));
+     }));
 
     return self;
   },
@@ -22,10 +22,12 @@ GCalClone.Views.UserSettings = Backbone.View.extend({
     var self = this;
     event.preventDefault();
 
-    var formData = $(event.target).parent().serializeJSON();
+    var formData = $(event.target).parent().parent().serializeJSON();
+    console.log(formData);
     self.model.save(formData, {
       patch: true,
       success: function (response) {
+        console.log(response);
         Backbone.history.navigate("/#");
       },
       error: function (response) {
