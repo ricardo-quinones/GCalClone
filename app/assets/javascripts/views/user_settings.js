@@ -3,10 +3,9 @@ GCalClone.Views.UserSettings = Backbone.View.extend({
 
   template: JST['settings/user_settings'],
 
+  // maybe delete; unnecessary
   initialize: function () {
-    var self = this;
 
-    // self.listenTo(self.model, 'change', Backbone.history.navigate("/#"));
   },
 
   events: {
