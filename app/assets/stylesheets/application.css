@@ -18,7 +18,7 @@
 
 /* strip all styling */
 
-html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li, nav, div, span, input, textarea, header, footer, form, button, label {
+html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li, select, option, nav, div, span, input, textarea, header, footer, form, button, label {
   margin: 0;
   padding: 0;
   border: 0;

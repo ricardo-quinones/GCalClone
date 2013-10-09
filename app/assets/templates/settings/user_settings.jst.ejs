@@ -2,6 +2,7 @@
 
 <div class="form-box">
   <form>
+
     <label>Email
       <input type="text" name="user[email]" value="<%= user.get("email") %>">
     </label>
@@ -20,6 +21,13 @@
     </label>
 
     <label>Timezone
+      <select name="user[time_zone]">
+        <% _(TIME_ZONES).each(function (timeZone) { %>
+          <% var name = timeZone.name %>
+          <% var selected = (user.get("time_zone") == name ? "selected" : "") %>
+          <option value="<%= name %>" <%= selected %>><%= name %></option>
+        <% }); %>
+      </select>
 
     </label>
 
@@ -31,7 +39,7 @@
       <input type="password" name="user[password_confirmation]">
     </label>
 
-    <input type="submit" value="Save changes"></p>
+    <input type="submit" value="Save changes" id="save-user">
   </form>
 </div>
 

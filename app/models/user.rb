@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :password, :password_confirmation, :name, :time_zone
+  attr_accessible :email, :password, :password_confirmation, :name, :time_zone,
+    :first_name, :last_name
   attr_reader :name
 
   before_save :generate_token
@@ -18,12 +19,11 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
 
   has_secure_password
-  validates :password, on: :create, presence: true,
-    length: { minimum: 6, allow_nil: true },
-    confirmation: true
-  validates :password_confirmation, on: :create, presence: true
+  validates :password, presence: true, length: { minimum: 6 },
+    confirmation: true, on: :create
+  validates :password_confirmation, presence: true, on: :create
 
-  validates :password, on: :update, length: { minimum: 6, allow_nil: true }, confirmation: true
+  validates :password, length: { minimum: 6, allow_nil: true }, confirmation: true, on: :update
   validates :password_confirmation, presence: true, unless: :password_nil?, on: :update
 
   after_validation { self.errors.messages.delete(:password_digest) }
@@ -33,6 +33,12 @@ class User < ActiveRecord::Base
 
   def password_nil?
     password.nil?
+  end
+
+  def update_without_password(params)
+    params.delete(:password)
+    params.delete(:password_confirmation)
+    self.update_attributes(params)
   end
 
   def reset_token!

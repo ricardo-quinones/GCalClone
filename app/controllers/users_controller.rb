@@ -27,10 +27,18 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
-    if @user.update_attributes(params[:user])
-      render json: @user
+    if params[:user][:password].blank?
+      if @user.update_without_password(params[:user])
+        render json: @user
+      else
+        render json: @user.errors.full_messages
+      end
     else
-      render json: @user.errors.full_messages
+      if @user.update_attributes(params[:user])
+        render json: @user
+      else
+        render json: @user.errors.full_messages
+      end
     end
   end
 end

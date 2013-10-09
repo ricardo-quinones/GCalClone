@@ -2,5 +2,6 @@
 <section id="calendar-views"></section>
 
 <script>
-  var CURRENT_USER_ID = <%= current_user.id %>
+  var CURRENT_USER_ID = <%= current_user.id %>;
+  var TIME_ZONES = <%= ActiveSupport::TimeZone.zones_map.to_json.html_safe %>
 </script>

@@ -5,9 +5,8 @@ GCalClone.Views.UserSettings = Backbone.View.extend({
 
   initialize: function () {
     var self = this;
-    var renderCallback = self.render.bind(self);
 
-    self.listenTo(self.model, 'change', renderCallback);
+    // self.listenTo(self.model, 'change', Backbone.history.navigate("/#"));
   },
 
   events: {
@@ -22,9 +21,19 @@ GCalClone.Views.UserSettings = Backbone.View.extend({
   },
 
   save: function (event) {
+    var self = this;
     event.preventDefault();
 
     var formData = $(event.target).parent().serializeJSON();
-    this.model.save(formData, {patch: true}) // add wait: true
+    self.model.save(formData, {
+      patch: true,
+      success: function (response) {
+        console.log(response);
+        Backbone.history.navigate("/#");
+      },
+      error: function (response) {
+        console.log(response);
+      }
+    });
   }
 });
