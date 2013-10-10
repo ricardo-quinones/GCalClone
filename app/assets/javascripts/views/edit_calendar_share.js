@@ -3,7 +3,8 @@ GCalClone.Views.EditCalendarShare = Backbone.View.extend({
   template: JST['calendar_shares/edit'],
 
   events: {
-    'click #update-calendar-share': 'update'
+    'click #update-calendar-share': 'update',
+    'click #unsubscribe-to-calendar': 'destroy'
   },
 
   render: function () {
