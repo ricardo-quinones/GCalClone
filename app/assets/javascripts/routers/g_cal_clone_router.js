@@ -27,9 +27,6 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
     };
     this.subscribedCalendars.sort();
 
-    // GCalClone.calendarShares = new GCalClone.Collections.CalendarShares(
-    //   this.currentUser.get("calendar_shares")
-    // );
     this.calendarShares = new GCalClone.Collections.CalendarShares(
       this.currentUser.get("calendar_shares")
     );

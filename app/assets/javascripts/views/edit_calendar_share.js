@@ -17,8 +17,6 @@ GCalClone.Views.EditCalendarShare = Backbone.View.extend({
     event.preventDefault();
 
     var formData = $(event.target.form).serializeJSON();
-    console.log(event);
-    console.log(formData);
 
     self.model.save(formData, {
       patch: true,
