@@ -23,7 +23,7 @@ class EventsController < ApplicationController
   end
 
   def update
-    @event = Event.find(param[:id])
+    @event = Event.find(params[:id])
 
     if @event.update_attributes(params[:cal_event])
       render json: @event
@@ -33,7 +33,8 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    Event.find(params[:id]).destroy
-    head :ok #possibly need something else
+    @event = Event.find(params[:id])
+    @event.destroy
+    render json: @event
   end
 end

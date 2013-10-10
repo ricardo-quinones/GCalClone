@@ -1,5 +1,28 @@
 GCalClone.Models.Event = Backbone.Model.extend({
 
+  // methods for edit view
+  startDateString: function () {
+    return  this.startMonthNum() + "/" + this.startDayOfMonth() + "/" + this.startYear();
+  },
+
+  startTimeString: function () {
+    return this.formatTimeString(this.startTime());
+  },
+
+  endDateString: function () {
+    return  this.endMonthNum() + "/" + this.endDayOfMonth() + "/" + this.endYear();
+  },
+
+  endTimeString: function () {
+    return this.formatTimeString(this.endTime());
+  },
+
+  formatTimeString: function (timeString) {
+    if (timeString.length < 5) return "0".concat(timeString);
+    return timeString;
+  },
+
+  // methods for agenda view
   allDay: function () {
     return this.get('all_day');
   },
@@ -14,6 +37,10 @@ GCalClone.Models.Event = Backbone.Model.extend({
 
   startYear: function () {
     return this.startDate().getFullYear();
+  },
+
+  startMonthNum: function () {
+    return this.startDate().getMonth() + 1
   },
 
   startMonth: function () {
@@ -31,7 +58,11 @@ GCalClone.Models.Event = Backbone.Model.extend({
   },
 
   endYear: function () {
-    this.endDate().getFullYear();
+    return this.endDate().getFullYear();
+  },
+
+  endMonthNum: function () {
+    return this.endDate().getMonth() + 1
   },
 
   endMonth: function () {

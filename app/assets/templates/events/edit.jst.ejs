@@ -1,1 +1,7 @@
-<%= JST["events/form"]({ event: event }) %>
+<%= JST["events/form"]({ calEvent: calEvent, eventsCal: eventCal }) %>
+
+<input
+    type="submit"
+    id="delete-event"
+    value="Remove event"
+    data-id="<%= calEvent.id %>">

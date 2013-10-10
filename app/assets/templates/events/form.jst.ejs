@@ -2,8 +2,14 @@
 <% var title = (isNew ? "Create new event" : calEvent.get("title")); %>
 <% var inputTitle = (isNew ? "" : calEvent.get("title")); %>
 <% var description = (isNew ? "" : calEvent.get("description")); %>
-<% var selectTimeZone = (isNew ? initialCalendar.get('time_zone') : calEvent.get('time_zone')); %>
+<% var selectTimeZone = (isNew ? eventsCal.get('time_zone') : calEvent.get('time_zone')); %>
+<% var location = (isNew ? "" : calEvent.get("location")) %>
+<% var buttonText = (isNew ? "Create event" : "Edit event") %>
 <% var submitId = (isNew ? "create-event" : "update-event"); %>
+<% var startDateString = (isNew ? "" : calEvent.startDateString()) %>
+<% var startTimeString = (isNew ? "" : calEvent.startTimeString()) %>
+<% var endDateString = (isNew ? "" : calEvent.endDateString()) %>
+<% var endTimeString = (isNew ? "" : calEvent.endTimeString()) %>
 
 <h1><%= title %></h1>
 
@@ -14,16 +20,29 @@
     </label>
 
     <label>Start date
-      <input name="cal_event[start_date][date]" class="datepicker date">
+      <input
+        name="cal_event[start_date][date]"
+        class="datepicker date"
+        value="<%= startDateString %>">
     </label>
 
-    <input type="time" name="cal_event[start_date][time]" class="time">
+    <input
+      type="time"
+      name="cal_event[start_date][time]"
+      class="time" value="<%= startTimeString %>">
 
     <label>End date
-      <input name="cal_event[end_date][date]" class="datepicker date">
+      <input
+        name="cal_event[end_date][date]"
+        class="datepicker date"
+        value="<%= endDateString %>">
     </label>
 
-    <input type="time" name="cal_event[end_date][time]" class="time">
+    <input
+      type="time"
+      name="cal_event[end_date][time]"
+      class="time"
+      value="<%= endTimeString %>">
 
     <label>Timezone
       <select name="cal_event[time_zone]">
@@ -36,13 +55,14 @@
     </label>
 
     <label>All day?
-      <input type="checkbox" name="cal_event[all_day]" value="true">
+      <% var checked = (!isNew && calEvent.get("all_day") ? "checked" : "") %>
+      <input type="checkbox" name="cal_event[all_day]" value="true" <%= checked %>>
     </label>
 
     <label>Calendar
       <select name="cal_event[calendar_id]">
         <% GCalClone.calendars.each(function (calendar) { %>
-          <% var calTitle = initialCalendar.get('title') %>
+          <% var calTitle = eventsCal.get('title') %>
           <% var calSelect = (calTitle === calendar.get('title') ? "selected" : "") %>
           <option value="<%= calendar.id %>" <%= calSelect %>><%= calendar.get("title") %></option>
         <% }); %>
@@ -54,10 +74,10 @@
         name="cal_event[description]"><%= description %></textarea>
 
     <label>Location
-      <input type="text" name="cal_event[location]" value="">
+      <input type="text" name="cal_event[location]" value="<%= location %>">
     </label>
 
-    <input type="submit" value="Create event" id="<%= submitId %>">
+    <input type="submit" value="<%= buttonText %>" id="<%= submitId %>">
   </form>
 </div>
 

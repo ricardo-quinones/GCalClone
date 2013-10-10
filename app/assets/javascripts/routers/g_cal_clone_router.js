@@ -37,7 +37,8 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
     "calendars/new": "newCalendar",
     "user_settings": "editUser",
     "calendars/:calendar_id/events/new": "newEvent",
-    "calendars/:id": "editCalendar"
+    "calendars/:id": "editCalendar",
+    "events/:id": "editEvent"
 
   },
 
@@ -111,11 +112,22 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
     var calendar = this.calendars.get(calendar_id);
     this.currentView = new GCalClone.Views.NewEvent({
       el: this.$formView,
-      model: calendar,
+      calendar: calendar,
       collection: this.events
     })
 
     this.currentView.render();
-  }
+  },
 
+  editEvent: function (id) {
+   this.closePreviousView();
+
+   var calEvent = this.events.get(id);
+   this.currentView = new GCalClone.Views.EditEvent({
+     el: this.$formView,
+     model: calEvent
+   })
+
+   this.currentView.render();
+  }
 });

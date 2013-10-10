@@ -4,8 +4,9 @@ GCalClone.Views.NewEvent = Backbone.View.extend({
 
   initialize: function() {
     var self = this;
+    var renderCallback = self.render.bind(self)
 
-    // self.listenTo(self.collection, 'add', Backbone.history.navigate('#/'));
+    self.listenTo(self.collection, 'add', renderCallback);
   },
 
   events: {
@@ -14,7 +15,7 @@ GCalClone.Views.NewEvent = Backbone.View.extend({
 
   render: function () {
     var self = this;
-    self.$el.html(self.template({ calendar: self.model }));
+    self.$el.html(self.template({ eventsCal: self.options.calendar }));
 
     return self;
   },
