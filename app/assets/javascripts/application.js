@@ -11,6 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require jquery.ui.datepicker
 //= require jquery_ujs
 //= require detect_timezone
 //= require jquery.detect_timezone

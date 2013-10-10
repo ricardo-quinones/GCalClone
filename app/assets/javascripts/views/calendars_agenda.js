@@ -8,10 +8,14 @@ GCalClone.Views.CalendarsAgenda = Backbone.View.extend({
     var renderCallback = self.render.bind(self)
 
     self.listenTo(self.collection, 'add', renderCallback);
+    self.listenTo(self.collection, 'change', renderCallback);
+    self.listenTo(self.collection, 'remove', renderCallback);
   },
 
   render: function () {
     self = this;
+    self.$el.empty();
+
     self.$el.append(JST['calendars/nav']());
 
     var calendarsSidebarView = new GCalClone.Views.CalendarsSidebar({

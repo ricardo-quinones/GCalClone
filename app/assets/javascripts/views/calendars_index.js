@@ -18,23 +18,5 @@ GCalClone.Views.CalendarsIndex = Backbone.View.extend({
     self.$el.html(self.template({ calendars: this.collection }));
 
     return self;
-  },
-
-  update: function (event) {
-    var self = this;
-    event.preventDefault();
-
-    var formData = $(event.target).parent().parent().serializeJSON();
-    console.log(formData);
-    self.model.save(formData, {
-      patch: true,
-      success: function (response) {
-        console.log(response);
-        Backbone.history.navigate("/#");
-      },
-      error: function (response) {
-        console.log(response);
-      }
-    });
   }
 });

@@ -15,8 +15,8 @@ Time.zone = time_zone
 # Calendar.create(owner_id: 1, title: "Work",
 # description: "My work calendar", time_zone: time_zone)
 
-start_date = '5-11-2013 1:00'
-end_date = '5-11-2013 23:00'
+start_date = '26-10-2013 9:00'
+end_date = '26-10-2013 14:00'
 
-Event.create(all_day: true, calendar_id: 1, creator_id: 1, start_date: start_date, end_date: end_date, time_zone: time_zone, title: "Another All day event")
+Event.create(calendar_id: 9, creator_id: 1, start_date: start_date, end_date: end_date, time_zone: time_zone, title: "Another All day event")
 

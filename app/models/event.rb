@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
   attr_accessible :all_day, :end_date, :location, :start_date,
-    :title, :calendar_id, :creator_id, :time_zone
+    :title, :calendar_id, :creator_id, :time_zone, :description
 
   before_validation :adjust_dates
 

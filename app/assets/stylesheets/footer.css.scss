@@ -1,13 +1,12 @@
 /* footer styling*/
 
 footer {
-  position: relative;
+  position: fixed;
   bottom: 0;
   right: 0;
   left: 0;
   min-width: 800px;
   background: #eee;
-  margin-top: 30px;
 }
 
 footer:after {

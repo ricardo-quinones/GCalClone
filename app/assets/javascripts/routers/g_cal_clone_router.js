@@ -10,6 +10,7 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
 
     this.$settingsView = $('#settings-views');
     this.$calendarView = $('#calendar-views');
+    this.$formView = $('#form-views')
     this.currentView = null;
 
     var eventPojos = [];
@@ -33,9 +34,11 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
   routes: {
     "": "agenda",
     "calendars": "calendarsIndex",
+    "calendars/new": "newCalendar",
     "user_settings": "editUser",
-    "calendars/:id": "editCalendar",
-    "calendars/new": "newCalendar"
+    "calendars/:calendar_id/events/new": "newEvent",
+    "calendars/:id": "editCalendar"
+
   },
 
   closePreviousView: function () {
@@ -92,12 +95,27 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
   },
 
   newCalendar: function() {
-    var newCalendarView = new GCalClone.Views.NewCalendar({
+    this.closePreviousView();
+
+    this.currentView = new GCalClone.Views.NewCalendar({
       el: this.$settingsView,
-      model: new GCalClone.Models.Calendar
+      collection: this.calendars
     });
 
-    newCalendarView.render();
+    this.currentView.render();
+  },
+
+  newEvent: function (calendar_id) {
+    this.closePreviousView();
+
+    var calendar = this.calendars.get(calendar_id);
+    this.currentView = new GCalClone.Views.NewEvent({
+      el: this.$formView,
+      model: calendar,
+      collection: this.events
+    })
+
+    this.currentView.render();
   }
 
 });

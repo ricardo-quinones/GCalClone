@@ -1,28 +1,7 @@
-<% var title = (calendar.isNew() ? "Create new Calendar" : calendar.get("title")) %>
-<h1><%= title %></h1>
+<%= JST['calendars/form']({ calendar: calendar }) %>
 
-<div class="form-box">
-  <form>
-    <label>Title
-      <input type="text" name="calendar[title]" value="<%= calendar.get("title") %>">
-    </label>
-
-    <label>Description
-      <textarea
-        name="calendar[description]"><%= calendar.get("description") %></textarea>
-
-    <label>Timezone
-      <select name="calendar[time_zone]">
-        <% _(TIME_ZONES).each(function (timeZone) { %>
-          <% var name = timeZone.name %>
-          <% var selected = (calendar.get("time_zone") == name ? "selected" : "") %>
-          <option value="<%= name %>" <%= selected %>><%= name %></option>
-        <% }); %>
-      </select>
-
-    </label>
-
-    <% var elId = (calendar.isNew() ? "create-calendar" : "update-calendar") %>
-    <input type="submit" value="Save changes" id="<%= elId %>">
-  </form>
-</div>
+<input
+    type="submit"
+    id="delete-calendar"
+    value="Remove Calendar"
+    data-id="<%= calendar.id %>">

@@ -16,11 +16,12 @@ class CalendarsController < ApplicationController
 
   def create
     @calendar = Calendar.new(params[:calendar])
+    @calendar.owner_id = current_user.id
 
     if @calendar.save
       render json: @calendar
     else
-      render json: @calendar.errors.full_messages, staus: 422
+      render json: @calendar.errors.full_messages, status: 422
     end
   end
 
@@ -35,7 +36,8 @@ class CalendarsController < ApplicationController
   end
 
   def destroy
-    Calendar.find(params[:id]).destroy
-    head :ok #maybe something else
+    @calendar = Calendar.find(params[:id])
+    @calendar.destroy
+    render json: @calendar
   end
 end

@@ -8,6 +8,7 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+ *= require jquery.ui.datepicker
  *= require_self
  *= require_tree .
  */
@@ -39,7 +40,11 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li, select, option, nav, div, span
 html, body {
   position: relative;
   height: 100%;
-  min-height: 600px
+  min-height: 600px;
+}
+
+body {
+  margin-bottom: 45px;
 }
 
 /* typography */

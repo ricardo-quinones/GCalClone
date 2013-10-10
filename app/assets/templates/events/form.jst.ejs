@@ -1,0 +1,68 @@
+<% var isNew = typeof calEvent === 'undefined'; %>
+<% var title = (isNew ? "Create new event" : calEvent.get("title")); %>
+<% var inputTitle = (isNew ? "" : calEvent.get("title")); %>
+<% var description = (isNew ? "" : calEvent.get("description")); %>
+<% var selectTimeZone = (isNew ? initialCalendar.get('time_zone') : calEvent.get('time_zone')); %>
+<% var submitId = (isNew ? "create-event" : "update-event"); %>
+
+<h1><%= title %></h1>
+
+<div class="form-box">
+  <form>
+    <label>Title
+      <input type="text" name="cal_event[title]" value="<%= inputTitle %>">
+    </label>
+
+    <label>Start date
+      <input name="cal_event[start_date][date]" class="datepicker date">
+    </label>
+
+    <input type="time" name="cal_event[start_date][time]" class="time">
+
+    <label>End date
+      <input name="cal_event[end_date][date]" class="datepicker date">
+    </label>
+
+    <input type="time" name="cal_event[end_date][time]" class="time">
+
+    <label>Timezone
+      <select name="cal_event[time_zone]">
+        <% _(TIME_ZONES).each(function (timeZone) { %>
+          <% var name = timeZone.name %>
+          <% var selected = (selectTimeZone == name ? "selected" : "") %>
+          <option value="<%= name %>" <%= selected %>><%= name %></option>
+        <% }); %>
+      </select>
+    </label>
+
+    <label>All day?
+      <input type="checkbox" name="cal_event[all_day]" value="true">
+    </label>
+
+    <label>Calendar
+      <select name="cal_event[calendar_id]">
+        <% GCalClone.calendars.each(function (calendar) { %>
+          <% var calTitle = initialCalendar.get('title') %>
+          <% var calSelect = (calTitle === calendar.get('title') ? "selected" : "") %>
+          <option value="<%= calendar.id %>" <%= calSelect %>><%= calendar.get("title") %></option>
+        <% }); %>
+      </select>
+    </label>
+
+    <label>Description
+      <textarea
+        name="cal_event[description]"><%= description %></textarea>
+
+    <label>Location
+      <input type="text" name="cal_event[location]" value="">
+    </label>
+
+    <input type="submit" value="Create event" id="<%= submitId %>">
+  </form>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+      $(".datepicker").datepicker();
+  });
+</script>

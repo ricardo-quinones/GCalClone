@@ -22,7 +22,7 @@ GCalClone.Views.EditUser = Backbone.View.extend({
     self.model.save(formData, {
       patch: true,
       success: function (response) {
-        Backbone.history.navigate("/#");
+        Backbone.history.navigate("#/");
       },
       error: function (response) {
         console.log(response);

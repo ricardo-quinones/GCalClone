@@ -3,7 +3,7 @@ class EventsController < ApplicationController
   respond_to :html, only: [:index]
 
   def index
-    @events = Event.all_by_owner_id(current_user.id)
+    @events = Event.all_by_creator_id(current_user.id)
     respond_to do |format|
       format.json {
         render json: @event.as_json()
@@ -12,7 +12,8 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.new(params[:event])
+    @event = Event.new(params[:cal_event])
+    @event.creator_id = current_user.id
 
     if @event.save
       render json: @event
@@ -24,7 +25,7 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(param[:id])
 
-    if @event.update_attributes
+    if @event.update_attributes(params[:cal_event])
       render json: @event
     else
       render json: @event.errors.full_messages

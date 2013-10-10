@@ -1,0 +1,33 @@
+<% var isNew = typeof calendar === 'undefined'; %>
+<% var title = (isNew ? "Create new calendar" : calendar.get("title")); %>
+<% var inputTitle = (isNew ? "" : calendar.get("title")); %>
+<% var description = (isNew ? "" : calendar.get("description")); %>
+<% var selectTimeZone = (isNew ? GCalClone.currentUser.get("time_zone") : calendar.get('time_zone')); %>
+<% var elId = (isNew ? "create-calendar" : "update-calendar"); %>
+
+<h1><%= title %></h1>
+
+<div class="form-box">
+  <form>
+    <label>Title
+      <input type="text" name="calendar[title]" value="<%= inputTitle %>">
+    </label>
+
+    <label>Description
+      <textarea
+        name="calendar[description]"><%= description %></textarea>
+
+    <label>Timezone
+      <select name="calendar[time_zone]">
+        <% _(TIME_ZONES).each(function (timeZone) { %>
+          <% var name = timeZone.name %>
+          <% var selected = (selectTimeZone == name ? "selected" : "") %>
+          <option value="<%= name %>" <%= selected %>><%= name %></option>
+        <% }); %>
+      </select>
+
+    </label>
+
+    <input type="submit" value="Save changes" id="<%= elId %>">
+  </form>
+</div>

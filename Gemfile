@@ -9,6 +9,7 @@ gem 'pg'
 gem 'backbone-on-rails'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'detect_timezone_rails'
+gem 'jquery-ui-rails'
 
 group :development do
   gem 'binding_of_caller'
