@@ -4,7 +4,55 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     respond_to do |format|
       format.json {
-        render json: @user.as_json(except: [:password_digest, :token])
+        render json: @user.as_json(
+          except: [:password_digest, :token],
+          include: {
+            calendars: {
+              include: {
+                :events => {
+                  methods: [:local_start_date, :local_end_date],
+                  except: [:start_date, :end_date]
+                },
+                :users_shared_with => {
+                  only: [:email]
+                }
+              }
+            },
+            calendar_shares: { except: [:user_id, :permissions] },
+            manage_sharing_calendars: {
+              include: {
+                events: {
+                  methods: [:local_start_date, :local_end_date],
+                  except: [:start_date, :end_date]
+                },
+                users_shared_with: {
+                  only: [:email]
+                }
+              },
+              methods: [:owner_email]
+            },
+            make_event_changes_calendars: {
+              include: {
+                events: {
+                  methods: [:local_start_date, :local_end_date],
+                  except: [:start_date, :end_date]
+                }
+              },
+              methods: [:owner_email],
+              except: [:owner_id, :description, :title]
+            },
+            see_event_details_calendars: {
+              include: {
+                events: {
+                  methods: [:local_start_date, :local_end_date],
+                  except: [:start_date, :end_date, ]
+                }
+              },
+              methods: [:owner_email],
+              except: [:owner_id, :description, :title]
+            }
+          }
+        )
       }
     end
   end

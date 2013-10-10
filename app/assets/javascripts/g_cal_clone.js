@@ -4,13 +4,11 @@ window.GCalClone = {
   Views: {},
   Routers: {},
   initialize: function() {
-    GCalClone.calendars = new GCalClone.Collections.Calendars;
     GCalClone.currentUser = new GCalClone.Models.User({id: CURRENT_USER_ID});
-    GCalClone.currentUser.fetch();
 
-    GCalClone.calendars.fetch({
-      success: function (calendars) {
-       new GCalClone.Routers.CalendarRouter(calendars)
+    GCalClone.currentUser.fetch({
+      success: function (users) {
+       new GCalClone.Routers.CalendarRouter(users);
        Backbone.history.start();
       },
       error: function () { console.log('errors'); }

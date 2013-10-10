@@ -6,4 +6,10 @@ class Calendar < ActiveRecord::Base
   belongs_to :owner, class_name: "User", foreign_key: :owner_id
 
   has_many :events, dependent: :destroy
+  has_many :calendar_shares, dependent: :destroy
+  has_many :users_shared_with, through: :calendar_shares, source: :user
+
+  def owner_email
+    self.owner.email
+  end
 end

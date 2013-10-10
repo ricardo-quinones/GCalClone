@@ -11,7 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131010002940) do
+ActiveRecord::Schema.define(:version => 20131010162539) do
+
+  create_table "calendar_shares", :force => true do |t|
+    t.integer  "calendar_id",                                      :null => false
+    t.integer  "user_id",                                          :null => false
+    t.string   "permissions", :default => "See all event details"
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
+    t.string   "title"
+    t.text     "description"
+  end
+
+  add_index "calendar_shares", ["calendar_id"], :name => "index_calendar_shares_on_calendar_id"
+  add_index "calendar_shares", ["user_id", "calendar_id"], :name => "index_calendar_shares_on_user_id_and_calendar_id", :unique => true
+  add_index "calendar_shares", ["user_id"], :name => "index_calendar_shares_on_user_id"
 
   create_table "calendars", :force => true do |t|
     t.integer  "owner_id",    :null => false

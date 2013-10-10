@@ -1,12 +1,14 @@
 GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
-  initialize: function (calendars) {
-    this.calendars = calendars;
+  initialize: function (user) {
+    this.currentUser = user;
+    GCalClone.calendars = new GCalClone.Collections.Calendars(
+      this.currentUser.get("calendars")
+    );
+    this.calendars = GCalClone.calendars;
     this.calendars.comparator = function (calendar) {
       return calendar.id
     };
     this.calendars.sort();
-
-    this.currentUser = GCalClone.currentUser
 
     this.$settingsView = $('#settings-views');
     this.$calendarView = $('#calendar-views');

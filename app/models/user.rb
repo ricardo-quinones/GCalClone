@@ -30,6 +30,36 @@ class User < ActiveRecord::Base
 
   has_many :events, class_name: "Event", foreign_key: :creator_id
   has_many :calendars, class_name: "Calendar", foreign_key: :owner_id, dependent: :destroy
+  has_many :calendar_shares, dependent: :destroy
+  has_many :shared_calendars, through: :calendar_shares, source: :calendar
+
+  has_many(
+    :manage_sharing_calendars,
+    through: :calendar_shares,
+    source: :calendar,
+    conditions: ['calendar_shares.permissions = ?', "Make changes AND manage sharing"]
+  )
+
+  has_many(
+    :make_event_changes_calendars,
+    through: :calendar_shares,
+    source: :calendar,
+    conditions: ['calendar_shares.permissions = ?', "Make changes to events"]
+  )
+
+  has_many(
+    :see_event_details_calendars,
+    through: :calendar_shares,
+    source: :calendar,
+    conditions: ['calendar_shares.permissions = ?', "See all event details"]
+  )
+
+  has_many(
+    :see_free_or_busy_calendars,
+    through: :calendar_shares,
+    source: :calendar,
+    conditions: ['calendar_shares.permissions = ?', "See only free/busy status"]
+  )
 
   def self.generate_token
     SecureRandom.urlsafe_base64(16)
