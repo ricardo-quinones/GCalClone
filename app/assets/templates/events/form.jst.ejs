@@ -61,7 +61,7 @@
 
     <label>Calendar
       <select name="cal_event[calendar_id]">
-        <% GCalClone.calendars.each(function (calendar) { %>
+        <% GCalClone.myCalendars.each(function (calendar) { %>
           <% var calTitle = eventsCal.get('title') %>
           <% var calSelect = (calTitle === calendar.get('title') ? "selected" : "") %>
           <option value="<%= calendar.id %>" <%= calSelect %>><%= calendar.get("title") %></option>

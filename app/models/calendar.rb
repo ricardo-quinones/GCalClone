@@ -12,4 +12,8 @@ class Calendar < ActiveRecord::Base
   def owner_email
     self.owner.email
   end
+
+  def owner_name
+    self.owner.full_name
+  end
 end

@@ -88,6 +88,10 @@ class User < ActiveRecord::Base
     @name
   end
 
+  def full_name
+    return "#{self.first_name} #{self.last_name}"
+  end
+
   def no_middle_names
     errors[:base] << "Only first and last names" if self.name.split(" ").length > 2
   end

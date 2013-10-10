@@ -18,11 +18,19 @@ GCalClone.Views.CalendarsAgenda = Backbone.View.extend({
 
     self.$el.append(JST['calendars/nav']());
 
-    var calendarsSidebarView = new GCalClone.Views.CalendarsSidebar({
-      collection: self.options.calendars
+    $sidebar = $("<section>").attr("id", "sidebar")
+    var calendarsSidebarTopView = new GCalClone.Views.CalendarsSidebarTop({
+      collection: self.options.myCalendars
+    });
+    var calendarsSidebarBottomView = new GCalClone.Views.CalendarsSidebarBottom({
+      collection: self.options.subscribedCalendars
     });
 
-    self.$el.append(calendarsSidebarView.render().$el)
+    $sidebar
+      .append(calendarsSidebarTopView.render().$el)
+      .append(calendarsSidebarBottomView.render().$el)
+
+    self.$el.append($sidebar)
     self.$el.append(self.renderAgendaItems());
 
     return self;

@@ -29,7 +29,7 @@ class UsersController < ApplicationController
                   only: [:email]
                 }
               },
-              methods: [:owner_email]
+              methods: [:owner_email, :owner_name]
             },
             make_event_changes_calendars: {
               include: {
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
                   except: [:start_date, :end_date]
                 }
               },
-              methods: [:owner_email],
+              methods: [:owner_email, :owner_name],
               except: [:owner_id, :description, :title]
             },
             see_event_details_calendars: {
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
                   except: [:start_date, :end_date, ]
                 }
               },
-              methods: [:owner_email],
+              methods: [:owner_email, :owner_name],
               except: [:owner_id, :description, :title]
             }
           }

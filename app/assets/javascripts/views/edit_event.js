@@ -9,7 +9,7 @@ GCalClone.Views.EditEvent = Backbone.View.extend({
 
   render: function () {
     var self = this;
-    var eventsCal = GCalClone.calendars.get(this.model.get("calendar_id"));
+    var eventsCal = GCalClone.myCalendars.get(this.model.get("calendar_id"));
     self.$el.html(self.template({
       calEvent: this.model,
       eventCal: eventsCal
