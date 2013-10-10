@@ -1,7 +1,7 @@
 GCalClone.Views.CalendarsSidebarTop = Backbone.View.extend({
   el: $("<ul>").addClass("calendars").attr("id", "owned-calendars"),
 
-  template: JST['calendars/sidebar_partial'],
+  template: JST['calendars/sidebar_top'],
 
   initialize: function () {
     var self = this;
@@ -13,8 +13,7 @@ GCalClone.Views.CalendarsSidebarTop = Backbone.View.extend({
   render: function () {
     var self = this;
     self.$el.html(self.template({
-      calendars: self.collection,
-      title: "My Calendars"
+      calendars: self.collection
     }));
 
     return self;

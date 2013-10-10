@@ -1,0 +1,14 @@
+<li class="cal-list-title"><a href="#/calendars">My Calendars</a></li>
+<li>
+  <% calendars.each(function (calendar) { %>
+    <ul class="cal-list-item menu">
+      <li class="cal-color"></li>
+      <li class="menu">
+        <a class="calendar" href="#"><%= calendar.get("title") %></a>
+      </li>
+      <li class="cal-menu">
+        <%= JST["calendars/sidebar/drop_down"]({id: calendar.id, isTop: true}) %>
+      </li>
+    </ul>
+  <% }); %>
+</li>

@@ -1,7 +1,7 @@
 GCalClone.Views.CalendarsSidebarBottom = Backbone.View.extend({
   el: $("<ul>").addClass("calendars"),
 
-  template: JST['calendars/sidebar_partial'],
+  template: JST['calendars/sidebar_bottom'],
 
   initialize: function () {
     var self = this;
@@ -13,8 +13,9 @@ GCalClone.Views.CalendarsSidebarBottom = Backbone.View.extend({
   render: function () {
     var self = this;
     self.$el.html(self.template({
-      calendars: self.collection,
-      title: "Subscribed Calendars"
+      calendarShares: self.collection.filter(function (calendarShare) {
+        return (typeof self.options.calendars.findWhere({id: calendarShare.get("calendar_id")}) == "object");
+      })
     }));
 
     return self;

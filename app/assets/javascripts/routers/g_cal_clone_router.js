@@ -22,6 +22,21 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
       subscribedCalendars
     );
     this.subscribedCalendars = GCalClone.subscribedCalendars;
+    this.subscribedCalendars.comparator = function (calendar) {
+      return calendar.id
+    };
+    this.subscribedCalendars.sort();
+
+    // GCalClone.calendarShares = new GCalClone.Collections.CalendarShares(
+    //   this.currentUser.get("calendar_shares")
+    // );
+    this.calendarShares = new GCalClone.Collections.CalendarShares(
+      this.currentUser.get("calendar_shares")
+    );
+    this.calendarShares.comparator = function(calendarShare) {
+      return calendarShare.get('title');
+    };
+    this.calendarShares.sort();
 
     this.$settingsView = $('#settings-views');
     this.$calendarView = $('#calendar-views');
@@ -48,7 +63,7 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
 
     this.events = new GCalClone.Collections.Events(eventPojos);
     this.events.comparator = function(calEvent) {
-      return calEvent.get('local_start_date')
+      return calEvent.get('local_start_date');
     };
 
     this.events.sort();
@@ -61,6 +76,7 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
     "user_settings": "editUser",
     "calendars/:calendar_id/events/new": "newEvent",
     "calendars/:id": "editCalendar",
+    "subscribed_calendars/:id": "editCalendarShare",
     "events/:id": "editEvent"
 
   },
@@ -79,7 +95,8 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
       el: this.$calendarView,
       collection: this.events,
       myCalendars: this.myCalendars,
-      subscribedCalendars: this.subscribedCalendars
+      subscribedCalendars: this.subscribedCalendars,
+      calendarShares:  this.calendarShares
     });
 
     this.currentView.render();
@@ -111,9 +128,23 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
     this.closePreviousView();
 
     var calendar = this.myCalendars.get(id);
+
     this.currentView = new GCalClone.Views.EditCalendar({
       el: this.$settingsView,
       model: calendar
+    });
+
+    this.currentView.render();
+  },
+
+  editCalendarShare: function (id) {
+    this.closePreviousView();
+
+    var calendarShare = this.calendarShares.get(id);
+
+    this.currentView = new GCalClone.Views.EditCalendarShare({
+      el: this.$settingsView,
+      model: calendarShare
     });
 
     this.currentView.render();

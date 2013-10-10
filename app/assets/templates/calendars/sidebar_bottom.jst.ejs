@@ -1,0 +1,18 @@
+<li class="cal-list-title"><a href="#/calendars">Subscribed Calendars</a></li>
+<li>
+  <% _(calendarShares).each(function (calendarShare) { %>
+    <ul class="cal-list-item menu">
+      <li class="cal-color"></li>
+      <li class="menu">
+        <a class="calendar" href="#"><%= calendarShare.get("title") %></a>
+      </li>
+      <li class="cal-menu">
+        <%= JST["calendars/sidebar/drop_down"]({
+          id: calendarShare.id,
+          isTop: false,
+          calendar_id: calendarShare.get("calendar_id")
+          }) %>
+      </li>
+    </ul>
+  <% }); %>
+</li>

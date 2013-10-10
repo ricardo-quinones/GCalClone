@@ -1,0 +1,27 @@
+<h1><%= calendarShare.get("title") %></h1>
+
+<div class="form-box">
+  <form>
+    <label>Title
+      <input type="text" name="calendar_share[title]" value="<%= calendarShare.get("title") %>">
+    </label>
+
+    <label>Description
+      <textarea
+        name="calendar_share[description]"><%= calendarShare.get("description") %></textarea>
+    </label>
+
+    <ul>
+      <li>Calendar Time Zone</li>
+      <li><%= calendarShare.get("calendar_time_zone") %></li>
+    </ul>
+
+    <input type="submit" value="Save changes" id="update-calendar-share">
+  </form>
+</div>
+
+<input
+    type="submit"
+    id="unsubscribe-to-calendar"
+    value="Unsubscribe"
+    data-id="<%= calendarShare.id %>">

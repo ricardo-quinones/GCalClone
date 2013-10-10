@@ -23,7 +23,8 @@ GCalClone.Views.CalendarsAgenda = Backbone.View.extend({
       collection: self.options.myCalendars
     });
     var calendarsSidebarBottomView = new GCalClone.Views.CalendarsSidebarBottom({
-      collection: self.options.subscribedCalendars
+      collection: self.options.calendarShares,
+      calendars: self.options.subscribedCalendars
     });
 
     $sidebar

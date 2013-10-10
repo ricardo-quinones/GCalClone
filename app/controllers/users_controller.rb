@@ -18,7 +18,10 @@ class UsersController < ApplicationController
                 }
               }
             },
-            calendar_shares: { except: [:user_id, :permissions] },
+            calendar_shares: {
+              except: [:user_id, :permissions],
+              methods: [:owner_email, :calendar_time_zone]
+            },
             manage_sharing_calendars: {
               include: {
                 events: {
