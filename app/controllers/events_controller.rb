@@ -16,7 +16,7 @@ class EventsController < ApplicationController
     @event.creator_id = current_user.id
 
     if @event.save
-      render json: @event
+      render json: @event.as_json(methods: [:local_start_date, :local_end_date])
     else
       render json: @event.errors.full_messages, status: 422
     end

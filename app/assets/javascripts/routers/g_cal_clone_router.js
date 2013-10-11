@@ -166,8 +166,8 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
     this.currentView = new GCalClone.Views.NewEvent({
       el: this.$formView,
       calendar: calendar,
-      collection: this.events
-    })
+      collection: this.eventse
+    });
 
     this.currentView.render();
   },
@@ -179,7 +179,7 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
    this.currentView = new GCalClone.Views.EditEvent({
      el: this.$formView,
      model: calEvent
-   })
+   });
 
    this.currentView.render();
   }

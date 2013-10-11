@@ -2,13 +2,6 @@ GCalClone.Views.NewEvent = Backbone.View.extend({
 
   template: JST["events/new"],
 
-  initialize: function() {
-    var self = this;
-    var renderCallback = self.render.bind(self)
-
-    self.listenTo(self.collection, 'add', renderCallback);
-  },
-
   events: {
     "click #create-event": "create"
   },
@@ -28,6 +21,7 @@ GCalClone.Views.NewEvent = Backbone.View.extend({
     this.convertDates(formData.cal_event)
 
     self.collection.create(formData, {
+      wait: true,
       success: function (response) {
         Backbone.history.navigate("#/");
       },

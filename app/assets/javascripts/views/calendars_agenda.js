@@ -5,7 +5,7 @@ GCalClone.Views.CalendarsAgenda = Backbone.View.extend({
   initialize: function () {
     var self = this;
 
-    var renderCallback = self.render.bind(self)
+    var renderCallback = self.render.bind(self);
 
     self.listenTo(self.collection, 'add', renderCallback);
     self.listenTo(self.collection, 'change', renderCallback);
@@ -13,12 +13,12 @@ GCalClone.Views.CalendarsAgenda = Backbone.View.extend({
   },
 
   render: function () {
-    self = this;
+    var self = this;
     self.$el.empty();
 
     self.$el.append(JST['calendars/nav']());
 
-    $sidebar = $("<section>").attr("id", "sidebar")
+    var $sidebar = $("<section>").attr("id", "sidebar")
     var calendarsSidebarTopView = new GCalClone.Views.CalendarsSidebarTop({
       collection: self.options.myCalendars
     });
@@ -31,20 +31,20 @@ GCalClone.Views.CalendarsAgenda = Backbone.View.extend({
       .append(calendarsSidebarTopView.render().$el)
       .append(calendarsSidebarBottomView.render().$el)
 
-    self.$el.append($sidebar)
+    self.$el.append($sidebar);
     self.$el.append(self.renderAgendaItems());
 
     return self;
   },
 
   renderAgendaItems: function () {
-    self = this;
-    $agenda = $('<section>').attr("id", "calendar-view");
+    var self = this;
+    var $agenda = $('<section>').attr("id", "calendar-view");
 
     self.collection.each(function (calEvent) {
       if (calEvent.startDate() > currentDate()) {
-        var dayId = calEvent.dayId()
-        var doesntHaveTag = ($agenda.find("#" + dayId).length == 0)
+        var dayId = calEvent.dayId();
+        var doesntHaveTag = ($agenda.find("#" + dayId).length == 0);
 
         if (doesntHaveTag) {
           $agenda.append(JST['calendars/agenda/new_day']({

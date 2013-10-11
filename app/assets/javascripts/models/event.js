@@ -1,4 +1,9 @@
 GCalClone.Models.Event = Backbone.Model.extend({
+  urlRoot: "/events",
+
+  convertDateFromString: function (date) {
+    return (typeof date === "string" ? new Date(date) : date);
+  },
 
   // methods for edit view
   startDateString: function () {
@@ -28,11 +33,11 @@ GCalClone.Models.Event = Backbone.Model.extend({
   },
 
   startDate: function () {
-    return this.get('local_start_date');
+    return this.convertDateFromString(this.get('local_start_date'));
   },
 
   endDate: function () {
-    return this.get('local_end_date');
+    return this.convertDateFromString(this.get('local_end_date'));
   },
 
   startYear: function () {
