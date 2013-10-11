@@ -4,6 +4,7 @@
 <% var description = (isNew ? "" : calendar.get("description")); %>
 <% var selectTimeZone = (isNew ? GCalClone.currentUser.get("time_zone") : calendar.get('time_zone')); %>
 <% var elId = (isNew ? "create-calendar" : "update-calendar"); %>
+<% var buttonText = (isNew ? "Create Calendar" : "Save Changes") %>
 
 <h1><%= title %></h1>
 
@@ -16,6 +17,7 @@
     <label>Description
       <textarea
         name="calendar[description]"><%= description %></textarea>
+    </label>
 
     <label>Timezone
       <select name="calendar[time_zone]">
@@ -25,9 +27,10 @@
           <option value="<%= name %>" <%= selected %>><%= name %></option>
         <% }); %>
       </select>
-
     </label>
-
-    <input type="submit" value="Save changes" id="<%= elId %>">
+    <input type="submit" value="<%= buttonText %>" id="<%= elId %>">
   </form>
 </div>
+
+<div id="add-calendar-share"></div>
+<div id="pending-calendar-shares"></div>

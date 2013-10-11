@@ -152,7 +152,8 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
 
     this.currentView = new GCalClone.Views.NewCalendar({
       el: this.$settingsView,
-      collection: this.myCalendars
+      collection: this.myCalendars,
+      calendarShares: this.calendarShares
     });
 
     this.currentView.render();
