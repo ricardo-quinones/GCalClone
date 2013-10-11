@@ -1,7 +1,10 @@
+<a href="#/" class="back">Back to Calendar</a>
+
 <%= JST['calendars/form']({ calendar: calendar }) %>
 
 <input
     type="submit"
     id="delete-calendar"
-    value="Remove calendar"
-    data-id="<%= calendar.id %>">
+    value="Delete"
+    data-id="<%= calendar.id %>"
+    class="button-lrg delete">

@@ -1,0 +1,43 @@
+#new-share-input {
+  display: block;
+  background: #eee;
+  min-width: 1300px;
+}
+
+#new-share-input:after {
+  clear: both;
+  display: block;
+  content: "";
+}
+
+.float-block {
+  float: left;
+  display: block;
+  padding: 20px;
+  margin-left: 30px;
+}
+
+.float-block:first-child {
+  margin-left: 0;
+}
+
+.float-block:last-child {
+  float: right;
+}
+
+#add-person {
+  margin: 0;
+}
+
+#permissions {
+  width: 300px;
+}
+
+h2 {
+  margin-left: 20px;
+  margin-bottom: 8px;
+}
+
+.back {
+  margin-left: 20px;
+}

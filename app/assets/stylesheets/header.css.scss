@@ -1,13 +1,15 @@
 /* header styling */
 
 header.nav-bar {
+  position: fixed;
   top: 0;
   right: 0;
   left: 0;
   min-width: 800px;
   background: #888;
   margin-bottom: 30px;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#888), to(#555))
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#888), to(#555));
+  z-index: 10;
 }
 
 header:after, .nav-pin-right:after {
@@ -24,7 +26,7 @@ header a {
 #logo {
   float: left;
   margin: 15px 0px 15px 50px;
-  font-size: 32px;
+  font-size: 25px;
 }
 
 #logo:hover {
@@ -49,6 +51,10 @@ header a {
 
 #account {
   color: #fff;
+  font-size: 17px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  margin: 0;
 }
 
 #account:hover {
@@ -61,7 +67,7 @@ header a {
 
 #account .drop-down {
   right: 0px;
-  top: 43px;
+  top: 65px;
 }
 
 #account .drop-down li a {

@@ -2,3 +2,64 @@
   overflow-y: scroll;
   margin-bottom: 45px;
 }
+
+#cal-settings-timezone {
+  margin-bottom: 20px;
+}
+
+.bring-to-top {
+  position: absolute;
+  margin: auto;
+  top: 85px;
+  left: 220px;
+}
+
+#delete-calendar {
+  //position: absolute;
+//  display: block;
+//  top: 85px;
+//  right: 20px;
+
+}
+
+.back {
+  margin-left: 20px;
+}
+
+.listed-calendar-share {
+  display: block;
+  min-width: 1300px;
+}
+
+.listed-calendar-share:after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+.listed-calendar-share li {
+  float: left;
+  display: block;
+  font-size: 18px;
+  padding-top: 26px;
+  padding-bottom: 26px;
+  margin-left: 485px;
+}
+
+.listed-calendar-share li:first-child {
+  padding-left: 100px;
+  margin-left: 0;
+}
+
+.listed-calendar-share li:last-child {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 20px;
+  margin-left: 0;
+  float: right;
+}
+
+.listed-calendar-share > li > input {
+  margin: 0;
+}
+

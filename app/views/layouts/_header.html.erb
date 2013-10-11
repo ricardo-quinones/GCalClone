@@ -2,7 +2,7 @@
   <%= link_to "MyCal", root_url, id: "logo" %>
   <ul class="nav-pin-right">
     <% if signed_in? %>
-      <li id="account">Account
+      <li id="account"><%= current_user.email %>
         <ul class="drop-down">
           <li><%= link_to "Settings", "#/user_settings", class: "menu" %></li>
           <li>

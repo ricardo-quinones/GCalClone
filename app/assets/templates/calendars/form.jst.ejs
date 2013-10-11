@@ -1,36 +1,41 @@
 <% var isNew = typeof calendar === 'undefined'; %>
-<% var title = (isNew ? "Create new calendar" : calendar.get("title")); %>
+<% var title = (isNew ? "Create a new " : calendar.get("title")); %>
 <% var inputTitle = (isNew ? "" : calendar.get("title")); %>
 <% var description = (isNew ? "" : calendar.get("description")); %>
 <% var selectTimeZone = (isNew ? GCalClone.currentUser.get("time_zone") : calendar.get('time_zone')); %>
 <% var elId = (isNew ? "create-calendar" : "update-calendar"); %>
-<% var buttonText = (isNew ? "Create Calendar" : "Save Changes") %>
+<% var buttonText = (isNew ? "Create" : "Save") %>
 
-<h1><%= title %></h1>
+<h1><%= title %> calendar</h1>
 
-<div class="form-box">
-  <form>
-    <label>Title
+
+<form>
+  <div class="form-box">
+    <div class="form-row">
+      <label>Title</label>
       <input type="text" name="calendar[title]" value="<%= inputTitle %>">
-    </label>
+    </div>
 
-    <label>Description
+    <div class="form-row">
+      <label>Description</label>
       <textarea
         name="calendar[description]"><%= description %></textarea>
-    </label>
+    </div>
 
-    <label>Timezone
-      <select name="calendar[time_zone]">
+    <div class="form-row">
+      <label>Timezone</label>
+      <select name="calendar[time_zone]" id="cal-settings-timezone">
         <% _(TIME_ZONES).each(function (timeZone) { %>
           <% var name = timeZone.name %>
           <% var selected = (selectTimeZone == name ? "selected" : "") %>
           <option value="<%= name %>" <%= selected %>><%= name %></option>
         <% }); %>
       </select>
-    </label>
-    <input type="submit" value="<%= buttonText %>" id="<%= elId %>">
-  </form>
-</div>
+    </div>
+  </div>
+  <input type="submit" value="<%= buttonText %>" id="<%= elId %>" class="button-lrg bring-to-top">
+</form>
+
 
 <div id="add-calendar-share"></div>
 <div id="pending-calendar-shares"></div>
