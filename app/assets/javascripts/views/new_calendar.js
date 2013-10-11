@@ -32,8 +32,8 @@ GCalClone.Views.NewCalendar = Backbone.View.extend({
     event.preventDefault();
 
     var formData = $(event.target.form).serializeJSON();
-    // formData["calendar_shares"] = this.newCalendarShares;
-//     console.log(formData);
+    formData["calendar_shares"] = this.newCalendarShares;
+    // console.log(formData);
 
     self.collection.create(formData, {
       success: function (response) {

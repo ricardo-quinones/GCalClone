@@ -22,13 +22,19 @@ class CalendarsController < ApplicationController
   end
 
   def create
-    @calendar = Calendar.new(params[:calendar])
-    @calendar.owner_id = current_user.id
+    begin
+      Calendar.transaction do
+        @calendar = Calendar.new(params[:calendar])
+        @calendar.owner_id = current_user.id
+        @calendar.save
 
-    if @calendar.save
-      render json: @calendar
-    else
+        @calendar.calendar_shares = CalendarShare.build_from_emails(params)
+      end
+      raise "Invalid input" unless @calendar.persisted?
+    rescue
       render json: @calendar.errors.full_messages, status: 422
+    else
+      render json: @calendar.as_json(include: [:calendar_shares])
     end
   end
 

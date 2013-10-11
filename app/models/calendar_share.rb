@@ -9,6 +9,20 @@ class CalendarShare < ActiveRecord::Base
   belongs_to :user
   belongs_to :calendar
 
+  def self.build_from_emails(params)
+    attrs = params[:calendar_shares].values.map(&:values)
+    user_ids = User.where(email: attrs.map { |el| el[0] }).map(&:id)
+
+    new_params = attrs.map.with_index(0) do |el, i|
+      hash = {};
+      hash[:user_id] = user_ids[0]
+      hash[:permissions] = el[1]
+      hash
+    end
+
+    new_params.map { |new_attrs| CalendarShare.new(new_attrs) }
+  end
+
   def save_default_title_and_description
     self.title = Calendar.find(self.calendar_id).owner_name
     self.description = Calendar.find(self.calendar_id).description
