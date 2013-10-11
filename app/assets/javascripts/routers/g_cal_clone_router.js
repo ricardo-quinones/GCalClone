@@ -166,7 +166,7 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
     this.currentView = new GCalClone.Views.NewEvent({
       el: this.$formView,
       calendar: calendar,
-      collection: this.eventse
+      collection: this.events
     });
 
     this.currentView.render();
