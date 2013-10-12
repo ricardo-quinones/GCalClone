@@ -12,7 +12,10 @@
 //
 //= require jquery
 //= require jquery.ui.datepicker
+//= require jquery.ui.draggable
+//= require jquery.ui.resizable
 //= require jquery_ujs
+//= require fullcalendar
 //= require detect_timezone
 //= require jquery.detect_timezone
 //= require jquery.serializeJSON

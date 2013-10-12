@@ -26,7 +26,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
 
     if @event.update_attributes(params[:cal_event])
-      render json: @event
+      render json: @event.as_json(methods: [:local_start_date, :local_end_date])
     else
       render json: @event.errors.full_messages
     end

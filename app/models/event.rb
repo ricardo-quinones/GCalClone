@@ -19,10 +19,10 @@ class Event < ActiveRecord::Base
   end
 
   def local_start_date
-    self.start_date.in_time_zone(self.time_zone)
+    self.start_date.in_time_zone(self.time_zone).iso8601
   end
 
   def local_end_date
-    self.end_date.in_time_zone(self.time_zone)
+    self.end_date.in_time_zone(self.time_zone).iso8601
   end
 end

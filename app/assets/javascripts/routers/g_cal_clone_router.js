@@ -44,23 +44,38 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
 
     this.myCalendars.each(function (calendar) {
       _(calendar.get('events')).each(function (calEvent) {
-        calEvent.local_start_date = new Date(calEvent.local_start_date);
-        calEvent.local_end_date = new Date(calEvent.local_end_date);
+        calEvent["start"] = calEvent.local_start_date;
+        calEvent["end"] = calEvent.local_end_date;
+        calEvent["allDay"] = calEvent.all_day;
+        // newEvent["id"] = calEvent.id;
+        // newEvent["title"] = calEvent.title;
+        // newEvent["creatorId"] = calEvent.creator_id;
+        // newEvent["calendarId"] = calEvent.calendar_id;
+        // newEvent["timeZone"] = calEvent.time_zone;
         eventPojos.push(calEvent);
       });
     });
 
+    // this.myCalendars.each(function (calendar) {
+    //   _(calendar.get('events')).each(function (calEvent) {
+    //     eventPojos.push(calEvent);
+    //   });
+    // });
+
     this.subscribedCalendars.each(function (calendar) {
       _(calendar.get('events')).each(function (calEvent) {
-        calEvent.local_start_date = new Date(calEvent.local_start_date);
-        calEvent.local_end_date = new Date(calEvent.local_end_date);
+        calEvent["start"] = calEvent.local_start_date;
+        calEvent["end"] = calEvent.local_end_date;
+        calEvent["allDay"] = calEvent.all_day;
         eventPojos.push(calEvent);
       });
     });
 
     this.events = new GCalClone.Collections.Events(eventPojos);
+
+    GCalClone.events = this.events;
     this.events.comparator = function(calEvent) {
-      return calEvent.get('local_start_date');
+      return calEvent.startDate();
     };
 
     this.events.sort();
@@ -68,6 +83,7 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
 
   routes: {
     "": "agenda",
+    "test_calendar": "testCalendar",
     "calendars": "calendarsIndex",
     "calendars/new": "newCalendar",
     "user_settings": "editUser",
@@ -75,7 +91,6 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
     "calendars/:id": "editCalendar",
     "subscribed_calendars/:id": "editCalendarShare",
     "events/:id": "editEvent"
-
   },
 
   closePreviousView: function () {
@@ -182,5 +197,15 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
    });
 
    this.currentView.render();
+  },
+
+  testCalendar: function () {
+    this.closePreviousView();
+
+    this.currentView = new GCalClone.Views.CalendarTest({
+      collection: this.events
+    });
+    this.currentView.render();
+    this.currentView.addAll();
   }
 });

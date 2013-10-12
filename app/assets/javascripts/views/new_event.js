@@ -23,6 +23,7 @@ GCalClone.Views.NewEvent = Backbone.View.extend({
     self.collection.create(formData, {
       wait: true,
       success: function (response) {
+        console.log(response);
         Backbone.history.navigate("#/");
       },
       error: function (response) {

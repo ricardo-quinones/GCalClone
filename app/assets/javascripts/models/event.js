@@ -33,11 +33,13 @@ GCalClone.Models.Event = Backbone.Model.extend({
   },
 
   startDate: function () {
-    return this.convertDateFromString(this.get('local_start_date'));
+    return new Date(this.get('local_start_date'))
+    // return this.convertDateFromString(this.get('local_start_date'));
   },
 
   endDate: function () {
-    return this.convertDateFromString(this.get('local_end_date'));
+    return new Date(this.get('local_end_date'))
+    // return this.convertDateFromString(this.get('local_end_date'));
   },
 
   startYear: function () {
