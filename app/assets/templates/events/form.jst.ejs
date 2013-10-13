@@ -13,46 +13,51 @@
 
 <h1><%= title %></h1>
 
-<div class="form-box">
+<div id="new-event-form" class="form-box">
   <form>
 
     <div class="form-row">
       <label>Title</label>
-      <input type="text" name="cal_event[title]" value="<%= inputTitle %>">
+      <input type="text" class="ui-widget-content ui-corner-all" name="cal_event[title]" value="<%= inputTitle %>">
     </div>
 
     <div class="form-row">
       <label>Start date</label>
       <input
         name="cal_event[start_date][date]"
-        class="datepicker date"
+        class="datepicker date ui-widget-content ui-corner-all"
         value="<%= startDateString %>">
 
 
       <input
         type="time"
         name="cal_event[start_date][time]"
-        class="time" value="<%= startTimeString %>">
+        class="time ui-widget-content ui-corner-all"
+        value="<%= startTimeString %>">
     </div>
 
     <div class="form-row">
       <label>End date</label>
       <input
         name="cal_event[end_date][date]"
-        class="datepicker date"
+        class="datepicker date ui-widget-content ui-corner-all"
         value="<%= endDateString %>">
 
       <input
         type="time"
         name="cal_event[end_date][time]"
-        class="time"
+        class="time ui-widget-content ui-corner-all"
         value="<%= endTimeString %>">
     </div>
 
     <div class="form-row">
       <label>All day?</label>
       <% var checked = (!isNew && calEvent.get("all_day") ? "checked" : "") %>
-      <input type="checkbox" name="cal_event[all_day]" value="true" <%= checked %>>
+      <input
+        class="ui-widget-content ui-corner-all"
+        type="checkbox"
+        name="cal_event[all_day]"
+        value="true" <%= checked %>>
     </div>
 
     <div class="form-row">
@@ -68,7 +73,7 @@
 
     <div class="form-row">
       <label>Calendar</label>
-      <select name="cal_event[calendar_id]">
+      <select name="cal_event[calendar_id]" class="ui-widget-content ui-corner-all">
         <% GCalClone.myCalendars.each(function (calendar) { %>
           <% var calTitle = eventsCal.get('title') %>
           <% var calSelect = (calTitle === calendar.get('title') ? "selected" : "") %>
@@ -80,12 +85,17 @@
     <div class="form-row">
       <label>Description</label>
       <textarea
+      class="ui-widget-content ui-corner-all"
         name="cal_event[description]"><%= description %></textarea>
     </div>
 
     <div class="form-row">
       <label>Location</label>
-      <input type="text" name="cal_event[location]" value="<%= location %>">
+      <input
+        class="ui-widget-content ui-corner-all"
+        type="text"
+        name="cal_event[location]"
+        value="<%= location %>">
     </div>
 
     <input type="submit" value="<%= buttonText %>" id="<%= submitId %>"  class="button-lrg">

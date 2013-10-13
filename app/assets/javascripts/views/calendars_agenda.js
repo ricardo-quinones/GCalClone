@@ -16,8 +16,6 @@ GCalClone.Views.CalendarsAgenda = Backbone.View.extend({
     var self = this;
     self.$el.empty();
 
-    self.$el.append(JST['calendars/nav']());
-
     var $sidebar = $("<section>").attr("id", "sidebar")
     var calendarsSidebarTopView = new GCalClone.Views.CalendarsSidebarTop({
       collection: self.options.myCalendars

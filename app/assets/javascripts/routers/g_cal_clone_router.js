@@ -47,11 +47,6 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
         calEvent["start"] = calEvent.local_start_date;
         calEvent["end"] = calEvent.local_end_date;
         calEvent["allDay"] = calEvent.all_day;
-        // newEvent["id"] = calEvent.id;
-        // newEvent["title"] = calEvent.title;
-        // newEvent["creatorId"] = calEvent.creator_id;
-        // newEvent["calendarId"] = calEvent.calendar_id;
-        // newEvent["timeZone"] = calEvent.time_zone;
         eventPojos.push(calEvent);
       });
     });
@@ -82,8 +77,7 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
   },
 
   routes: {
-    "": "agenda",
-    "test_calendar": "testCalendar",
+    "": "calendarView",
     "calendars": "calendarsIndex",
     "calendars/new": "newCalendar",
     "user_settings": "editUser",
@@ -100,19 +94,33 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
     }
   },
 
-  agenda: function () {
+  calendarView: function () {
     this.closePreviousView();
 
-    this.currentView = new GCalClone.Views.CalendarsAgenda({
-      el: this.$calendarView,
-      collection: this.events,
-      myCalendars: this.myCalendars,
+    this.currentView = new GCalClone.Views.Calendars({
       subscribedCalendars: this.subscribedCalendars,
-      calendarShares:  this.calendarShares
+      calendarShares: this.calendarShares,
+      myCalendars: this.myCalendars,
+      collection: this.events
     });
 
     this.currentView.render();
+    this.currentView.addAll();
   },
+
+  // agenda: function () {
+  //   this.closePreviousView();
+  //
+  //   this.currentView = new GCalClone.Views.CalendarsAgenda({
+  //     el: this.$calendarView,
+  //     collection: this.events,
+  //     myCalendars: this.myCalendars,
+  //     subscribedCalendars: this.subscribedCalendars,
+  //     calendarShares:  this.calendarShares
+  //   });
+  //
+  //   this.currentView.render();
+  // },
 
   editUser: function () {
     this.closePreviousView();
@@ -197,15 +205,5 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
    });
 
    this.currentView.render();
-  },
-
-  testCalendar: function () {
-    this.closePreviousView();
-
-    this.currentView = new GCalClone.Views.CalendarTest({
-      collection: this.events
-    });
-    this.currentView.render();
-    this.currentView.addAll();
-  }
+ }
 });

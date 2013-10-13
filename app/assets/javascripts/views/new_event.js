@@ -24,6 +24,7 @@ GCalClone.Views.NewEvent = Backbone.View.extend({
       wait: true,
       success: function (response) {
         console.log(response);
+        $("#form-views").dialog("close");
         Backbone.history.navigate("#/");
       },
       error: function (response) {
