@@ -21,6 +21,7 @@
     <div class="form-row">
       <label>Start date</label>
       <input
+        id="start-date"
         name="cal_event[start_date][date]"
         class="datepicker date ui-widget-content ui-corner-all"
         value="<%= calEvent.startDateString() %>">
@@ -29,6 +30,7 @@
       <input
         type="time"
         name="cal_event[start_date][time]"
+        id="start-time"
         class="time ui-widget-content ui-corner-all"
         value="<%= calEvent.startTimeString() %>">
     </div>
@@ -36,6 +38,7 @@
     <div class="form-row">
       <label>End date</label>
       <input
+        id="end-date"
         name="cal_event[end_date][date]"
         class="datepicker date ui-widget-content ui-corner-all"
         value="<%= calEvent.endDateString() %>">
@@ -43,6 +46,7 @@
       <input
         type="time"
         name="cal_event[end_date][time]"
+        id="end-time"
         class="time ui-widget-content ui-corner-all"
         value="<%= calEvent.endTimeString() %>">
     </div>
@@ -101,11 +105,55 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-      $(".datepicker").datepicker();
+    $("#start-date").datepicker({
+      onClose: function () {
+        if (new Date($(this).val()) > new Date($("#end-date").val())) {
+          console.log("here")
+         $("#end-date").val($(this).val());
+        }
+      }
+    });
+    $("#end-date").datepicker({
+      onClose: function () {
+        if (new Date($(this).val()) < new Date($("#start-date").val())) {
+         $("#start-date").val($(this).val());
+        }
+      }
+    });
+    $('#start-time').timepicker({
+      stepMinute: 15,
+      onClose: function () {
+        var startDate = new Date($("#start-date").val() + " " +  $(this).val());
+        var endDate = new Date($("#end-date").val() + " " + $("#end-time").val());
+        console.log(startDate);
+        console.log(endDate);
+        if (startDate > endDate) {
+          var timeString = ((startDate.getHours() + 1) % 24) + ":" + startDate.getMinutes();
+          console.log(timeString);
+          timeString = (timeString.length < 5 ? "0".concat(timeString) : timeString);
+          $("#end-time").val(timeString);
+        };
+      }
+    });
+    $('#end-time').timepicker({
+      stepMinute: 15,
+      onClose: function () {
+        var startDate = new Date($("#start-date").val() + " " +  $("#start-time").val());
+        var endDate = new Date($("#end-date").val() + " " + $(this).val());
+        console.log(startDate);
+        console.log(endDate);
+        if (startDate > endDate) {
+          var timeString = ((endDate.getHours() + 23) % 24) + ":" + endDate.getMinutes();
+          console.log(timeString);
+          timeString = (timeString.length < 5 ? "0".concat(timeString) : timeString);
+          $("#start-time").val(timeString);
+        };
+      }
+    });
 
-      $("#form-views").dialog({
-        modal: true,
-        width: "auto"
-      });
+    $("#form-views").dialog({
+      modal: true,
+      width: "auto"
+    });
   });
 </script>

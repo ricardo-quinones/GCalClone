@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require jquery.ui.all.css
+ *= require jquery-ui-timepicker
  *= fullcalendar
  *= require_self
  *= require_tree .

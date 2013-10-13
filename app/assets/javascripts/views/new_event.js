@@ -9,6 +9,8 @@ GCalClone.Views.NewEvent = Backbone.View.extend({
   render: function () {
     var self = this;
 
+    console.log(this.model);
+
     self.$el.html(self.template({
       eventsCal: self.options.calendar,
       calEvent: this.model

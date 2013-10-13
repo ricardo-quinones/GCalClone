@@ -9,6 +9,10 @@ GCalClone.Views.Calendars = Backbone.View.extend({
 //     self.listenTo(self.collection, 'remove', self.adAll);
   },
 
+  events: {
+    "click .new-cal-event": "addToCal"
+  },
+
   closePreviousView: function () {
     if (this.currentView !== null) {
       this.currentView.$el.empty();
@@ -53,7 +57,7 @@ GCalClone.Views.Calendars = Backbone.View.extend({
   select: function (startDate, endDate) {
     this.closePreviousView();
 
-     this.currentView = new GCalClone.Views.NewEvent({
+    this.currentView = new GCalClone.Views.NewEvent({
       el: $("#form-views"),
       model: new GCalClone.Models.Event({
         start: startDate,

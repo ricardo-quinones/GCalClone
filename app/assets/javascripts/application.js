@@ -15,6 +15,8 @@
 //= require jquery.ui.draggable
 //= require jquery.ui.resizable
 //= require jquery.ui.dialog
+//= require jquery.ui.slider
+//= require jquery-ui-timepicker
 //= require jquery_ujs
 //= require fullcalendar
 //= require detect_timezone

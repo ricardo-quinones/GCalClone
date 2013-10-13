@@ -43,13 +43,11 @@ GCalClone.Models.Event = Backbone.Model.extend({
   startDate: function () {
     if (typeof this.get("start") !== "string") return this.get("start");
     return new Date(this.get("start"));
-    // return new Date(this.get('local_start_date'))
   },
 
   endDate: function () {
     if (typeof this.get("end") !== "string") return this.get("end");
     return new Date(this.get("end"));
-    // return new Date(this.get('local_end_date'))
   },
 
   startYear: function () {
@@ -57,7 +55,7 @@ GCalClone.Models.Event = Backbone.Model.extend({
   },
 
   startMonthNum: function () {
-    return this.startDate().getMonth() + 1
+    return this.startDate().getMonth() + 1;
   },
 
   startMonth: function () {
@@ -92,7 +90,7 @@ GCalClone.Models.Event = Backbone.Model.extend({
 
   endTime: function () {
     var hours = this.endDate().getHours() + ":";
-    var minutes = this.endDate().getMinutes()
+    var minutes = this.endDate().getMinutes();
     return (minutes < 10 ? (hours + "0" + minutes) : (hours + minutes));
   },
 
@@ -101,6 +99,6 @@ GCalClone.Models.Event = Backbone.Model.extend({
   },
 
   timeRange: function () {
-    return this.startTime() + " - " + this.endTime()
+    return this.startTime() + " - " + this.endTime();
   }
 });
