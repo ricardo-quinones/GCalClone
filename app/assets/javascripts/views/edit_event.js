@@ -9,10 +9,11 @@ GCalClone.Views.EditEvent = Backbone.View.extend({
 
   render: function () {
     var self = this;
+    console.log(this.model);
     var eventsCal = GCalClone.myCalendars.get(this.model.get("calendar_id"));
     self.$el.html(self.template({
       calEvent: this.model,
-      eventCal: eventsCal
+      eventsCal: eventsCal
     }));
 
     return self;
@@ -29,8 +30,12 @@ GCalClone.Views.EditEvent = Backbone.View.extend({
       patch: true,
       wait: true,
       success: function (response) {
-        console.log(self.model);
-        Backbone.history.navigate("#/");
+        console.log(response);
+        response.addFullCalendarAttrs();
+        self.$el.dialog("close");
+        var fcEvent = $("#calendar-views").fullCalendar("clientEvents", response.get('id'))[0];
+        _(fcEvent).extend(response.attributes);
+        $("#calendar-views").fullCalendar("updateEvent", fcEvent);
       },
       error: function (response) {
         console.log(response);

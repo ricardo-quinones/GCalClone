@@ -1,15 +1,12 @@
-<% var isNew = typeof calEvent === 'undefined'; %>
-<% var title = (isNew ? "Create new event" : calEvent.get("title")); %>
-<% var inputTitle = (isNew ? "" : calEvent.get("title")); %>
+<% var isNew = typeof calEvent.get("title") === 'undefined'; %>
+<% console.log(isNew); %>
+<% var title = (isNew ? "Create new event" : ""); %>
+<% var inputTitle = (isNew ? "Untitled event" : calEvent.get("title")); %>
 <% var description = (isNew ? "" : calEvent.get("description")); %>
 <% var selectTimeZone = (isNew ? eventsCal.get('time_zone') : calEvent.get('time_zone')); %>
 <% var location = (isNew ? "" : calEvent.get("location")) %>
 <% var buttonText = (isNew ? "Create event" : "Edit event") %>
 <% var submitId = (isNew ? "create-event" : "update-event"); %>
-<% var startDateString = (isNew ? "" : calEvent.startDateString()) %>
-<% var startTimeString = (isNew ? "" : calEvent.startTimeString()) %>
-<% var endDateString = (isNew ? "" : calEvent.endDateString()) %>
-<% var endTimeString = (isNew ? "" : calEvent.endTimeString()) %>
 
 <h1><%= title %></h1>
 
@@ -26,14 +23,14 @@
       <input
         name="cal_event[start_date][date]"
         class="datepicker date ui-widget-content ui-corner-all"
-        value="<%= startDateString %>">
+        value="<%= calEvent.startDateString() %>">
 
 
       <input
         type="time"
         name="cal_event[start_date][time]"
         class="time ui-widget-content ui-corner-all"
-        value="<%= startTimeString %>">
+        value="<%= calEvent.startTimeString() %>">
     </div>
 
     <div class="form-row">
@@ -41,13 +38,13 @@
       <input
         name="cal_event[end_date][date]"
         class="datepicker date ui-widget-content ui-corner-all"
-        value="<%= endDateString %>">
+        value="<%= calEvent.endDateString() %>">
 
       <input
         type="time"
         name="cal_event[end_date][time]"
         class="time ui-widget-content ui-corner-all"
-        value="<%= endTimeString %>">
+        value="<%= calEvent.endTimeString() %>">
     </div>
 
     <div class="form-row">
@@ -105,5 +102,10 @@
 <script type="text/javascript">
   $(document).ready(function(){
       $(".datepicker").datepicker();
+
+      $("#form-views").dialog({
+        modal: true,
+        width: "auto"
+      });
   });
 </script>

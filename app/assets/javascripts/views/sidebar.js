@@ -4,7 +4,8 @@ GCalClone.Views.Sidebar = Backbone.View.extend({
   render: function () {
     var self = this;
     var sidebarTop = new GCalClone.Views.CalendarsSidebarTop({
-      collection: self.collection
+      collection: self.collection,
+      events: this.options.events
     });
     var sidebarBottom = new GCalClone.Views.CalendarsSidebarBottom({
       collection: self.options.calendarShares,

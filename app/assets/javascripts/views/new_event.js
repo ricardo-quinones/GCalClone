@@ -8,7 +8,11 @@ GCalClone.Views.NewEvent = Backbone.View.extend({
 
   render: function () {
     var self = this;
-    self.$el.html(self.template({ eventsCal: self.options.calendar }));
+
+    self.$el.html(self.template({
+      eventsCal: self.options.calendar,
+      calEvent: this.model
+    }));
 
     return self;
   },
@@ -23,9 +27,9 @@ GCalClone.Views.NewEvent = Backbone.View.extend({
     self.collection.create(formData, {
       wait: true,
       success: function (response) {
-        console.log(response);
-        $("#form-views").dialog("close");
-        Backbone.history.navigate("#/");
+        response.addFullCalendarAttrs();
+        self.$el.dialog("close");
+        $("#calendar-views").fullCalendar("renderEvent", response.toJSON());
       },
       error: function (response) {
         console.log(response);

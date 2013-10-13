@@ -5,10 +5,11 @@
   <li>
     <a
       class="menu"
+      class="create-cal-event"
       class="cal-settings"
       href="#/<%= urlPartial %>/<%= id %>">Calendar Settings</a>
   </li>
-  <li><a class="menu" href="#/calendars/<%= calendar_id %>/events/new">Add event to this Calendar</a></li>
+  <li><a class="menu new-cal-event" data-id="<%= calendar_id %>" href="#">Add event to this Calendar</a></li>
   <li><a class="menu" href="#">Add reminder to this Calendar</a></li>
   <li><a class="menu" href="#">Share this Calendar</a></li>
 </ul>

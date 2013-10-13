@@ -1,6 +1,14 @@
 GCalClone.Models.Event = Backbone.Model.extend({
   urlRoot: "/events",
 
+  addFullCalendarAttrs: function () {
+    _(this.attributes).extend({
+      start: new Date(this.get("local_start_date")),
+      end: new Date(this.get("local_end_date")),
+      allDay: this.get("all_day")
+    })
+  },
+
   convertDateFromString: function (date) {
     return (typeof date === "string" ? new Date(date) : date);
   },
@@ -33,13 +41,15 @@ GCalClone.Models.Event = Backbone.Model.extend({
   },
 
   startDate: function () {
-    return new Date(this.get('local_start_date'))
-    // return this.convertDateFromString(this.get('local_start_date'));
+    if (typeof this.get("start") !== "string") return this.get("start");
+    return new Date(this.get("start"));
+    // return new Date(this.get('local_start_date'))
   },
 
   endDate: function () {
-    return new Date(this.get('local_end_date'))
-    // return this.convertDateFromString(this.get('local_end_date'));
+    if (typeof this.get("end") !== "string") return this.get("end");
+    return new Date(this.get("end"));
+    // return new Date(this.get('local_end_date'))
   },
 
   startYear: function () {
