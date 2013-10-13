@@ -12,6 +12,11 @@
     </label>
 
     <ul>
+      <li>Owner Email</li>
+      <li><%= calendarShare.get("owner_email") %></li>
+    </ul>
+
+    <ul>
       <li>Calendar Time Zone</li>
       <li><%= calendarShare.get("calendar_time_zone") %></li>
     </ul>
@@ -21,8 +26,17 @@
 </div>
 
 <input
-    type="submit"
-    id="unsubscribe-to-calendar"
-    value="Unsubscribe"
-    data-id="<%= calendarShare.id %>"
-    class="button-lrg">
+  type="submit"
+  id="unsubscribe-to-calendar"
+  value="Unsubscribe"
+  data-id="<%= calendarShare.id %>"
+  class="button-lrg">
+
+<script>
+$(document).ready(function () {
+  $("#form-views").dialog({
+    modal: true,
+    width: "auto"
+  });
+});
+</script>

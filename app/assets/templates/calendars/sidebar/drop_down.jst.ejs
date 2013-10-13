@@ -1,15 +1,9 @@
-<% var urlPartial = (isTop ? "calendars" : "subscribed_calendars") %>
-<% var calendar_id = (typeof calendar_id == "undefined" ? id : calendar_id) %>
+<% var calClass = (isTop ? "cal-settings" : "cal-share-settings") %>
+<% var calendarId = (typeof calendar_id == "undefined" ? id : calendar_id) %>
 <ul class="drop-down">
   <li><a class="menu" href="#">Display just this Calendar</a></li>
-  <li>
-    <a
-      class="menu"
-      class="create-cal-event"
-      class="cal-settings"
-      href="#/<%= urlPartial %>/<%= id %>">Calendar Settings</a>
-  </li>
-  <li><a class="menu new-cal-event" data-id="<%= calendar_id %>" href="#">Add event to this Calendar</a></li>
+  <li><a class="menu <%= calClass %>" href="#" data-id="<%= calendarId %>">Calendar Settings</a></li>
+  <li><a class="menu new-cal-event" data-id="<%= calendarId %>" href="#">Add event to this Calendar</a></li>
   <li><a class="menu" href="#">Add reminder to this Calendar</a></li>
   <li><a class="menu" href="#">Share this Calendar</a></li>
 </ul>

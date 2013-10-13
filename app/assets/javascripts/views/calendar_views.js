@@ -5,12 +5,12 @@ GCalClone.Views.Calendars = Backbone.View.extend({
     this.currentView = null
 
     this.collection.bind('reset', this.addAll);
-    // self.listenTo(self.collection, 'change', self.addAll);
-//     self.listenTo(self.collection, 'remove', self.adAll);
   },
 
   events: {
-    "click .new-cal-event": "addToCal"
+    "click .new-cal-event": "addToCal",
+    "click .cal-settings": "editCal",
+    "click .cal-share-settings": "editCalShare"
   },
 
   closePreviousView: function () {

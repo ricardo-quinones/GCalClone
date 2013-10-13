@@ -19,20 +19,25 @@ GCalClone.Views.EditEvent = Backbone.View.extend({
     return self;
   },
 
+  closeDialog: function () {
+    this.$el.dialog("close");
+    this.$el.empty();
+    this.$el.unbind();
+  },
+
   update: function (event) {
     var self = this;
     event.preventDefault();
 
     var formData = $(event.target.form).serializeJSON();
     this.convertDates(formData.cal_event)
-    console.log(formData);
+
     self.model.save(formData, {
       patch: true,
       wait: true,
       success: function (response) {
-        console.log(response);
         response.addFullCalendarAttrs();
-        self.$el.dialog("close");
+        self.closeDialog();
         var fcEvent = $("#calendar-views").fullCalendar("clientEvents", response.get('id'))[0];
         _(fcEvent).extend(response.attributes);
         $("#calendar-views").fullCalendar("updateEvent", fcEvent);
@@ -59,13 +64,15 @@ GCalClone.Views.EditEvent = Backbone.View.extend({
   destroy: function (event) {
     var self = this;
     event.preventDefault();
-
-    var calendarId = $(event.target).data('id');
     var reallyDelete = confirm("Are you sure?")
 
     if (reallyDelete) {
-      self.model.destroy();
-      Backbone.history.navigate("#/");
+      self.model.destroy({
+        success: function (response) {
+          self.$el.dialog("close");
+          $("#calendar-views").fullCalendar("removeEvents", self.model.id);
+        }
+      });
     }
   }
 });

@@ -7,6 +7,12 @@ GCalClone.Views.EditCalendarShare = Backbone.View.extend({
     'click #unsubscribe-to-calendar': 'destroy'
   },
 
+  closeDialog: function () {
+    this.$el.dialog("close");
+    this.$el.empty();
+    this.$el.unbind();
+  },
+
   render: function () {
     var self = this;
     self.$el.html(self.template({ calendarShare: this.model }));
@@ -22,7 +28,7 @@ GCalClone.Views.EditCalendarShare = Backbone.View.extend({
     self.model.save(formData, {
       patch: true,
       success: function (response) {
-        Backbone.history.navigate("#/");
+        self.closeDialog();
       },
       error: function (response) {
         console.log(response);
@@ -38,8 +44,11 @@ GCalClone.Views.EditCalendarShare = Backbone.View.extend({
     var reallyDelete = confirm("Are you sure?")
 
     if (reallyDelete) {
-      self.model.destroy();
-      Backbone.history.navigate("#/");
+      self.model.destroy({
+        success: function(response) {
+          self.closeDialog();
+        }
+      });
     }
   }
 });

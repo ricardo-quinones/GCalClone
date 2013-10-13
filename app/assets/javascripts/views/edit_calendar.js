@@ -13,6 +13,12 @@ GCalClone.Views.EditCalendar = Backbone.View.extend({
     return self;
   },
 
+  closeDialog: function () {
+    this.$el.dialog("close");
+    this.$el.empty();
+    this.$el.unbind();
+  },
+
   update: function (event) {
     var self = this;
     event.preventDefault();
@@ -22,7 +28,7 @@ GCalClone.Views.EditCalendar = Backbone.View.extend({
     self.model.save(formData, {
       patch: true,
       success: function (response) {
-        Backbone.history.navigate("#/");
+        self.closeDialog();
       },
       error: function (response) {
         console.log(response);
@@ -39,7 +45,7 @@ GCalClone.Views.EditCalendar = Backbone.View.extend({
 
     if (reallyDelete) {
       self.model.destroy();
-      Backbone.history.navigate("#/");
+      self.closeDialog();
     }
   }
 });

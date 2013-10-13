@@ -33,7 +33,6 @@ class CalendarShare < ActiveRecord::Base
   end
 
   def calendar_time_zone
-    Time.zone = self.calendar.time_zone
-    Time.zone.to_s
+    ActiveSupport::TimeZone.new(self.calendar.time_zone).to_s
   end
 end

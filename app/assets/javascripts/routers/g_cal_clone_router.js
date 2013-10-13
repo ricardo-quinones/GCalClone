@@ -42,6 +42,7 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
 
     var eventPojos = [];
 
+    // consider using addFullCalendarAttrs method for brevity
     this.myCalendars.each(function (calendar) {
       _(calendar.get('events')).each(function (calEvent) {
         calEvent["start"] = calEvent.local_start_date;
@@ -50,12 +51,6 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
         eventPojos.push(calEvent);
       });
     });
-
-    // this.myCalendars.each(function (calendar) {
-    //   _(calendar.get('events')).each(function (calEvent) {
-    //     eventPojos.push(calEvent);
-    //   });
-    // });
 
     this.subscribedCalendars.each(function (calendar) {
       _(calendar.get('events')).each(function (calEvent) {
