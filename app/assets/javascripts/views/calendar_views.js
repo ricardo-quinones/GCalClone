@@ -27,7 +27,8 @@ GCalClone.Views.Calendars = Backbone.View.extend({
       collection: this.options.myCalendars,
       calendarShares: this.options.calendarShares,
       subscribedCalendars: this.options.subscribedCalendars,
-      events: this.events
+      events: this.events,
+      calEvents: this.collection
     });
 
     sideBar.render();
@@ -39,13 +40,16 @@ GCalClone.Views.Calendars = Backbone.View.extend({
         right: "agendaDay,agendaWeek,month today prev,next"
       },
       defaultView: "agendaWeek",
+      ignoreTimezone: false,
       slotMinutes: 15,
       timeFormat: "h:mm t{ - h:mm t}",
       selectable: true,
       selectHelper: true,
       editable: true,
       select: this.select.bind(this),
-      eventClick: this.eventClick.bind(this)
+      eventClick: this.eventClick.bind(this),
+      eventDrop: this.eventDropOrResize.bind(this),
+      eventResize: this.eventDropOrResize.bind(this)
     });
   },
 
@@ -79,5 +83,18 @@ GCalClone.Views.Calendars = Backbone.View.extend({
     })
 
     this.currentView.render();
+  },
+
+  eventDropOrResize: function (fcEvent) {
+    console.log(fcEvent);
+    this.collection.get(fcEvent.id).save(
+      {cal_event: {start_date: fcEvent.start, end_date: fcEvent.end}}, {
+        patch: true,
+        wait: true,
+        success: function (response) {
+          console.log(response);
+        }
+      }
+    );
   }
 });

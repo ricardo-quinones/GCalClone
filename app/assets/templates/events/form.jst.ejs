@@ -1,5 +1,4 @@
 <% var isNew = typeof calEvent.get("title") === 'undefined'; %>
-<% console.log(isNew); %>
 <% var title = (isNew ? "Create new event" : ""); %>
 <% var inputTitle = (isNew ? "Untitled event" : calEvent.get("title")); %>
 <% var description = (isNew ? "" : calEvent.get("description")); %>

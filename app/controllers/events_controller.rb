@@ -12,10 +12,13 @@ class EventsController < ApplicationController
   end
 
   def create
+    # Time.zone = params[:cal_event][:time_zone]
     @event = Event.new(params[:cal_event])
     @event.creator_id = current_user.id
 
+
     if @event.save
+      # Time.zone = current_user.time_zone
       render json: @event.as_json(methods: [:local_start_date, :local_end_date])
     else
       render json: @event.errors.full_messages, status: 422

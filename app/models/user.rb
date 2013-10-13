@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   attr_reader :name
 
   before_save :ensure_token
+  before_save :change_time_zone_string, unless: :persisted?
 
   before_validation { email.downcase! }
   EMAIL_REGEX = /\A[^\W_]([\w+\-]|(?<!\.)\.)+@[^\W_]([a-z\d\-]|(?<!\.)\.)+(?<!\.)\.[a-z]+\z/
@@ -100,5 +101,9 @@ class User < ActiveRecord::Base
 
   def ensure_token
     self.token ||= User.generate_token
+  end
+
+  def change_time_zone_string
+    self.time_zone = ActiveSupport::TimeZone::MAPPING.key(self.time_zone)
   end
 end

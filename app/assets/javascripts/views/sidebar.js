@@ -1,10 +1,6 @@
 GCalClone.Views.Sidebar = Backbone.View.extend({
   el: "#sidebar",
 
-  // events: {
-  //   "click .new-cal-event": "click"
-  // },
-
   render: function () {
     var self = this;
     var sidebarTop = new GCalClone.Views.CalendarsSidebarTop({
@@ -35,7 +31,7 @@ GCalClone.Views.Sidebar = Backbone.View.extend({
        start: this.nextNearestHour(),
        end: this.oneHourLater()
      }),
-     collection: this.options.events,
+     collection: this.options.calEvents,
      calendar: calendar
    });
 

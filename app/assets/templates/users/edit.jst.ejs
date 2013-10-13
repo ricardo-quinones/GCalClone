@@ -28,9 +28,9 @@
       <label>Timezone</label>
       <select name="user[time_zone]" class="select-drop-down">
         <% _(TIME_ZONES).each(function (timeZone) { %>
-          <% var name = timeZone.name %>
-          <% var selected = (user.get("time_zone") == name ? "selected" : "") %>
-          <option value="<%= name %>" <%= selected %>><%= name %></option>
+          <% var tzName = timeZone.name %>
+          <% var selected = (user.get("time_zone") == tzName ? "selected" : "") %>
+          <option value="<%= tzName %>" <%= selected %>><%= tzName %></option>
         <% }); %>
       </select>
     </div>

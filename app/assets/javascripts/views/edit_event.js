@@ -48,11 +48,11 @@ GCalClone.Views.EditEvent = Backbone.View.extend({
     var end_date = calEvent.end_date;
 
     calEvent["start_date"] = new Date(
-      start_date.date + " " + start_date.time + " +0000"
+      start_date.date + " " + start_date.time
     ).toUTCString();
 
     calEvent["end_date"] = new Date(
-      end_date.date + " " + end_date.time + " +0000"
+      end_date.date + " " + end_date.time
     ).toUTCString();
   },
 
