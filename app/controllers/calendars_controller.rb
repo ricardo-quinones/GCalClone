@@ -1,25 +1,9 @@
 class CalendarsController < ApplicationController
+
+  before_filter :must_be_owner
+
   respond_to :json
   respond_to :html, only: [:index]
-
-  def index
-    @calendars = Calendar.find_all_by_owner_id(current_user.id)
-    respond_to do |format|
-      format.json {
-        render json: @calendars.as_json(
-          include: {
-            :events => {
-              methods: [:local_start_date, :local_end_date],
-              except: [:start_date, :end_date]
-            },
-            :users_shared_with => {
-              only: [:email]
-            }
-          }
-        )
-      }
-    end
-  end
 
   def create
     begin
@@ -57,5 +41,14 @@ class CalendarsController < ApplicationController
     @calendar = Calendar.find(params[:id])
     @calendar.destroy
     render json: @calendar
+  end
+
+  private
+
+  def must_be_owner
+    @calendar = Calendar.find(params[:id])
+    unless current_user.id == @calendar.owner_id
+      head :ok
+    end
   end
 end

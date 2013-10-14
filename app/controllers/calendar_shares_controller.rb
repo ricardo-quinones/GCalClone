@@ -12,7 +12,7 @@ class CalendarSharesController < ApplicationController
 
   def update
     @calendar_share = CalendarShare.find(params[:id])
-
+    
     if @calendar_share.update_attributes(params[:calendar_share])
       render json: @calendar_share
     else
@@ -25,5 +25,4 @@ class CalendarSharesController < ApplicationController
     @calendar_share.destroy
     render json: @calendar_share
   end
-
 end

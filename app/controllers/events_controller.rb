@@ -1,4 +1,7 @@
 class EventsController < ApplicationController
+
+  before_filter :must_be_creator, only: [:update, :destroy]
+
   respond_to :json
   respond_to :html, only: [:index]
 
@@ -42,5 +45,17 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @event.destroy
     render json: @event
+  end
+
+  private
+
+  def must_be_creator
+    @event = Event.find(params[:id])
+    unless current_user.id == @event.creator_id
+      render json: @event.as_json(
+        methods: [:local_start_date, :local_end_date, :color],
+        except: [:start_date, :end_date, :event_color]
+      )
+    end
   end
 end

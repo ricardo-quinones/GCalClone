@@ -34,6 +34,7 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
       return calendarShare.get('title');
     };
     this.calendarShares.sort();
+    GCalClone.calendarShares = this.calendarShares;
 
     this.$settingsView = $('#settings-views');
     this.$calendarView = $('#calendar-views');
@@ -42,26 +43,22 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
 
     var eventPojos = [];
 
-    // consider using addFullCalendarAttrs method for brevity
     this.myCalendars.each(function (calendar) {
       _(calendar.get('events')).each(function (calEvent) {
-        calEvent["start"] = calEvent.local_start_date;
-        calEvent["end"] = calEvent.local_end_date;
-        calEvent["allDay"] = calEvent.all_day;
         eventPojos.push(calEvent);
       });
     });
 
     this.subscribedCalendars.each(function (calendar) {
       _(calendar.get('events')).each(function (calEvent) {
-        calEvent["start"] = calEvent.local_start_date;
-        calEvent["end"] = calEvent.local_end_date;
-        calEvent["allDay"] = calEvent.all_day;
         eventPojos.push(calEvent);
       });
     });
 
     this.events = new GCalClone.Collections.Events(eventPojos);
+    this.events.each(function (calEvent) {
+      calEvent.addFullCalendarAttrs();
+    });
 
     GCalClone.events = this.events;
     this.events.comparator = function(calEvent) {

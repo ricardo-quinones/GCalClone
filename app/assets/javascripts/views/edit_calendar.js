@@ -14,21 +14,11 @@ GCalClone.Views.EditCalendar = Backbone.View.extend({
     "click .remove-share": "removeCalendarShare"
   },
 
-  closeDialog: function () {
-    this.$el.dialog("close");
-    this.$el.empty();
-    this.$el.unbind();
-  },
-
   render: function () {
     var self = this;
     self.$el.html(self.template({ calendar: this.model }));
 
     $calendarShare = self.$el.find("#add-calendar-share");
-    // var editCalendarShare = new GCalClone.Views.EditCalendarShare({
-//       el: $calendarShare,
-//       calendar: this.model
-//     });
 
     $calendarShare.html(JST['calendar_shares/new']());
     this.buildExistingShares();
@@ -47,7 +37,7 @@ GCalClone.Views.EditCalendar = Backbone.View.extend({
       wait: true,
       patch: true,
       success: function (response) {
-        self.closeDialog();
+        self.$el.dialog("close");
       },
       error: function (response) {
         console.log(response);
@@ -63,8 +53,11 @@ GCalClone.Views.EditCalendar = Backbone.View.extend({
     var reallyDelete = confirm("Are you sure?")
 
     if (reallyDelete) {
-      self.model.destroy(); // also need to delete related events
-      self.closeDialog();
+      $("#calendar-views").fullCalendar("removeEvents", function (calEvent) {
+        return calEvent.calendar_id == self.model.id;
+      });
+      self.model.destroy();
+      self.$el.dialog("close");
     }
   },
 
@@ -99,7 +92,6 @@ GCalClone.Views.EditCalendar = Backbone.View.extend({
 
       $("#listed-calendar-shares").append($buildNewShare);
       $("#email-input").val("");
-      console.log(this.calendarShares);
     }
   },
 

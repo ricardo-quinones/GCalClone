@@ -19,25 +19,20 @@ GCalClone.Views.EditEvent = Backbone.View.extend({
     return self;
   },
 
-  closeDialog: function () {
-    this.$el.dialog("close");
-    this.$el.empty();
-    this.$el.unbind();
-  },
-
   update: function (event) {
     var self = this;
     event.preventDefault();
 
     var formData = $(event.target.form).serializeJSON();
-    this.convertDates(formData.cal_event)
+    this.convertDates(formData.cal_event);
 
     self.model.save(formData, {
       patch: true,
       wait: true,
       success: function (response) {
         response.addFullCalendarAttrs();
-        self.closeDialog();
+        self.$el.dialog("close");
+
         var fcEvent = $("#calendar-views").fullCalendar("clientEvents", response.get('id'))[0];
         _(fcEvent).extend(response.attributes);
         $("#calendar-views").fullCalendar("updateEvent", fcEvent);

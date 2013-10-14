@@ -104,79 +104,83 @@
 </div>
 
 <script type="text/javascript">
-  $(document).ready(function(){
-    $("#start-date").datepicker({
-      onClose: function () {
-        if (new Date($(this).val()) > new Date($("#end-date").val())) {
-          console.log("here")
-         $("#end-date").val($(this).val());
-        }
+$(document).ready(function(){
+  $("#start-date").datepicker({
+    onClose: function () {
+      if (new Date($(this).val()) > new Date($("#end-date").val())) {
+        console.log("here")
+       $("#end-date").val($(this).val());
       }
-    });
-
-    $("#end-date").datepicker({
-      onClose: function () {
-        if (new Date($(this).val()) < new Date($("#start-date").val())) {
-         $("#start-date").val($(this).val());
-        }
-      }
-    });
-
-    $('#start-time').timepicker({
-      stepMinute: 5,
-      onClose: function () {
-        var startDate = new Date($("#start-date").val() + " " +  $(this).val());
-        var endDate = new Date($("#end-date").val() + " " + $("#end-time").val());
-
-        if (startDate > endDate) {
-          var timeString = ((startDate.getHours() + 1) % 24) + ":" + startDate.getMinutes();
-
-          timeString = (timeString.length < 5 ? "0".concat(timeString) : timeString);
-          $("#end-time").val(timeString);
-        };
-      }
-    });
-
-    $('#end-time').timepicker({
-      stepMinute: 5,
-      onClose: function () {
-        var startDate = new Date($("#start-date").val() + " " +  $("#start-time").val());
-        var endDate = new Date($("#end-date").val() + " " + $(this).val());
-
-        if (startDate > endDate) {
-          var timeString = ((endDate.getHours() + 23) % 24) + ":" + endDate.getMinutes();
-
-          timeString = (timeString.length < 5 ? "0".concat(timeString) : timeString);
-          $("#start-time").val(timeString);
-        };
-      }
-    });
-
-    var storedStartTime, storedEndTime;
-    var toggleTimesOff = function () {
-      console.log("yes all day")
-      storedStartTime = $("#start-time").val();
-      storedEndTime = $("#end-time").val()
-      $("#start-time").val("00:00").toggle();
-      $("#end-time").val("23:59").toggle();
-    };
-
-    if ($("#all-day").prop("checked") === true) toggleTimesOff();
-
-    $("#all-day").change(function () {
-      if ($("#all-day").prop("checked") === true) {
-        toggleTimesOff();
-      }
-      else {
-        console.log("no all day")
-        $("#start-time").val(storedStartTime).toggle();
-        $("#end-time").val(storedEndTime).toggle();
-      }
-    });
-
-    $("#form-views").dialog({
-      modal: true,
-      width: "auto"
-    });
+    }
   });
+
+  $("#end-date").datepicker({
+    onClose: function () {
+      if (new Date($(this).val()) < new Date($("#start-date").val())) {
+       $("#start-date").val($(this).val());
+      }
+    }
+  });
+
+  $('#start-time').timepicker({
+    stepMinute: 5,
+    onClose: function () {
+      var startDate = new Date($("#start-date").val() + " " +  $(this).val());
+      var endDate = new Date($("#end-date").val() + " " + $("#end-time").val());
+
+      if (startDate > endDate) {
+        var timeString = ((startDate.getHours() + 1) % 24) + ":" + startDate.getMinutes();
+
+        timeString = (timeString.length < 5 ? "0".concat(timeString) : timeString);
+        $("#end-time").val(timeString);
+      };
+    }
+  });
+
+  $('#end-time').timepicker({
+    stepMinute: 5,
+    onClose: function () {
+      var startDate = new Date($("#start-date").val() + " " +  $("#start-time").val());
+      var endDate = new Date($("#end-date").val() + " " + $(this).val());
+
+      if (startDate > endDate) {
+        var timeString = ((endDate.getHours() + 23) % 24) + ":" + endDate.getMinutes();
+
+        timeString = (timeString.length < 5 ? "0".concat(timeString) : timeString);
+        $("#start-time").val(timeString);
+      };
+    }
+  });
+
+  var storedStartTime, storedEndTime;
+  var toggleTimesOff = function () {
+    console.log("yes all day")
+    storedStartTime = $("#start-time").val();
+    storedEndTime = $("#end-time").val()
+    $("#start-time").val("00:00").toggle();
+    $("#end-time").val("23:59").toggle();
+  };
+
+  if ($("#all-day").prop("checked") === true) toggleTimesOff();
+
+  $("#all-day").change(function () {
+    if ($("#all-day").prop("checked") === true) {
+      toggleTimesOff();
+    }
+    else {
+      console.log("no all day")
+      $("#start-time").val(storedStartTime).toggle();
+      $("#end-time").val(storedEndTime).toggle();
+    }
+  });
+
+  $("#form-views").dialog({
+    beforeClose: function () {
+      $("#form-views").empty();
+      $("#form-views").unbind();
+    },
+    modal: true,
+    width: "auto"
+  });
+});
 </script>

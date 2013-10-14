@@ -7,7 +7,7 @@
 <li>
 
   <% calendars.each(function (calendar) { %>
-    <ul class="cal-list-item menu">
+    <ul class="cal-list-item menu top">
       <li class="cal-color" data-color="<%= calendar.get("color") %>" data-calendar="<%= calendar.id %>"></li>
       <li class="menu">
         <a class="calendar menu" href="#"><%= calendar.get("title") %></a>
@@ -21,13 +21,14 @@
 
 <script>
 $(document).ready(function () {
-  $(".cal-color").each(function() {
+  $(".top > .cal-color").each(function() {
     var $el = $(this);
     $el.css("background", function () {
       return $el.data("color")
     });
   });
-  $(".cal-color").on("click", function () {
+
+  $(".top > .cal-color").on("click", function () {
     var $el = $(this);
     if ($el.css("background-color") == "rgb(255, 255, 255)") {
       calEvents = (function () {

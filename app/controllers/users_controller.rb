@@ -31,7 +31,8 @@ class UsersController < ApplicationController
                   only: [:email]
                 }
               },
-              methods: [:owner_email, :owner_name, :emails_shared_with]
+              methods: [:owner_email, :owner_name, :emails_shared_with],
+              except: [:owner_id]
             },
             make_event_changes_calendars: {
               include: {
@@ -41,7 +42,7 @@ class UsersController < ApplicationController
                 }
               },
               methods: [:owner_email, :owner_name],
-              except: [:owner_id, :description, :title]
+              except: [:owner_id, :description, :title],
             },
             see_event_details_calendars: {
               include: {
@@ -80,12 +81,14 @@ class UsersController < ApplicationController
 
     if params[:user][:password].blank?
       if @user.update_without_password(params[:user])
+        Time.zone = @user.time_zone
         render json: @user
       else
         render json: @user.errors.full_messages
       end
     else
       if @user.update_attributes(params[:user])
+        Time.zone = @user.time_zone
         render json: @user
       else
         render json: @user.errors.full_messages

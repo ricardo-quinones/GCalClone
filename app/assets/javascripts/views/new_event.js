@@ -17,25 +17,18 @@ GCalClone.Views.NewEvent = Backbone.View.extend({
     return self;
   },
 
-  closeDialog: function () {
-    this.$el.dialog("close");
-    this.$el.empty();
-    this.$el.unbind();
-  },
-
   create: function(event) {
     var self = this;
     event.preventDefault();
 
     var formData = $(event.target.form).serializeJSON();
     this.convertDates(formData.cal_event);
-    console.log(formData);
 
     self.collection.create(formData, {
       wait: true,
       success: function (response) {
         response.addFullCalendarAttrs();
-        self.closeDialog();
+        self.$el.dialog("close");
         $("#calendar-views").fullCalendar("renderEvent", response.toJSON());
       },
       error: function (response) {

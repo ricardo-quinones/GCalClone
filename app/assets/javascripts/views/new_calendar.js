@@ -13,12 +13,6 @@ GCalClone.Views.NewCalendar = Backbone.View.extend({
     "click .remove-share": "removeCalendarShare"
   },
 
-  closeDialog: function () {
-    this.$el.dialog("close");
-    this.$el.empty();
-    this.$el.unbind();
-  },
-
   render: function () {
     var self = this;
     self.$el.html(self.template({ calendar: self.model }));
@@ -39,13 +33,11 @@ GCalClone.Views.NewCalendar = Backbone.View.extend({
 
     var formData = $(event.target.form).serializeJSON();
     formData["calendar_shares"] = this.newCalendarShares;
-    console.log(formData);
-    console.log(self.collection);
 
     self.collection.create(formData, {
       wait: true,
       success: function (response) {
-        self.closeDialog();
+        self.$el.dialog("close");
       },
       error: function (response) {
         console.log(response);

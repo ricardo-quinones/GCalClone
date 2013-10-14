@@ -2,7 +2,7 @@ GCalClone.Views.Calendars = Backbone.View.extend({
   el: "#calendar-views",
 
   initialize: function () {
-    this.currentView = null
+    this.currentView = null;
 
     this.collection.bind('reset', this.addAll);
   },
@@ -88,9 +88,8 @@ GCalClone.Views.Calendars = Backbone.View.extend({
   },
 
   eventDropOrResize: function (fcEvent) {
-    console.log(fcEvent);
     this.collection.get(fcEvent.id).save(
-      {cal_event: {start_date: fcEvent.start, end_date: fcEvent.end}}, {
+      {cal_event: {start_date: fcEvent.start, end_date: fcEvent.end, all_day: fcEvent.allDay}}, {
         patch: true,
         wait: true,
         success: function (response) {
