@@ -1,7 +1,7 @@
 GCalClone.Views.NewCalendar = Backbone.View.extend({
 
   initialize: function () {
-    this.newCalendarShares = {}
+    this.newCalendarShares = {};
   },
 
   template: JST['calendars/new'],
@@ -13,11 +13,17 @@ GCalClone.Views.NewCalendar = Backbone.View.extend({
     "click .remove-share": "removeCalendarShare"
   },
 
+  closeDialog: function () {
+    this.$el.dialog("close");
+    this.$el.empty();
+    this.$el.unbind();
+  },
+
   render: function () {
     var self = this;
     self.$el.html(self.template({ calendar: self.model }));
 
-    $calendarShare = self.$el.find("#add-calendar-share")
+    var $calendarShare = self.$el.find("#add-calendar-share");
     var newCalendarShare = new GCalClone.Views.NewCalendarShare({
       el: $calendarShare
     });
@@ -33,11 +39,13 @@ GCalClone.Views.NewCalendar = Backbone.View.extend({
 
     var formData = $(event.target.form).serializeJSON();
     formData["calendar_shares"] = this.newCalendarShares;
-    // console.log(formData);
+    console.log(formData);
+    console.log(self.collection);
 
     self.collection.create(formData, {
+      wait: true,
       success: function (response) {
-        Backbone.history.navigate("#/");
+        self.closeDialog();
       },
       error: function (response) {
         console.log(response);
@@ -54,12 +62,12 @@ GCalClone.Views.NewCalendar = Backbone.View.extend({
       this.newCalendarShares[key] = formData;
 
       $buildNewShare = JST["calendar_shares/build_email"]({
-        newShare: formData,
+        calShare: formData,
         key: key
       });
 
-      $("#pending-calendar-shares").append($buildNewShare);
-      $(event.target).val("");
+      $("#listed-calendar-shares").append($buildNewShare);
+      $("#email-input").val("");
     }
   },
 

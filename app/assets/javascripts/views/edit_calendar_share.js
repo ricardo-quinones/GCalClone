@@ -15,7 +15,10 @@ GCalClone.Views.EditCalendarShare = Backbone.View.extend({
 
   render: function () {
     var self = this;
-    self.$el.html(self.template({ calendarShare: this.model }));
+    self.$el.html(self.template({
+      calendarShare: this.model,
+      calendar: this.options.calendar
+    }));
     return self;
   },
 

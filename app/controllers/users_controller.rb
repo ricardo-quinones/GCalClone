@@ -10,13 +10,11 @@ class UsersController < ApplicationController
             calendars: {
               include: {
                 :events => {
-                  methods: [:local_start_date, :local_end_date],
-                  except: [:start_date, :end_date]
+                  methods: [:local_start_date, :local_end_date, :color],
+                  except: [:start_date, :end_date, :event_color]
                 },
-                :users_shared_with => {
-                  only: [:email]
-                }
-              }
+              },
+              methods: [:emails_shared_with]
             },
             calendar_shares: {
               except: [:user_id, :permissions],
@@ -25,20 +23,20 @@ class UsersController < ApplicationController
             manage_sharing_calendars: {
               include: {
                 events: {
-                  methods: [:local_start_date, :local_end_date],
-                  except: [:start_date, :end_date]
+                  methods: [:local_start_date, :local_end_date, :color],
+                  except: [:start_date, :end_date, :event_color]
                 },
                 users_shared_with: {
                   only: [:email]
                 }
               },
-              methods: [:owner_email, :owner_name]
+              methods: [:owner_email, :owner_name, :emails_shared_with]
             },
             make_event_changes_calendars: {
               include: {
                 events: {
-                  methods: [:local_start_date, :local_end_date],
-                  except: [:start_date, :end_date]
+                  methods: [:local_start_date, :local_end_date, :color],
+                  except: [:start_date, :end_date, :event_color]
                 }
               },
               methods: [:owner_email, :owner_name],
@@ -47,8 +45,8 @@ class UsersController < ApplicationController
             see_event_details_calendars: {
               include: {
                 events: {
-                  methods: [:local_start_date, :local_end_date],
-                  except: [:start_date, :end_date, ]
+                  methods: [:local_start_date, :local_end_date, :color],
+                  except: [:start_date, :end_date, :event_color]
                 }
               },
               methods: [:owner_email, :owner_name],

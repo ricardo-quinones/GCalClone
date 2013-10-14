@@ -1,10 +1,17 @@
-<li class="cal-list-title"><a href="#/calendars">My Calendars</a></li>
+<li class="cal-list-title menu">
+  <a class="menu" href="#">My Calendars</a>
+  <ul class="drop-down">
+    <li><a class="menu" href="#" id="create-cal">Create new calendar</a></li>
+  </ul>
+</li>
 <li>
+
   <% calendars.each(function (calendar) { %>
+    <% console.log(calendar.get("color")) %>
     <ul class="cal-list-item menu">
-      <li class="cal-color"></li>
+      <li class="cal-color color-<%= calendar.get("color").slice(1) %>"></li>
       <li class="menu">
-        <a class="calendar" href="#"><%= calendar.get("title") %></a>
+        <a class="calendar menu" href="#"><%= calendar.get("title") %></a>
       </li>
       <li class="cal-menu">
         <%= JST["calendars/sidebar/drop_down"]({id: calendar.id, isTop: true}) %>
@@ -12,3 +19,11 @@
     </ul>
   <% }); %>
 </li>
+
+<script>
+$(document).ready(function () {
+  $("#cal-color").css("background", function () {
+    return $(this).data("color");
+  });
+});
+</script>

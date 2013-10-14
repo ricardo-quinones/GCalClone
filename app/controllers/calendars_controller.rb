@@ -39,12 +39,17 @@ class CalendarsController < ApplicationController
   end
 
   def update
-    @calendar = Calendar.find(params[:id])
-
-    if @calendar.update_attributes(params[:calendar])
-      render json: @calendar
-    else
+    begin
+      Calendar.transaction do
+        @calendar = Calendar.find(params[:id])
+        @calendar.update_attributes(params[:calendar])
+        @calendar.calendar_shares = CalendarShare.build_from_emails(params)
+      end
+      raise "Invalid input" unless @calendar.errors.full_messages.empty?
+    rescue
       render json: @calendar.errors.full_messages, status: 422
+    else
+      render json: @calendar
     end
   end
 

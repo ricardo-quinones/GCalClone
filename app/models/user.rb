@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
 
   before_save :ensure_token
   before_save :change_time_zone_string, unless: :persisted?
+  before_save :generate_default_calendars, unless: :persisted?
 
   before_validation { email.downcase! }
   EMAIL_REGEX = /\A[^\W_]([\w+\-]|(?<!\.)\.)+@[^\W_]([a-z\d\-]|(?<!\.)\.)+(?<!\.)\.[a-z]+\z/
@@ -68,6 +69,13 @@ class User < ActiveRecord::Base
 
   def password_nil?
     password.nil?
+  end
+
+  def generate_default_calendars
+    self.calendars = [
+      Calendar.new(title: "Personal", time_zone: self.time_zone),
+      Calendar.new(title: "Work", time_zone: self.time_zone)
+    ]
   end
 
   def update_without_password(params)

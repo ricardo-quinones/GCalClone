@@ -33,12 +33,25 @@
   padding: 10px;
   text-align: center;
   border-bottom: 1px solid #bbb;
-  margin-bottom: 5px;
   border-top: 1px solid #bbb;
+  cursor: default;
+}
+
+.cal-list-title:hover > .drop-down {
+  display: block;
+  top: 0;
+  left: 215px;
+  width: 300px;
+  z-index: 9999;
 }
 
 #owned-calendars a {
  border-top: none;
+}
+
+.cal-list-item {
+  padding: 6px;
+  position: relative;
 }
 
 .cal-list-item:after {
@@ -47,31 +60,85 @@
   clear: both;
 }
 
-.cal-list-item:last-child {
-  margin-bottom: 5px;
-}
-
 .cal-list-item > li {
   display: block;
   float: left;
 }
 
 .cal-list-item:hover .drop-down {
+  position: absolute;
   display: block;
+  top: -2px;
   left: 215px;
   width: 300px;
   z-index: 9999;
 }
 
+.cal-list-item:hover a {
+  color: none;
+}
+
 .cal-color {
   display: block;
-  background: rgb(220, 170, 100);
   width: 15px;
   height: 15px;
   border-radius: 3px;
   margin: 5px;
+  border: 1px solid white;
 }
 
 .calendar {
   padding: 5px;
+}
+
+.color-0099FF {
+  background: #0099FF;
+}
+
+.color-99CCFF {
+  background: #99CCFF;
+}
+
+.color-33CC33 {
+  background: #33CC33;
+}
+
+.color-CC9933 {
+  background: #CC9933;
+}
+
+.color-CC0000 {
+  background: #CC0000;
+}
+
+.color-FFFF33 {
+  background: #FFFF33;
+}
+
+.color-330099 {
+  background: #330099;
+}
+
+.color-C0C0C0 {
+  background: #C0C0C0;
+}
+
+.color-E80000 {
+  background: #E80000;
+}
+
+.color-9966CC {
+  background: #9966CC;
+}
+
+.color-990000 {
+  background: #990000;
+}
+
+.color-009900 {
+  background: #009900;
+}
+
+.color-009999 {
+  background: #009999;
 }

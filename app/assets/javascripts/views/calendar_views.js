@@ -10,7 +10,8 @@ GCalClone.Views.Calendars = Backbone.View.extend({
   events: {
     "click .new-cal-event": "addToCal",
     "click .cal-settings": "editCal",
-    "click .cal-share-settings": "editCalShare"
+    "click .cal-share-settings": "editCalShare",
+    "click #create-cal": "newCal"
   },
 
   closePreviousView: function () {
@@ -92,7 +93,10 @@ GCalClone.Views.Calendars = Backbone.View.extend({
         patch: true,
         wait: true,
         success: function (response) {
-          console.log(response);
+          response.addFullCalendarAttrs();
+          var fcEvent = $("#calendar-views").fullCalendar("clientEvents", response.get('id'))[0];
+          _(fcEvent).extend(response.attributes);
+          $("#calendar-views").fullCalendar("updateEvent", fcEvent);
         }
       }
     );

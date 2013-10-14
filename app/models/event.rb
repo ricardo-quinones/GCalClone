@@ -1,9 +1,8 @@
 class Event < ActiveRecord::Base
-  attr_accessible :all_day, :end_date, :location, :start_date,
-    :title, :calendar_id, :creator_id, :time_zone, :description
+  attr_accessible :all_day, :end_date, :location, :start_date, :title,
+    :calendar_id, :creator_id, :time_zone, :description, :event_color
 
   before_validation :adjust_dates
-  before_save :set_event_color
 
   validates :all_day, :inclusion => {:in => [true, false]}
   validates_presence_of :calendar_id, :start_date, :end_date,
@@ -27,8 +26,8 @@ class Event < ActiveRecord::Base
     self.end_date.in_time_zone(self.time_zone).iso8601
   end
 
-  def set_event_color
-    self.color = self.calendar.color
+  def color
+    self.event_color || self.calendar.color
   end
 
   # COLORS = [

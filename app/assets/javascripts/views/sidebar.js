@@ -61,16 +61,29 @@ GCalClone.Views.Sidebar = Backbone.View.extend({
    editCalendarView.render();
   },
 
+  // this refers to calendars that are shared with you, e.g. subscribed calendars
   editCalShare: function (event) {
     event.preventDefault();
     var calendar = this.options.subscribedCalendars.get($(event.target).data("id"));
     var calendarShare = this.options.calendarShares.findWhere({calendar_id: calendar.id});
-    console.log(calendarShare)
+
     var editCalendarShareView = new GCalClone.Views.EditCalendarShare({
       el: $("#form-views"),
       model: calendarShare,
     });
 
     editCalendarShareView.render();
+  },
+
+  newCal: function (event) {
+    event.preventDefault();
+
+    var newCalendarView = new GCalClone.Views.NewCalendar({
+      el: $("#form-views"),
+      collection: this.collection,
+      calendarShares: this.options.calendarShares
+    });
+
+    newCalendarView.render();
   }
 });

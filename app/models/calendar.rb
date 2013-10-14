@@ -1,7 +1,7 @@
 class Calendar < ActiveRecord::Base
   attr_accessible :description, :owner_id, :time_zone, :title, :color
 
-  before_save :set_random_color
+  before_save :set_random_color, unless: :persisted?
   validates_presence_of :owner_id, :time_zone, :title
 
   belongs_to :owner, class_name: "User", foreign_key: :owner_id
@@ -20,6 +20,17 @@ class Calendar < ActiveRecord::Base
 
   def set_random_color
     self.color = COLORS.sample
+  end
+
+  def emails_shared_with
+  [].tap do |array|
+      self.calendar_shares.each do |calendar_share|
+        hash = Hash.new
+        hash[:email] = calendar_share.user.email
+        hash[:permissions] = calendar_share.permissions
+        array << hash
+      end
+    end
   end
 
   COLORS = [
