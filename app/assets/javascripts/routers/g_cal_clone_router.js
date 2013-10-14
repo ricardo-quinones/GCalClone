@@ -103,22 +103,10 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
     this.currentView.addAll();
   },
 
-  // agenda: function () {
-  //   this.closePreviousView();
-  //
-  //   this.currentView = new GCalClone.Views.CalendarsAgenda({
-  //     el: this.$calendarView,
-  //     collection: this.events,
-  //     myCalendars: this.myCalendars,
-  //     subscribedCalendars: this.subscribedCalendars,
-  //     calendarShares:  this.calendarShares
-  //   });
-  //
-  //   this.currentView.render();
-  // },
-
   editUser: function () {
     this.closePreviousView();
+    $("#sidebar").empty();
+    $("#sidebar").unbind();
 
     this.currentView = new GCalClone.Views.EditUser({
       el: this.$settingsView,

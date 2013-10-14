@@ -7,9 +7,8 @@
 <li>
 
   <% calendars.each(function (calendar) { %>
-    <% console.log(calendar.get("color")) %>
     <ul class="cal-list-item menu">
-      <li class="cal-color color-<%= calendar.get("color").slice(1) %>"></li>
+      <li class="cal-color" data-color="<%= calendar.get("color") %>" data-calendar="<%= calendar.id %>"></li>
       <li class="menu">
         <a class="calendar menu" href="#"><%= calendar.get("title") %></a>
       </li>
@@ -22,8 +21,37 @@
 
 <script>
 $(document).ready(function () {
-  $("#cal-color").css("background", function () {
-    return $(this).data("color");
+  $(".cal-color").each(function() {
+    var $el = $(this);
+    $el.css("background", function () {
+      return $el.data("color")
+    });
+  });
+  $(".cal-color").on("click", function () {
+    var $el = $(this);
+    if ($el.css("background-color") == "rgb(255, 255, 255)") {
+      calEvents = (function () {
+        return _(GCalClone.events.where({calendar_id: $el.data("calendar")})).map(function (calEvent) {
+          return calEvent.toJSON();
+        });
+      })();
+
+      $("#calendar-views").fullCalendar("addEventSource", calEvents);
+
+      $el.css({
+        "background-color": $el.css("border-color"),
+        "border-color": "white"
+      });
+    }
+    else {
+      $("#calendar-views").fullCalendar("removeEvents", function (calEvent) {
+        return calEvent.calendar_id == $el.data("calendar");
+      });
+      $el.css({
+        "border-color": $el.css("background-color"),
+        "background-color": "white"
+      });
+    };
   });
 });
 </script>

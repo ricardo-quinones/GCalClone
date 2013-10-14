@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131013222527) do
+ActiveRecord::Schema.define(:version => 20131014144622) do
 
   create_table "calendar_shares", :force => true do |t|
     t.integer  "calendar_id",                                      :null => false
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20131013222527) do
     t.datetime "updated_at",                                       :null => false
     t.string   "title"
     t.text     "description"
+    t.string   "color"
   end
 
   add_index "calendar_shares", ["calendar_id"], :name => "index_calendar_shares_on_calendar_id"
@@ -62,14 +63,15 @@ ActiveRecord::Schema.define(:version => 20131013222527) do
   add_index "events", ["title"], :name => "index_events_on_title"
 
   create_table "users", :force => true do |t|
-    t.string   "first_name",      :null => false
-    t.string   "last_name",       :null => false
-    t.string   "email",           :null => false
-    t.string   "password_digest", :null => false
-    t.string   "time_zone",       :null => false
-    t.string   "token",           :null => false
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.string   "first_name",          :null => false
+    t.string   "last_name",           :null => false
+    t.string   "email",               :null => false
+    t.string   "password_digest",     :null => false
+    t.string   "time_zone",           :null => false
+    t.string   "token",               :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.integer  "default_calendar_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

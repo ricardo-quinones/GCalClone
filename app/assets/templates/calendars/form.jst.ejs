@@ -13,18 +13,23 @@
   <div class="form-box">
     <div class="form-row">
       <label>Title</label>
-      <input type="text" name="calendar[title]" value="<%= inputTitle %>">
+      <input
+        class="ui-widget-content ui-corner-all"
+        type="text"
+        name="calendar[title]"
+        value="<%= inputTitle %>">
     </div>
 
     <div class="form-row">
       <label>Description</label>
       <textarea
+      class="ui-widget-content ui-corner-all"
         name="calendar[description]"><%= description %></textarea>
     </div>
 
     <div class="form-row">
       <label>Timezone</label>
-      <select name="calendar[time_zone]" id="cal-settings-timezone">
+      <select name="calendar[time_zone]" id="cal-settings-timezone" class="ui-widget-content ui-corner-all">
         <% _(TIME_ZONES).each(function (timeZone) { %>
           <% var name = timeZone.name %>
           <% var selected = (selectTimeZone == name ? "selected" : "") %>
@@ -33,7 +38,7 @@
       </select>
     </div>
   </div>
-  <input type="submit" value="<%= buttonText %>" id="<%= elId %>" class="button-lrg bring-to-top">
+  <input type="submit" value="<%= buttonText %>" id="<%= elId %>" class="button-lrg">
 </form>
 
 <script>

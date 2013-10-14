@@ -2,7 +2,7 @@
 <li>
   <% _(calendarShares).each(function (calendarShare) { %>
     <ul class="cal-list-item menu">
-      <li class="cal-color"></li>
+      <li class="cal-color" data-color="<%= calendarShare.get("color") %>"></li>
       <li class="menu">
         <a class="calendar" href="#"><%= calendarShare.get("title") %></a>
       </li>
@@ -16,3 +16,14 @@
     </ul>
   <% }); %>
 </li>
+
+<script>
+$(document).ready(function () {
+  $(".cal-color").each(function() {
+    $el = $(this);
+    $el.css("background", function () {
+      return $el.data("color")
+    });
+  });
+});
+</script>

@@ -16,6 +16,7 @@ class UsersController < ApplicationController
               },
               methods: [:emails_shared_with]
             },
+            # these are calendars shared with the user
             calendar_shares: {
               except: [:user_id, :permissions],
               methods: [:owner_email, :calendar_time_zone]
@@ -66,6 +67,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 
     if @user.save
+      @user.set_default_calendar_id
       sign_in @user
       redirect_to root_url
     else

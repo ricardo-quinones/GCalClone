@@ -52,8 +52,9 @@
 
     <div class="form-row">
       <label>All day?</label>
-      <% var checked = (!isNew && calEvent.get("all_day") ? "checked" : "") %>
+      <% var checked = (calEvent.get("allDay") ? "checked" : "") %>
       <input
+        id="all-day"
         class="ui-widget-content ui-corner-all"
         type="checkbox"
         name="cal_event[all_day]"
@@ -112,6 +113,7 @@
         }
       }
     });
+
     $("#end-date").datepicker({
       onClose: function () {
         if (new Date($(this).val()) < new Date($("#start-date").val())) {
@@ -119,8 +121,9 @@
         }
       }
     });
+
     $('#start-time').timepicker({
-      stepMinute: 15,
+      stepMinute: 5,
       onClose: function () {
         var startDate = new Date($("#start-date").val() + " " +  $(this).val());
         var endDate = new Date($("#end-date").val() + " " + $("#end-time").val());
@@ -133,17 +136,41 @@
         };
       }
     });
+
     $('#end-time').timepicker({
-      stepMinute: 15,
+      stepMinute: 5,
       onClose: function () {
         var startDate = new Date($("#start-date").val() + " " +  $("#start-time").val());
         var endDate = new Date($("#end-date").val() + " " + $(this).val());
 
         if (startDate > endDate) {
           var timeString = ((endDate.getHours() + 23) % 24) + ":" + endDate.getMinutes();
+
           timeString = (timeString.length < 5 ? "0".concat(timeString) : timeString);
           $("#start-time").val(timeString);
         };
+      }
+    });
+
+    var storedStartTime, storedEndTime;
+    var toggleTimesOff = function () {
+      console.log("yes all day")
+      storedStartTime = $("#start-time").val();
+      storedEndTime = $("#end-time").val()
+      $("#start-time").val("00:00").toggle();
+      $("#end-time").val("23:59").toggle();
+    };
+
+    if ($("#all-day").prop("checked") === true) toggleTimesOff();
+
+    $("#all-day").change(function () {
+      if ($("#all-day").prop("checked") === true) {
+        toggleTimesOff();
+      }
+      else {
+        console.log("no all day")
+        $("#start-time").val(storedStartTime).toggle();
+        $("#end-time").val(storedEndTime).toggle();
       }
     });
 

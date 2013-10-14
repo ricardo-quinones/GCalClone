@@ -25,6 +25,17 @@
     </div>
 
     <div class="form-row">
+      <label>Default Calendar</label>
+      <select name="user[default_calendar_id]">
+        <% GCalClone.myCalendars.each(function (calendar) { %>
+          <% var calId = user.get('default_calendar_id') %>
+          <% var calSelect = (calId === calendar.get('id') ? "selected" : "") %>
+          <option value="<%= calendar.id %>" <%= calSelect %>><%= calendar.get("title") %></option>
+        <% }); %>
+      </select>
+    </div>
+
+    <div class="form-row">
       <label>Timezone</label>
       <select name="user[time_zone]" class="select-drop-down">
         <% _(TIME_ZONES).each(function (timeZone) { %>

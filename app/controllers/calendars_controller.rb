@@ -34,7 +34,7 @@ class CalendarsController < ApplicationController
     rescue
       render json: @calendar.errors.full_messages, status: 422
     else
-      render json: @calendar.as_json(include: [:calendar_shares])
+      render json: @calendar.as_json(include: [:calendar_shares], methods: [:emails_shared_with])
     end
   end
 
@@ -49,7 +49,7 @@ class CalendarsController < ApplicationController
     rescue
       render json: @calendar.errors.full_messages, status: 422
     else
-      render json: @calendar
+      render json: @calendar.as_json(include: [:calendar_shares], methods: [:emails_shared_with])
     end
   end
 

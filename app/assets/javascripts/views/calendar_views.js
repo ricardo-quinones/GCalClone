@@ -59,17 +59,18 @@ GCalClone.Views.Calendars = Backbone.View.extend({
     this.$el.fullCalendar('addEventSource', this.collection.toJSON());
   },
 
-  select: function (startDate, endDate) {
+  select: function (startDate, endDate, allDay) {
     this.closePreviousView();
 
     this.currentView = new GCalClone.Views.NewEvent({
       el: $("#form-views"),
       model: new GCalClone.Models.Event({
         start: startDate,
-        end: endDate
+        end: endDate,
+        allDay: allDay
       }),
       collection: this.collection,
-      calendar: this.options.myCalendars.get(1) // change later
+      calendar: this.options.myCalendars.get(GCalClone.currentUser.get("default_calendar_id"))
     });
 
     this.currentView.render();

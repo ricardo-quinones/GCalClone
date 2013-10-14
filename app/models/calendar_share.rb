@@ -1,6 +1,7 @@
 class CalendarShare < ActiveRecord::Base
-  attr_accessible :calendar_id, :user_id, :permissions, :title, :description
+  attr_accessible :calendar_id, :user_id, :permissions, :title, :description, :color
 
+  before_save :set_random_color, unless: :persisted?
   before_save :save_default_title_and_description, :if => :new_record?
 
   validates :user_id, uniqueness: { scope: :calendar_id }
@@ -9,18 +10,22 @@ class CalendarShare < ActiveRecord::Base
   belongs_to :user
   belongs_to :calendar
 
-  def self.build_from_emails(params)
+  def self.build_from_emails(params) 
     attrs = params[:calendar_shares].values.map(&:values)
     user_ids = User.where(email: attrs.map { |el| el[0] }).map(&:id)
-
+    
     new_params = attrs.map.with_index(0) do |el, i|
       hash = {};
-      hash[:user_id] = user_ids[0]
+      hash[:user_id] = user_ids[i]
       hash[:permissions] = el[1]
       hash
     end
 
     new_params.map { |new_attrs| CalendarShare.new(new_attrs) }
+  end
+
+  def set_random_color
+    self.color = COLORS.sample
   end
 
   def save_default_title_and_description
@@ -35,4 +40,20 @@ class CalendarShare < ActiveRecord::Base
   def calendar_time_zone
     ActiveSupport::TimeZone.new(self.calendar.time_zone).to_s
   end
+
+  COLORS = [
+    "#0099FF",
+    "#33CC33",
+    "#CC9933",
+    "#99CCFF",
+    "#CC0000",
+    "#FFFF33",
+    "#330099",
+    "#C0C0C0",
+    "#E80000",
+    "#9966CC",
+    "#990000",
+    "#009900",
+    "#009999"
+  ]
 end

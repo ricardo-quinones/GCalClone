@@ -1,11 +1,12 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :name, :time_zone,
-    :first_name, :last_name
+    :first_name, :last_name, :default_calendar_id
   attr_reader :name
 
   before_save :ensure_token
   before_save :change_time_zone_string, unless: :persisted?
   before_save :generate_default_calendars, unless: :persisted?
+  # after_save :set_default_calendar_id, if: :default_calendar_id_nil?
 
   before_validation { email.downcase! }
   EMAIL_REGEX = /\A[^\W_]([\w+\-]|(?<!\.)\.)+@[^\W_]([a-z\d\-]|(?<!\.)\.)+(?<!\.)\.[a-z]+\z/
@@ -76,6 +77,15 @@ class User < ActiveRecord::Base
       Calendar.new(title: "Personal", time_zone: self.time_zone),
       Calendar.new(title: "Work", time_zone: self.time_zone)
     ]
+  end
+
+  # def default_calendar_id_nil?
+  #   self.default_calendar_id.nil?
+  # end
+  #
+  def set_default_calendar_id
+    self.default_calendar_id ||= self.calendars.first.id
+    self.save
   end
 
   def update_without_password(params)
