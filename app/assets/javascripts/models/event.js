@@ -4,8 +4,8 @@ GCalClone.Models.Event = Backbone.Model.extend({
   addFullCalendarAttrs: function () {
     var self = this;
     _(self.attributes).extend({
-      start: new Date(self.get("local_start_date")),
-      end: new Date(self.get("local_end_date")),
+      start: new Date(typeof self.get("local_start_date" == "undefined") ? self.get("start_date"): self.get("local_start_date")),
+      end: new Date(typeof self.get("local_end_date" == "undefined") ? self.get("end_date"): self.get("local_end_date")),
       allDay: self.get("all_day"),
       color: (function () {
         var calendarShare = GCalClone.calendarShares.findWhere({calendar_id: self.get("calendar_id")});

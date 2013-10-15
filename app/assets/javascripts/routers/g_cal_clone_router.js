@@ -16,14 +16,15 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
     this.myCalendars.sort();
 
     var subscribedCalendars = this.currentUser.get("make_event_changes_calendars").concat(
-      this.currentUser.get("see_event_details_calendars")
+      this.currentUser.get("see_event_details_calendars")).concat(
+      this.currentUser.get("subscribed_user_availability_calendars")
     );
     GCalClone.subscribedCalendars = new GCalClone.Collections.Calendars(
       subscribedCalendars
     );
     this.subscribedCalendars = GCalClone.subscribedCalendars;
     this.subscribedCalendars.comparator = function (calendar) {
-      return calendar.id
+      return calendar.get("title")
     };
     this.subscribedCalendars.sort();
 

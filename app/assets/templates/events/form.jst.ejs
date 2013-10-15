@@ -108,7 +108,7 @@ $(document).ready(function(){
   $("#start-date").datepicker({
     onClose: function () {
       if (new Date($(this).val()) > new Date($("#end-date").val())) {
-        console.log("here")
+
        $("#end-date").val($(this).val());
       }
     }
@@ -154,7 +154,6 @@ $(document).ready(function(){
 
   var storedStartTime, storedEndTime;
   var toggleTimesOff = function () {
-    console.log("yes all day")
     storedStartTime = $("#start-time").val();
     storedEndTime = $("#end-time").val()
     $("#start-time").val("00:00").toggle();
@@ -168,7 +167,6 @@ $(document).ready(function(){
       toggleTimesOff();
     }
     else {
-      console.log("no all day")
       $("#start-time").val(storedStartTime).toggle();
       $("#end-time").val(storedEndTime).toggle();
     }

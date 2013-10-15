@@ -33,6 +33,20 @@ class User < ActiveRecord::Base
   has_many :calendar_shares, dependent: :destroy
   has_many :shared_calendars, through: :calendar_shares, source: :calendar
 
+  has_many :availability_statuses
+  has_many(
+    :events_labeled_as_busy,
+    through: :availability_statuses,
+    source: :event,
+    conditions: ['availability_statuses.availability = ?', 'busy']
+  )
+
+  has_many :shares_of_users_availability, class_name: "AvailabilityShare", foreign_key: :availability_owner_id
+  has_many :users_that_can_see_availability, through: :shares_of_users_availability, source: :availability_subscriber
+
+  has_many :availabilities_shared_with_user, class_name: "AvailabilityShare", foreign_key: :availability_subscriber_id
+  has_many :users_that_share_their_availability, through: :availabilities_shared_with_user, source: :availability_owner
+
   has_many(
     :manage_sharing_calendars,
     through: :calendar_shares,
@@ -54,12 +68,18 @@ class User < ActiveRecord::Base
     conditions: ['calendar_shares.permissions = ?', "See all event details"]
   )
 
-  has_many(
-    :see_free_or_busy_calendars,
-    through: :calendar_shares,
-    source: :calendar,
-    conditions: ['calendar_shares.permissions = ?', "See only free/busy status"]
-  )
+  def subscribed_user_availability_calendars
+    [].tap do |array|
+      self.users_that_share_their_availability.each do |user|
+        hash = {}
+        hash["availability_share_id"] = self.availabilities_shared_with_user.find_by_availability_owner_id(user.id).id
+        hash["email"] = user.email
+        hash["events"] = user.events_labeled_as_busy.select.as_json(only: [:start_date, :end_date, :all_day, :time_zone])
+        hash["title"] = "#{user.first_name} #{user.last_name}"
+        array << hash
+      end
+    end
+  end
 
   def self.generate_token
     SecureRandom.urlsafe_base64(16)

@@ -1,8 +1,10 @@
+<% var isAvailabilityShare = (typeof id == "undefined") %>
 <% var calClass = (isTop ? "cal-settings" : "cal-share-settings") %>
-<% var calendarId = (typeof calendar_id == "undefined" ? id : calendar_id) %>
+<% calClass = (isAvailabilityShare ? "availability-calendar-settings" : calClass) %>
+<% var calendarId = (typeof calendarId == "undefined" ? id : calendarId) %>
+<% console.log(calendarId) %>
 <ul class="drop-down">
   <li><a class="menu" href="#">Display just this Calendar</a></li>
   <li><a class="menu <%= calClass %>" href="#" data-id="<%= calendarId %>">Calendar Settings</a></li>
   <li><a class="menu new-cal-event" data-id="<%= calendarId %>" href="#">Add event to this Calendar</a></li>
-  <li><a class="menu" href="#">Add reminder to this Calendar</a></li>
 </ul>

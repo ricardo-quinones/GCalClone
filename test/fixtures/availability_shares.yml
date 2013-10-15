@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  calendar_owner_id: 1
+  person_shared_with_id: 1
+
+two:
+  calendar_owner_id: 1
+  person_shared_with_id: 1

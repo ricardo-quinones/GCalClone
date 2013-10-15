@@ -11,7 +11,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131014144622) do
+ActiveRecord::Schema.define(:version => 20131015181143) do
+
+  create_table "availability_shares", :force => true do |t|
+    t.integer  "availability_owner_id",      :null => false
+    t.integer  "availability_subscriber_id", :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.string   "color"
+  end
+
+  add_index "availability_shares", ["availability_owner_id"], :name => "index_availability_shares_on_availability_owner_id"
+  add_index "availability_shares", ["availability_subscriber_id"], :name => "index_availability_shares_on_availability_subscriber_id"
+
+  create_table "availability_statuses", :force => true do |t|
+    t.integer  "user_id",                          :null => false
+    t.integer  "event_id",                         :null => false
+    t.string   "availability", :default => "busy"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
+
+  add_index "availability_statuses", ["event_id"], :name => "index_availability_statuses_on_event_id"
+  add_index "availability_statuses", ["user_id", "event_id"], :name => "index_availability_statuses_on_user_id_and_event_id", :unique => true
+  add_index "availability_statuses", ["user_id"], :name => "index_availability_statuses_on_user_id"
 
   create_table "calendar_shares", :force => true do |t|
     t.integer  "calendar_id",                                      :null => false

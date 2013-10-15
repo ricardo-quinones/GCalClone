@@ -54,7 +54,8 @@ class UsersController < ApplicationController
               methods: [:owner_email, :owner_name],
               except: [:owner_id, :description, :title]
             }
-          }
+          },
+          methods: [:subscribed_user_availability_calendars]
         )
       }
     end

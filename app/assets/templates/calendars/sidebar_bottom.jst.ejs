@@ -1,19 +1,24 @@
 <li class="cal-list-title menu"><a class="menu" href="#/calendars">Subscribed Calendars</a></li>
 <li>
-  <% _(calendarShares).each(function (calendarShare) { %>
+  <% _(calendars).each(function (calendar) { %>
+    <% var isAvailabilityShare = (typeof calendar.id == "undefined") %>
+    <% var calendarId = (isAvailabilityShare ? calendar.get("availability_share_id") : calendar.get("calendar_id")) %>
+    <% var typeOfCalendar = (isAvailabilityShare ? "availability" : "see details") %>
+
     <ul class="cal-list-item menu bottom">
       <li
         class="cal-color"
-        data-color="<%= calendarShare.get("color") %>"
-        data-calendar="<%= calendarShare.get("calendar_id") %>"></li>
+        data-color="<%= calendar.get("color") %>"
+        data-calendar="<%= calendarId %>"
+        data-calendartype=""></li>
       <li class="menu">
-        <a class="calendar" href="#"><%= calendarShare.get("title") %></a>
+        <a class="calendar" href="#"><%= calendar.get("title") %></a>
       </li>
       <li class="cal-menu">
         <%= JST["calendars/sidebar/drop_down"]({
-          id: calendarShare.id,
+          id: calendar.id,
           isTop: false,
-          calendar_id: calendarShare.get("calendar_id")
+          calendarId: calendarId
           }) %>
       </li>
     </ul>
@@ -25,19 +30,25 @@ $(document).ready(function () {
   $(".bottom > .cal-color").each(function() {
     $el = $(this);
     $el.css("background", function () {
-      return $el.data("color")
+      console.log($el.data("color"));
+      return $el.data("color");
     });
   });
 
   $(".bottom > .cal-color").on("click", function () {
     var $el = $(this);
     if ($el.css("background-color") == "rgb(255, 255, 255)") {
-      calEvents = (function () {
-        return _(GCalClone.events.where({calendar_id: $el.data("calendar")})).map(function (calEvent) {
-          return calEvent.toJSON();
-        });
-      })();
-
+      var calEvents;
+      if ($el.data("calendartype") == "see details") {
+        calEvents = (function () {
+          return _(GCalClone.events.where({calendar_id: $el.data("calendar")})).map(function (calEvent) {
+            return calEvent.toJSON();
+          });
+        })();
+      }
+      else {
+        console.log("else");
+      }
       $("#calendar-views").fullCalendar("addEventSource", calEvents);
 
       $el.css({
@@ -46,13 +57,18 @@ $(document).ready(function () {
       });
     }
     else {
-      $("#calendar-views").fullCalendar("removeEvents", function (calEvent) {
-        return calEvent.calendar_id == $el.data("calendar");
-      });
-      $el.css({
-        "border-color": $el.css("background-color"),
-        "background-color": "white"
-      });
+      if ($el.data("calendartype") == "see details") {
+        $("#calendar-views").fullCalendar("removeEvents", function (calEvent) {
+          return calEvent.calendar_id == $el.data("calendar");
+        });
+        $el.css({
+          "border-color": $el.css("background-color"),
+          "background-color": "white"
+        });
+      }
+      else {
+        console.log("else");
+      }
     };
   });
 });

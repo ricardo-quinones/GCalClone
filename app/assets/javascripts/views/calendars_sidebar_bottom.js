@@ -14,10 +14,17 @@ GCalClone.Views.CalendarsSidebarBottom = Backbone.View.extend({
 
   render: function () {
     var self = this;
+
+    var calendars = self.collection.filter(function (calendarShare) {
+      return (typeof self.options.calendars.findWhere({id: calendarShare.get("calendar_id")}) == "object");
+    });
+
+    calendars = calendars.concat(self.options.calendars.filter(function (calendar) {
+      return (typeof calendar.id == "undefined");
+    }));
+
     self.$el.html(self.template({
-      calendarShares: self.collection.filter(function (calendarShare) {
-        return (typeof self.options.calendars.findWhere({id: calendarShare.get("calendar_id")}) == "object");
-      })
+      calendars: calendars
     }));
 
     return self;

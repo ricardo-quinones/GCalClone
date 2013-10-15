@@ -6,6 +6,10 @@ class CalendarShare < ActiveRecord::Base
 
   validates :user_id, uniqueness: { scope: :calendar_id }
   validates_presence_of :user_id, :calendar_id
+  validates_inclusion_of :permissions, in: ["Make changes AND manage sharing",
+                                            "Make changes to events",
+                                            "See all event details",
+                                            "See only free/busy status"]
 
   belongs_to :user
   belongs_to :calendar

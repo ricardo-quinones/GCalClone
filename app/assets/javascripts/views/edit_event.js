@@ -17,7 +17,7 @@ GCalClone.Views.EditEvent = Backbone.View.extend({
         return share.toJSON();
       })
     );
-    
+
     var calendarShare = this.options.calendarShares.findWhere({calendar_id: eventsCal.id});
     var calTitle = (typeof calendarShare == "undefined" ? eventsCal.get("title") : calendarShare.get("title"));
 
@@ -45,7 +45,6 @@ GCalClone.Views.EditEvent = Backbone.View.extend({
 
     var formData = $(event.target.form).serializeJSON();
     this.convertDates(formData.cal_event);
-    console.log(formData.cal_event);
 
     self.model.save(formData, {
       patch: true,
