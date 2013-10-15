@@ -1,7 +1,5 @@
 GCalClone.Views.EditEvent = Backbone.View.extend({
 
-  template: JST['events/edit'],
-
   events: {
     'click #update-event': 'update',
     'click #delete-event': 'destroy'
@@ -9,12 +7,34 @@ GCalClone.Views.EditEvent = Backbone.View.extend({
 
   render: function () {
     var self = this;
-    console.log(this.model);
-    var eventsCal = GCalClone.myCalendars.get(this.model.get("calendar_id"));
-    self.$el.html(self.template({
-      calEvent: this.model,
-      eventsCal: eventsCal
-    }));
+    var calendarId = this.model.get("calendar_id");
+    var eventsCal = this.options.myCalendars.get(calendarId);
+    eventsCal = eventsCal || this.options.subscribedCalendars.get(calendarId);
+
+    var calendarSelect = this.options.myCalendars.toJSON();
+    calendarSelect = calendarSelect.concat(
+      this.options.calendarShares.where({can_edit_events: true}).map(function (share) {
+        return share.toJSON();
+      })
+    );
+    
+    var calendarShare = this.options.calendarShares.findWhere({calendar_id: eventsCal.id});
+    var calTitle = (typeof calendarShare == "undefined" ? eventsCal.get("title") : calendarShare.get("title"));
+
+    if (typeof calendarShare == "undefined" || calendarShare.get("can_edit_events")) {
+      self.$el.html(JST['events/edit']({
+        calEvent: this.model,
+        calTimeZone: eventsCal.get("time_zone"),
+        calTitle: eventsCal.get("title"),
+        calendarSelect: calendarSelect
+      }));
+    }
+    else {
+      self.$el.html(JST['events/show']({
+        calEvent: this.model,
+        calendarShare: calendarShare
+      }));
+    }
 
     return self;
   },
@@ -25,6 +45,7 @@ GCalClone.Views.EditEvent = Backbone.View.extend({
 
     var formData = $(event.target.form).serializeJSON();
     this.convertDates(formData.cal_event);
+    console.log(formData.cal_event);
 
     self.model.save(formData, {
       patch: true,
@@ -47,13 +68,15 @@ GCalClone.Views.EditEvent = Backbone.View.extend({
     var start_date = calEvent.start_date;
     var end_date = calEvent.end_date;
 
-    calEvent["start_date"] = new Date(
-      start_date.date + " " + start_date.time
-    ).toUTCString();
+    calEvent["start_date"] = moment.tz(
+      start_date.date + " " + start_date.time,
+      TIME_ZONES[calEvent.time_zone].tzinfo.identifier
+    ).format();
 
-    calEvent["end_date"] = new Date(
-      end_date.date + " " + end_date.time
-    ).toUTCString();
+    calEvent["end_date"] = moment.tz(
+      end_date.date + " " + end_date.time,
+      TIME_ZONES[calEvent.time_zone].tzinfo.identifier
+    ).format();
   },
 
   destroy: function (event) {

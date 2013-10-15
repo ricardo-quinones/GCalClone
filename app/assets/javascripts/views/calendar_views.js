@@ -70,7 +70,9 @@ GCalClone.Views.Calendars = Backbone.View.extend({
         allDay: allDay
       }),
       collection: this.collection,
-      calendar: this.options.myCalendars.get(GCalClone.currentUser.get("default_calendar_id"))
+      calendar: this.options.myCalendars.get(GCalClone.currentUser.get("default_calendar_id")),
+      myCalendars: this.options.myCalendars,
+      calendarShares: this.options.calendarShares
     });
 
     this.currentView.render();
@@ -81,7 +83,10 @@ GCalClone.Views.Calendars = Backbone.View.extend({
 
     this.currentView = new GCalClone.Views.EditEvent({
       el: $("#form-views"),
-      model: this.collection.get(fcEvent.id)
+      model: this.collection.get(fcEvent.id),
+      myCalendars: this.options.myCalendars,
+      subscribedCalendars: this.options.subscribedCalendars,
+      calendarShares: this.options.calendarShares
     })
 
     this.currentView.render();

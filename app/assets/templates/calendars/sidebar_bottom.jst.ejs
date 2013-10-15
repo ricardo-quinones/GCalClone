@@ -5,7 +5,7 @@
       <li
         class="cal-color"
         data-color="<%= calendarShare.get("color") %>"
-        data-calendarshare="<%= calendarShare.get("calendar_id") %>"></li>
+        data-calendar="<%= calendarShare.get("calendar_id") %>"></li>
       <li class="menu">
         <a class="calendar" href="#"><%= calendarShare.get("title") %></a>
       </li>
@@ -33,7 +33,7 @@ $(document).ready(function () {
     var $el = $(this);
     if ($el.css("background-color") == "rgb(255, 255, 255)") {
       calEvents = (function () {
-        return _(GCalClone.events.where({calendar_id: $el.data("calendarshare")})).map(function (calEvent) {
+        return _(GCalClone.events.where({calendar_id: $el.data("calendar")})).map(function (calEvent) {
           return calEvent.toJSON();
         });
       })();
@@ -47,7 +47,7 @@ $(document).ready(function () {
     }
     else {
       $("#calendar-views").fullCalendar("removeEvents", function (calEvent) {
-        return calEvent.calendar_id == $el.data("calendarshare");
+        return calEvent.calendar_id == $el.data("calendar");
       });
       $el.css({
         "border-color": $el.css("background-color"),

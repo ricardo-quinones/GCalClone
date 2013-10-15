@@ -41,6 +41,11 @@ class CalendarShare < ActiveRecord::Base
     ActiveSupport::TimeZone.new(self.calendar.time_zone).to_s
   end
 
+  def can_edit_events
+    self.permissions == "Make changes AND manage sharing" ||
+      self.permissions == "Make changes to events"
+  end
+
   COLORS = [
     "#0099FF",
     "#33CC33",

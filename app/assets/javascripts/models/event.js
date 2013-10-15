@@ -18,6 +18,29 @@ GCalClone.Models.Event = Backbone.Model.extend({
     return (typeof date === "string" ? new Date(date) : date);
   },
 
+  // methods for show view
+  singleDay: function () {
+    var string = this.startDayOfWeek() + ", " + this.startMonth() + " " + this.startDayOfMonth() + ", ";
+    string = string.concat(this.convertToAmPm(this.startTimeString()) + " - ");
+    return string;
+  },
+
+  displayEventTime: function () {
+    var string = this.singleDay();
+    if (this.startDateString() == this.endDateString()) return string.concat(this.convertToAmPm(this.endTimeString()));
+    string = string.concat(this.endDayOfWeek() + ", " + this.endMonth() + " " + this.endDayOfMonth() + ", ");
+    string = string.concat(this.convertToAmPm(this.endTimeString()));
+    return string;
+  },
+
+  convertToAmPm: function (time) {
+    var newTime = (time.slice(3,5) == "00" ? time.slice(0,2) : time);
+    if (newTime.slice(0,2) > 12) return newTime.slice(0,2) % 12 + newTime.slice(2,5) + "pm";
+    return newTime.slice(1,5) + "am";
+  },
+
+  dayNames: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+
   // methods for edit view
   startDateString: function () {
     return  this.startMonthNum() + "/" + this.startDayOfMonth() + "/" + this.startYear();
@@ -64,11 +87,15 @@ GCalClone.Models.Event = Backbone.Model.extend({
   },
 
   startMonth: function () {
-    return monthNames[this.startDate().getMonth()];
+    return this.monthNames[this.startDate().getMonth()];
   },
 
   startDayOfMonth: function () {
     return this.startDate().getDate();
+  },
+
+  startDayOfWeek: function () {
+    return this.dayNames[this.startDate().getDay()];
   },
 
   startTime: function () {
@@ -86,11 +113,15 @@ GCalClone.Models.Event = Backbone.Model.extend({
   },
 
   endMonth: function () {
-    return monthNames[this.endDate().getMonth()];
+    return this.monthNames[this.endDate().getMonth()];
   },
 
   endDayOfMonth: function () {
     return this.endDate().getDate();
+  },
+
+  endDayOfWeek: function () {
+    return this.dayNames[this.endDate().getDay()];
   },
 
   endTime: function () {
@@ -105,5 +136,20 @@ GCalClone.Models.Event = Backbone.Model.extend({
 
   timeRange: function () {
     return this.startTime() + " - " + this.endTime();
-  }
+  },
+
+  monthNames: [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ]
 });

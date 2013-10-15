@@ -21,8 +21,10 @@ GCalClone.Views.Sidebar = Backbone.View.extend({
 
   addToCal: function (event) {
     event.preventDefault();
-    var calendar = this.collection.get($(event.target).data("id"));
-
+    var calendarId = $(event.target).data("id")
+    var calendar = this.collection.get(calendarId);
+    calendar = (typeof calendar === "undefined" ? this.options.subscribedCalendars.get(calendarId) : calendar)
+    console.log(calendar);
     var newEventView = new GCalClone.Views.NewEvent({
      el: $("#form-views"),
      model: new GCalClone.Models.Event({
@@ -30,7 +32,9 @@ GCalClone.Views.Sidebar = Backbone.View.extend({
        end: this.oneHourLater()
      }),
      collection: this.options.calEvents,
-     calendar: calendar
+     calendar: calendar,
+     myCalendars: this.collection,
+     calendarShares: this.options.calendarShares
    });
 
    newEventView.render();

@@ -16,13 +16,7 @@ GCalClone.Views.NewCalendar = Backbone.View.extend({
   render: function () {
     var self = this;
     self.$el.html(self.template({ calendar: self.model }));
-
-    var $calendarShare = self.$el.find("#add-calendar-share");
-    var newCalendarShare = new GCalClone.Views.NewCalendarShare({
-      el: $calendarShare
-    });
-
-    newCalendarShare.render();
+    self.$el.find("#add-calendar-share").html(JST["calendar_shares/new"]());
 
     return self;
   },

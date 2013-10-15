@@ -19,7 +19,7 @@ class UsersController < ApplicationController
             # these are calendars shared with the user
             calendar_shares: {
               except: [:user_id, :permissions],
-              methods: [:owner_email, :calendar_time_zone]
+              methods: [:owner_email, :calendar_time_zone, :can_edit_events]
             },
             manage_sharing_calendars: {
               include: {

@@ -1,6 +1,7 @@
 class CalendarsController < ApplicationController
 
-  before_filter :must_be_owner
+  before_filter :must_be_owner, only: [:destroy]
+  before_filter :must_have_permission, only: [:update]
 
   respond_to :json
   respond_to :html, only: [:index]
@@ -45,10 +46,27 @@ class CalendarsController < ApplicationController
 
   private
 
+  def is_not_owner?
+    current_user.id != Calendar.find(params[:id]).owner_id
+  end
+
   def must_be_owner
-    @calendar = Calendar.find(params[:id])
-    unless current_user.id == @calendar.owner_id
+    if is_not_owner?
       head :ok
+    end
+  end
+
+  def must_have_permission
+    @calendar = Calendar.find(params[:id])
+    check_if_has_permission = CalendarShare
+                                .where(calendar_id: @calendar.id)
+                                .where(user_id: current_user.id)
+                                .where(permissions: "Make changes AND manage sharing")
+    if check_if_has_permission.empty? && is_not_owner?
+      render json: @event.as_json(
+        methods: [:local_start_date, :local_end_date, :color],
+        except: [:start_date, :end_date, :event_color]
+      )
     end
   end
 end

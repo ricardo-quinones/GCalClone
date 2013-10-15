@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 
-  before_filter :must_be_creator, only: [:update, :destroy]
+  before_filter :must_have_permission, only: [:update, :destroy]
 
   respond_to :json
   respond_to :html, only: [:index]
@@ -49,9 +49,17 @@ class EventsController < ApplicationController
 
   private
 
-  def must_be_creator
+  def is_not_creator?
+    current_user.id != Event.find(params[:id]).creator_id
+  end
+
+  def must_have_permission
     @event = Event.find(params[:id])
-    unless current_user.id == @event.creator_id
+    check_if_has_permission = CalendarShare
+                                .where(calendar_id: @event.calendar_id)
+                                .where(user_id: current_user.id)
+                                .where(permissions: ["Make changes AND manage sharing", "Make changes to events"])
+    if check_if_has_permission.empty? && is_not_creator?
       render json: @event.as_json(
         methods: [:local_start_date, :local_end_date, :color],
         except: [:start_date, :end_date, :event_color]

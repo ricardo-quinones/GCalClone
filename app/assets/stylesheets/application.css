@@ -21,7 +21,7 @@
 
 /* strip all styling */
 
-html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li, select, option, nav, div, span, input, textarea, header, footer, form, button, label {
+html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li, table, td, tr, select, option, nav, div, span, input, textarea, header, footer, form, button, label {
   margin: 0;
   padding: 0;
   border: 0;
@@ -38,12 +38,6 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li, select, option, nav, div, span
 
 
 /* universal */
-
-html, body {
-/*  position: relative;*/
-/*  height: 100%;*/
-/*  min-height: 600px;*/
-}
 
 body {
   margin-top: 85px;

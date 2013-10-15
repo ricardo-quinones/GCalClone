@@ -6,10 +6,7 @@ class User < ActiveRecord::Base
   before_save :ensure_token
   before_save :change_time_zone_string, unless: :persisted?
   before_save :generate_default_calendars, unless: :persisted?
-  # after_save :set_default_calendar_id, if: :default_calendar_id_nil?
 
-  before_validation { email.downcase! }
-  EMAIL_REGEX = /\A[^\W_]([\w+\-]|(?<!\.)\.)+@[^\W_]([a-z\d\-]|(?<!\.)\.)+(?<!\.)\.[a-z]+\z/
   validates_presence_of :name,  on: :create
 
   validate :no_middle_names, on: :create
@@ -79,10 +76,6 @@ class User < ActiveRecord::Base
     ]
   end
 
-  # def default_calendar_id_nil?
-  #   self.default_calendar_id.nil?
-  # end
-  #
   def set_default_calendar_id
     self.default_calendar_id ||= self.calendars.first.id
     self.save

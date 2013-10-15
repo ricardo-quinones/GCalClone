@@ -1,0 +1,32 @@
+<h1><%= calEvent.get("title") %></h1>
+
+<% console.log(calEvent.startTimeString()) %>
+
+<h4><%= calEvent.displayEventTime() %></h4>
+<table class="show">
+  <trs>
+    <td class="label"><strong>Where</strong></td>
+    <td><%= calEvent.get("location") %></td>
+  </tr>
+  <tr>
+    <td class="label"><strong>Calendar</strong></td>
+    <td><%= calendarShare.get("title") %></td>
+  </tr>
+  <tr>
+    <td class="label"><strong>Description</strong></td>
+    <td><%= calEvent.get("description") %></td>
+  </tr>
+</table>
+
+<script>
+$(document).ready(function () {
+  $("#form-views").dialog({
+    beforeClose: function () {
+      $("#form-views").empty();
+      $("#form-views").unbind();
+    },
+    modal: true,
+    width: "auto"
+  });
+});
+</script>

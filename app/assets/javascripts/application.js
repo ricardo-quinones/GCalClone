@@ -18,6 +18,9 @@
 //= require jquery.ui.slider
 //= require jquery-ui-timepicker
 //= require jquery_ujs
+//= require moment-with-langs
+//= require moment-timezone
+//= require moment-timezone-data
 //= require fullcalendar
 //= require detect_timezone
 //= require jquery.detect_timezone
