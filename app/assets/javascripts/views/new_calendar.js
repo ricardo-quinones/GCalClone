@@ -60,7 +60,7 @@ GCalClone.Views.NewCalendar = Backbone.View.extend({
   removeCalendarShare: function (event) {
     event.preventDefault();
 
-    var deleteKey = $(event.target).data("id");
+    var deleteKey = $(event.target).data("email");
     $(event.target).parent().parent().remove();
     delete this.newCalendarShares[deleteKey];
   }

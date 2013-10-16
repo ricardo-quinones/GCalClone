@@ -209,6 +209,10 @@ h4 {
   clear: both;
 }
 
+.remove-share.button-lrg {
+  margin-bottom: 0px;
+}
+
 .listed-availability-share {
   display: block;
   margin: 0;
@@ -236,7 +240,7 @@ h4 {
 
 .listed-availability-share > li:last-child {
   padding: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   float: right;
 }

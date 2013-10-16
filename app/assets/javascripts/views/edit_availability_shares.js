@@ -8,7 +8,9 @@ GCalClone.Views.EditAvailabilityShares = Backbone.View.extend({
 
   events: {
     'click #update-availability-shares': 'update',
-    'click #unsubscribe-to-calendar': 'destroy'
+    "click #availability-add-person": "addEmail",
+    "keypress #availability-email-input": "addEmail",
+    "click .remove-share": "removeEmail"
   },
 
   render: function () {
@@ -34,6 +36,33 @@ GCalClone.Views.EditAvailabilityShares = Backbone.View.extend({
 
       $("#listed-availability-shares").append($buildExistingShare);
     });
+  },
+
+  addEmail: function (event) {
+    if (event.which === 1 || event.which === 13) {
+      event.preventDefault();
+
+      var email = $(event.target.form).serializeJSON().email;
+
+      this.emails.push(email);
+
+      $buildNewShare = JST["availability_shares/build_email"]({
+        email: email,
+        index: this.emails.length - 1
+      });
+
+      $("#listed-availability-shares").append($buildNewShare);
+      $("#availability-email-input").val("");
+    }
+  },
+
+  removeEmail: function (event) {
+    event.preventDefault();
+    var email = $(event.target).data("email");
+    _(this.emails).without(email);
+    // var deleteIndex = $(event.target).data("id");
+//     $(event.target).parent().parent().remove();
+//     delete this.newCalendarShares[deleteKey];
   }
 
   // update: function (event) {
