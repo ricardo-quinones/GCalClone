@@ -17,10 +17,6 @@
   border-radius: 5px;
 }
 
-#sidebar:hover {
-//  overflow: auto;
-}
-
 .calendars:after {
   display: block;
   clear: both;
@@ -35,14 +31,6 @@
   border-bottom: 1px solid #bbb;
   border-top: 1px solid #bbb;
   cursor: default;
-}
-
-.cal-list-title:hover > .drop-down {
-  display: block;
-  top: 0;
-  left: 215px;
-  width: 300px;
-  z-index: 9999;
 }
 
 #owned-calendars a {
@@ -65,6 +53,14 @@
   float: left;
 }
 
+.cal-list-title:hover > .drop-down {
+  display: block;
+  top: 0;
+  left: 215px;
+  width: 300px;
+  z-index: 9999;
+}
+
 .cal-list-item:hover .drop-down {
   position: absolute;
   display: block;
@@ -74,8 +70,12 @@
   z-index: 9999;
 }
 
-.cal-list-item:hover a {
-  color: none;
+.cal-list-item> li > a:hover {
+  color: black;
+}
+
+.cal-list-item > li > a {
+  cursor: default;
 }
 
 .cal-color {

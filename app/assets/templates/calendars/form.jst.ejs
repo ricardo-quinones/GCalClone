@@ -8,16 +8,28 @@
 
 <h1><%= title %> calendar</h1>
 
+<div class="calendar-form">
+  <form>
+    <div class="form-block">
+      <div class="form-row">
+        <label>Title</label>
+        <input
 
-<form>
-  <div class="form-box">
-    <div class="form-row">
-      <label>Title</label>
-      <input
+          type="text"
+          name="calendar[title]"
+          value="<%= inputTitle %>">
+      </div>
 
-        type="text"
-        name="calendar[title]"
-        value="<%= inputTitle %>">
+      <div class="form-row">
+        <label>Timezone</label>
+        <select name="calendar[time_zone]" id="cal-settings-timezone">
+          <% _(TIME_ZONES).each(function (timeZone) { %>
+            <% var name = timeZone.name %>
+            <% var selected = (selectTimeZone == name ? "selected" : "") %>
+            <option value="<%= name %>" <%= selected %>><%= name %></option>
+          <% }); %>
+        </select>
+      </div>
     </div>
 
     <div class="form-row">
@@ -26,19 +38,19 @@
         name="calendar[description]"><%= description %></textarea>
     </div>
 
-    <div class="form-row">
-      <label>Timezone</label>
-      <select name="calendar[time_zone]" id="cal-settings-timezone">
-        <% _(TIME_ZONES).each(function (timeZone) { %>
-          <% var name = timeZone.name %>
-          <% var selected = (selectTimeZone == name ? "selected" : "") %>
-          <option value="<%= name %>" <%= selected %>><%= name %></option>
-        <% }); %>
-      </select>
+    <div class="form-row-buttons">
+      <input type="submit" value="<%= buttonText %>" id="<%= elId %>" class="button-lrg">
     </div>
+  </form>
+  <div class="form-row-buttons">
+    <input
+        type="submit"
+        id="delete-calendar"
+        value="Delete"
+        data-id="<%= calendar.id %>"
+        class="button-lrg delete">
   </div>
-  <input type="submit" value="<%= buttonText %>" id="<%= elId %>" class="button-lrg">
-</form>
+</div>
 
 <script>
 $(document).ready(function () {

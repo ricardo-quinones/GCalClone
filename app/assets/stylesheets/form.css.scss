@@ -3,9 +3,71 @@
   border: none;
 }
 
-.ui-dialog input, button, select, textarea {
-  font: inherit;
+::-webkit-resizer {
+  display: none;
+}
+
+.ui-widget input, .ui-widget textarea {
+  font-family: 'Lato', sans-serif;
   font-weight: 300;
+  line-height: normal;
+  font-size: 17px;
+}
+
+.ui-widget input[type=submit] {
+  font-size: 22px;
+  width: auto;
+}
+
+input[type=time] {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.datepicker {
+  width: 110px;
+  text-align: center;
+}
+
+input[type=date] {
+  width: 150px;
+}
+
+input[type="time"]::-webkit-clear-button{
+  display:none;
+}
+
+input[type=time]::-webkit-inner-spin-button,
+input[type=time]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+#new-event-form {
+  width: 840px;
+}
+
+.form-column {
+  display: inline-block;
+  vertical-align: top;
+  padding: 10px;
+}
+
+.ui-widget select {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  line-height: normal;
+  font-size: 16px;
+  width: 300px;
+}
+
+.ui-dialog-content {
+  font-weight: 300;
+  line-height: normal;
+  font-family: 'Lato', sans-serif;
+}
+.ui-widget-content {
+  font-weight: 300;
+  line-height: normal;
 }
 
 #new-share-input {
@@ -19,6 +81,26 @@
 
 #cal-settings-timezone {
   margin-bottom: 20px;
+}
+
+.date-selects > .form-row {
+  display: inline-block;
+}
+
+.all-day > input {
+  display: inline-block;
+  margin-right: 5px;
+  line-height: 100%;
+  vertical-align: middle;
+}
+
+.inline-button {
+  display: inline;
+}
+
+.remove-event {
+  position: relative;
+  text-align: left;
 }
 
 .back {
@@ -74,3 +156,31 @@ h4 {
 #delete-calendar {
   font-weight: 300;
 }
+
+.calendar-form form {
+  display: inline-block;
+}
+
+.calendar-form .form-row {
+  padding: 10px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.calendar-form .form-row-buttons {
+  padding: 40px;
+  display: inline-block;
+  vertical-align: top;
+  padding-left: 60px;
+}
+
+.form-block {
+  padding: 10px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.form-block > .form-row {
+  display: block;
+}
+
