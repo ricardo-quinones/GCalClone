@@ -35,6 +35,7 @@ GCalClone.Views.Calendars = Backbone.View.extend({
     sideBar.render();
 
     this.$el.fullCalendar({
+      contentHeight: $(window).height() - $("html").height() - $(".fc-header").height() - 58,
       editable: true,
       header: {
         left: "title",

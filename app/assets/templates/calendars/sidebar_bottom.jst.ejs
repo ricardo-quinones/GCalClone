@@ -3,23 +3,19 @@
   <% _(calendars).each(function (calendar) { %>
     <% var isAvailabilityShare = (typeof calendar.id == "undefined") %>
     <% var calendarId = (isAvailabilityShare ? calendar.get("availability_share_id") : calendar.get("calendar_id")) %>
-    <% var typeOfCalendar = (isAvailabilityShare ? "availability" : "see details") %>
+    <% var calendarType = (isAvailabilityShare ? "availability" : "see details") %>
 
     <ul class="cal-list-item menu bottom">
       <li
         class="cal-color"
         data-color="<%= calendar.get("color") %>"
         data-calendar="<%= calendarId %>"
-        data-calendartype=""></li>
+        data-calendartype="<%= calendarType %>"></li>
       <li class="menu">
         <a class="calendar" href="#"><%= calendar.get("title") %></a>
       </li>
       <li class="cal-menu">
-        <%= JST["calendars/sidebar/drop_down"]({
-          id: calendar.id,
-          isTop: false,
-          calendarId: calendarId
-          }) %>
+        <%= JST["calendars/sidebar/drop_down"]({ calendar: calendar, isTop: false, calendarId: calendarId }) %>
       </li>
     </ul>
   <% }); %>
@@ -30,7 +26,6 @@ $(document).ready(function () {
   $(".bottom > .cal-color").each(function() {
     $el = $(this);
     $el.css("background", function () {
-      console.log($el.data("color"));
       return $el.data("color");
     });
   });
@@ -47,7 +42,11 @@ $(document).ready(function () {
         })();
       }
       else {
-        console.log("else");
+        calEvents = (function () {
+          return _(GCalClone.events.where({availability_share_id: $el.data("calendar")})).map(function (calEvent) {
+            return calEvent.toJSON();
+          });
+        })();
       }
       $("#calendar-views").fullCalendar("addEventSource", calEvents);
 
@@ -67,7 +66,13 @@ $(document).ready(function () {
         });
       }
       else {
-        console.log("else");
+        $("#calendar-views").fullCalendar("removeEvents", function (calEvent) {
+          return calEvent.availability_share_id == $el.data("calendar");
+        });
+        $el.css({
+          "border-color": $el.css("background-color"),
+          "background-color": "white"
+        });
       }
     };
   });

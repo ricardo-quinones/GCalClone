@@ -8,8 +8,7 @@ class CalendarShare < ActiveRecord::Base
   validates_presence_of :user_id, :calendar_id
   validates_inclusion_of :permissions, in: ["Make changes AND manage sharing",
                                             "Make changes to events",
-                                            "See all event details",
-                                            "See only free/busy status"]
+                                            "See all event details"]
 
   belongs_to :user
   belongs_to :calendar

@@ -2,6 +2,7 @@
   <a class="menu" href="#">My Calendars</a>
   <ul class="drop-down">
     <li><a class="menu" href="#" id="create-cal">Create new calendar</a></li>
+    <li><a class="menu" href="#" id="share-availability">Share your availability</a></li>
   </ul>
 </li>
 <li>
@@ -13,7 +14,7 @@
         <a class="calendar menu" href="#"><%= calendar.get("title") %></a>
       </li>
       <li class="cal-menu">
-        <%= JST["calendars/sidebar/drop_down"]({id: calendar.id, isTop: true}) %>
+        <%= JST["calendars/sidebar/drop_down"]({calendar: calendar, isTop: true}) %>
       </li>
     </ul>
   <% }); %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131015181143) do
+ActiveRecord::Schema.define(:version => 20131015191738) do
 
   create_table "availability_shares", :force => true do |t|
     t.integer  "availability_owner_id",      :null => false
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20131015181143) do
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
     t.string   "color"
+    t.string   "title"
   end
 
   add_index "availability_shares", ["availability_owner_id"], :name => "index_availability_shares_on_availability_owner_id"

@@ -1,5 +1,19 @@
+.ui-dialog-titlebar {
+  background: white;
+  border: none;
+}
+
+.ui-dialog input, button, select, textarea {
+  font: inherit;
+  font-weight: 300;
+}
+
+#new-share-input {
+  border-radius: 8px;
+}
+
 #form-views {
-  overflow-y: scroll;
+  overflow-y: hidden;
   margin-bottom: 45px;
 }
 
@@ -55,4 +69,8 @@ h4 {
 .show td.label {
   width: 120px;
   padding: 10px;
+}
+
+#delete-calendar {
+  font-weight: 300;
 }

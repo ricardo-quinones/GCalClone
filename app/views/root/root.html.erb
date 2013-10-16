@@ -8,4 +8,13 @@
 <script>
   var CURRENT_USER_ID = <%= current_user.id %>;
   var TIME_ZONES = <%= ActiveSupport::TimeZone.zones_map.to_json.html_safe %>
+  $(document).ready(function () {
+    $(window).resize(function () {
+      $('#calendar-views').fullCalendar(
+        'option',
+        'contentHeight',
+        $(window).height() - $("html").height() - $(".fc-header").height() - 30
+      );
+    });
+  });
 </script>

@@ -72,11 +72,13 @@ class User < ActiveRecord::Base
     [].tap do |array|
       self.users_that_share_their_availability.each do |user|
         hash = {}
-        hash["availability_share_id"] = self.availabilities_shared_with_user.find_by_availability_owner_id(user.id).id
+        share_id = self.availabilities_shared_with_user.find_by_availability_owner_id(user.id).id
+        hash["availability_share_id"] = share_id
+        hash["can_edit_events"] = false
         hash["email"] = user.email
         hash["events"] = user.events_labeled_as_busy.select.as_json(only: [:start_date, :end_date, :all_day, :time_zone])
-        hash["title"] = "#{user.first_name} #{user.last_name}"
-        array << hash
+        hash["events"].map! { |event| event.merge({ "availability_share_id" => share_id }) }
+        array << hash.merge(self.availabilities_shared_with_user.find_by_availability_owner_id(user.id).as_json(only: [:color, :title]))
       end
     end
   end

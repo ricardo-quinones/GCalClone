@@ -14,7 +14,7 @@
     <div class="form-row">
       <label>Title</label>
       <input
-        class="ui-widget-content ui-corner-all"
+
         type="text"
         name="calendar[title]"
         value="<%= inputTitle %>">
@@ -23,13 +23,12 @@
     <div class="form-row">
       <label>Description</label>
       <textarea
-      class="ui-widget-content ui-corner-all"
         name="calendar[description]"><%= description %></textarea>
     </div>
 
     <div class="form-row">
       <label>Timezone</label>
-      <select name="calendar[time_zone]" id="cal-settings-timezone" class="ui-widget-content ui-corner-all">
+      <select name="calendar[time_zone]" id="cal-settings-timezone">
         <% _(TIME_ZONES).each(function (timeZone) { %>
           <% var name = timeZone.name %>
           <% var selected = (selectTimeZone == name ? "selected" : "") %>

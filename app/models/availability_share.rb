@@ -1,7 +1,8 @@
 class AvailabilityShare < ActiveRecord::Base
-  attr_accessible :availability_owner_id, :availability_subscriber_id, :color
+  attr_accessible :availability_owner_id, :availability_subscriber_id, :color, :title
 
   before_save :set_random_color, unless: :persisted?
+  before_save :save_default_title, unless: :persisted?
 
   validates_presence_of :availability_owner_id, :availability_subscriber_id
   validates :availability_subscriber_id, uniqueness: { scope: :availability_owner_id }
@@ -11,6 +12,10 @@ class AvailabilityShare < ActiveRecord::Base
 
   def set_random_color
     self.color = COLORS.sample
+  end
+
+  def save_default_title
+    self.title = "#{self.user.first_name} #{self.user.last_name}"
   end
 
   COLORS = [
