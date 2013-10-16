@@ -19,6 +19,15 @@
   width: auto;
 }
 
+span.radio {
+  display: inline-block;
+  padding: 8px;
+}
+
+input[type=radio] {
+  display: inline-block;
+}
+
 input[type=time] {
   padding-left: 5px;
   padding-right: 5px;
@@ -76,7 +85,6 @@ input[type=time]::-webkit-outer-spin-button {
 
 #form-views {
   overflow-y: hidden;
-  margin-bottom: 45px;
 }
 
 #cal-settings-timezone {
@@ -184,3 +192,51 @@ h4 {
   display: block;
 }
 
+#update-availability-shares {
+  display: block;
+  position: absolute;
+  left: 20px;
+  bottom: 0;
+}
+
+#new-availability-input {
+ border-bottom: 1px solid #ccc;
+}
+
+#new-availability-input:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.listed-availability-share {
+  display: block;
+  margin: 0;
+  border-top: 1px solid #ccc;
+}
+
+.listed-availability-share:first-child {
+  border-top: none;
+}
+
+.listed-availability-share:last-child {
+  margin-bottom: 50px;
+}
+
+.listed-availability-share:after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+.listed-availability-share > li:first-child {
+  padding: 20px;
+  float: left;
+}
+
+.listed-availability-share > li:last-child {
+  padding: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  float: right;
+}

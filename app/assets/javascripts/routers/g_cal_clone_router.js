@@ -56,9 +56,25 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
       });
     });
 
+    this.availabilityStatuses = new GCalClone.Collections.AvailabilityStatuses(
+      this.currentUser.get("availability_statuses")
+    );
+
+    GCalClone.availabilityStatuses = this.availabilityStatuses;
+
+    this.availabilityShares = new GCalClone.Collections.AvailabilityShares(
+      this.currentUser.get("users_that_can_see_availability")
+    );
+
+    GCalClone.availabilityShares = this.availabilityShares;
+
     this.events = new GCalClone.Collections.Events(eventPojos);
-    this.events.each(function (calEvent) {
-      calEvent.addFullCalendarAttrs();
+    this.events.each(function (calEvent, index) {
+      var status = "free"
+      if (typeof calEvent.get("availability_share_id") == "undefined") {
+        status = GCalClone.availabilityStatuses.findWhere({event_id: calEvent.id}).get("availability");
+      }
+      calEvent.addFullCalendarAttrs(status);
     });
 
     GCalClone.events = this.events;
@@ -94,6 +110,7 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
       subscribedCalendars: this.subscribedCalendars,
       calendarShares: this.calendarShares,
       myCalendars: this.myCalendars,
+      availabilityShares: this.availabilityShares,
       collection: this.events
     });
 

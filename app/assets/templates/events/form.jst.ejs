@@ -6,6 +6,7 @@
 <% var location = (isNew ? "" : calEvent.get("location")) %>
 <% var buttonText = (isNew ? "Create event" : "Edit event") %>
 <% var submitId = (isNew ? "create-event" : "update-event"); %>
+<% var availability = (isNew ? "busy" : calEvent.get("availability")) %>
 
 <h1><%= title %></h1>
 
@@ -15,23 +16,37 @@
     <div class="form-column">
       <div class="form-row">
         <label>Title</label>
-        <input type="text" class="ui-widget-content ui-corner-all" name="cal_event[title]" value="<%= inputTitle %>">
+        <input type="text" name="cal_event[title]" value="<%= inputTitle %>">
       </div>
 
       <div class="form-row">
         <label>Description</label>
         <textarea
-        class="ui-widget-content ui-corner-all"
           name="cal_event[description]"><%= description %></textarea>
       </div>
 
       <div class="form-row">
         <label>Location</label>
         <input
-          class="ui-widget-content ui-corner-all"
           type="text"
           name="cal_event[location]"
           value="<%= location %>">
+      </div>
+
+      <div class="form-row">
+        <label>Show me as</label>
+        <% var freeChecked = (availability == "free" ? "checked" : "") %>
+        <% var busyChecked = (availability == "busy" ? "checked" : "") %>
+        <input
+          type="radio"
+          name="availability"
+          value="free"
+          <%= freeChecked %>><span class="radio">Free</span class="radio">
+        <input
+          type="radio"
+          name="availability"
+          value="busy"
+          <%= busyChecked %>><span class="radio">Busy</span class="radio">
       </div>
     </div>
 
@@ -42,7 +57,7 @@
           <input
             id="start-date"
             name="cal_event[start_date][date]"
-            class="datepicker date ui-widget-content ui-corner-all"
+            class="datepicker date"
             value="<%= calEvent.startDateString() %>">
 
 
@@ -50,7 +65,7 @@
             type="time"
             name="cal_event[start_date][time]"
             id="start-time"
-            class="time ui-widget-content ui-corner-all"
+            class="time"
             value="<%= calEvent.startTimeString() %>">
         </div>
 
@@ -59,14 +74,14 @@
           <input
             id="end-date"
             name="cal_event[end_date][date]"
-            class="datepicker date ui-widget-content ui-corner-all"
+            class="datepicker"
             value="<%= calEvent.endDateString() %>">
 
           <input
             type="time"
             name="cal_event[end_date][time]"
             id="end-time"
-            class="time ui-widget-content ui-corner-all"
+            class="time"
             value="<%= calEvent.endTimeString() %>">
         </div>
       </div>
@@ -74,35 +89,45 @@
         <% var checked = (calEvent.get("allDay") ? "checked" : "") %>
         <input
           id="all-day"
-          class="ui-widget-content ui-corner-all"
           type="checkbox"
           name="cal_event[all_day]"
           value="true" <%= checked %>>All day?
-
       </div>
 
+      <% if (calEvent.get("creator_id") == GCalClone.currentUser.id || isNew) { %>
+        <div class="form-row">
+          <label>Timezone</label>
+          <select name="cal_event[time_zone]">
+            <% _(TIME_ZONES).each(function (timeZone) { %>
+              <% var name = timeZone.name %>
+              <% var selected = (selectTimeZone == name ? "selected" : "") %>
+              <option value="<%= name %>" <%= selected %>><%= name %></option>
+            <% }); %>
+          </select>
+        </div>
 
-      <div class="form-row">
-        <label>Timezone</label>
-        <select name="cal_event[time_zone]">
-          <% _(TIME_ZONES).each(function (timeZone) { %>
-            <% var name = timeZone.name %>
-            <% var selected = (selectTimeZone == name ? "selected" : "") %>
-            <option value="<%= name %>" <%= selected %>><%= name %></option>
-          <% }); %>
-        </select>
-      </div>
+        <div class="form-row">
+          <label>Calendar</label>
+          <select name="cal_event[calendar_id]">
+            <% _(calendarSelect).each(function (calendar) { %>
+              <% var calSelect = (calTitle === calendar.title ? "selected" : "") %>
+              <% var calendarId = (_(calendar).has("calendar_id") ? calendar.calendar_id : calendar.id) %>
+              <option value="<%= calendarId %>" <%= calSelect %>><%= calendar.title %></option>
+            <% }); %>
+          </select>
+        </div>
+      <% } else { %>
+        <div class="form-row">
+          <label>Timezone</label>
+          <p><%= selectTimeZone %></p>
+          <input type="hidden" name="cal_event[time_zone]" value="<%= calEvent.get("time_zone") %>">
+        </div>
 
-      <div class="form-row">
-        <label>Calendar</label>
-        <select name="cal_event[calendar_id]">
-          <% _(calendarSelect).each(function (calendar) { %>
-            <% var calSelect = (calTitle === calendar.title ? "selected" : "") %>
-            <% var calendarId = (_(calendar).has("calendar_id") ? calendar.calendar_id : calendar.id) %>
-            <option value="<%= calendarId %>" <%= calSelect %>><%= calendar.title %></option>
-          <% }); %>
-        </select>
-      </div>
+        <div class="form-row">
+          <label>Calendar</label>
+          <p><%= calTitle %></p>
+        </div>
+      <% } %>
     </div>
   </div>
 

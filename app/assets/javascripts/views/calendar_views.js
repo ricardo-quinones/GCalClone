@@ -11,7 +11,8 @@ GCalClone.Views.Calendars = Backbone.View.extend({
     "click .new-cal-event": "addToCal",
     "click .cal-settings": "editCal",
     "click .cal-share-settings": "editCalShare",
-    "click #create-cal": "newCal"
+    "click #create-cal": "newCal",
+    "click #share-availability": "editAvailabilityShares"
   },
 
   closePreviousView: function () {
@@ -28,6 +29,7 @@ GCalClone.Views.Calendars = Backbone.View.extend({
       collection: this.options.myCalendars,
       calendarShares: this.options.calendarShares,
       subscribedCalendars: this.options.subscribedCalendars,
+      availabilityShares: this.options.availabilityShares,
       events: this.events,
       calEvents: this.collection
     });

@@ -42,14 +42,16 @@
       <input type="submit" value="<%= buttonText %>" id="<%= elId %>" class="button-lrg">
     </div>
   </form>
-  <div class="form-row-buttons">
-    <input
-        type="submit"
-        id="delete-calendar"
-        value="Delete"
-        data-id="<%= calendar.id %>"
-        class="button-lrg delete">
-  </div>
+  <% if (!isNew) { %>
+    <div class="form-row-buttons">
+      <input
+          type="submit"
+          id="delete-calendar"
+          value="Delete"
+          data-id="<%= calendar.id %>"
+          class="button-lrg delete">
+    </div>
+  <% } %>
 </div>
 
 <script>

@@ -7,6 +7,10 @@ class UsersController < ApplicationController
         render json: @user.as_json(
           except: [:password_digest, :token],
           include: {
+            availability_statuses: {},
+            users_that_can_see_availability: {
+              only: [:email]
+            },
             calendars: {
               include: {
                 :events => {

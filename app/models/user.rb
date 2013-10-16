@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   has_many :calendar_shares, dependent: :destroy
   has_many :shared_calendars, through: :calendar_shares, source: :calendar
 
-  has_many :availability_statuses
+  has_many :availability_statuses, dependent: :destroy
   has_many(
     :events_labeled_as_busy,
     through: :availability_statuses,

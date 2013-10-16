@@ -1,0 +1,32 @@
+<h2>Share your availability with someone awesome</h2>
+<form>
+  <div id="new-availability-input">
+    <div class="float-block">
+      <label>Person</label>
+      <input type="text" name="email" placeholder="Enter email address" id="availability-email-input">
+    </div>
+
+    <div class="float-block">
+      <input type="submit" id="availability-add-person" value="Add Person" class="button-lrg">
+    </div>
+  </div>
+
+  <input type="submit" value="Save" id="update-availability-shares" class="button-lrg">
+</form>
+
+<div id="listed-availability-shares"></div>
+
+<script>
+$(document).ready(function () {
+  $("#form-views").dialog({
+    beforeClose: function () {
+      $("#form-views").empty();
+      $("#form-views").unbind();
+    },
+    modal: true,
+    width: "auto",
+    minWidth: 775,
+    minHeight: 350
+  });
+});
+</script>

@@ -15,6 +15,7 @@ gem 'fullcalendar-rails'
 group :development do
   gem 'binding_of_caller'
   gem 'better_errors'
+  gem 'debugger'
 end
 
 

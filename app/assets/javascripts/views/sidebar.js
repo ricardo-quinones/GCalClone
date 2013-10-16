@@ -89,5 +89,16 @@ GCalClone.Views.Sidebar = Backbone.View.extend({
     });
 
     newCalendarView.render();
+  },
+
+  editAvailabilityShares: function (event) {
+    event.preventDefault();
+
+    var availabilitySharesView = new GCalClone.Views.EditAvailabilityShares({
+      el: $("#form-views"),
+      collection: this.options.availabilityShares
+    });
+
+    availabilitySharesView.render();
   }
 });

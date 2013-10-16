@@ -1,7 +1,7 @@
 GCalClone.Models.Event = Backbone.Model.extend({
   urlRoot: "/events",
 
-  addFullCalendarAttrs: function () {
+  addFullCalendarAttrs: function (status) {
     var self = this;
     _(self.attributes).extend({
       start: new Date(typeof self.get("local_start_date") == "undefined" ? self.get("start_date") : self.get("local_start_date")),
@@ -10,7 +10,8 @@ GCalClone.Models.Event = Backbone.Model.extend({
       color: (function () {
         var calendarShare = GCalClone.calendarShares.findWhere({calendar_id: self.get("calendar_id")});
         return (typeof calendarShare == "undefined" ? self.get("color") : calendarShare.get("color"));
-      })()
+      })(),
+      availability: status
     });
   },
 

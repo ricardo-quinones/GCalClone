@@ -28,8 +28,14 @@ class CalendarsController < ApplicationController
       Calendar.transaction do
         @calendar = Calendar.find(params[:id])
         @calendar.update_attributes(params[:calendar])
+
+        attrs = params[:calendar_shares].values.map(&:values)
+        updated_user_ids = User.where(email: attrs.map { |el| el[0] }).map(&:id)
+        AvailabilityStatus.update_statuses(updated_user_ids, @calendar)
+
         @calendar.calendar_shares = CalendarShare.build_from_emails(params)
       end
+
       raise "Invalid input" unless @calendar.errors.full_messages.empty?
     rescue
       render json: @calendar.errors.full_messages, status: 422

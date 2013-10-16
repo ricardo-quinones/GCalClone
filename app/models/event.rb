@@ -9,7 +9,7 @@ class Event < ActiveRecord::Base
   belongs_to :calendar
   belongs_to :creator, class_name: "User", foreign_key: :creator_id
 
-  has_many :availability_statuses
+  has_many :availability_statuses, dependent: :destroy
 
   def local_start_date
     self.start_date.in_time_zone(self.time_zone).iso8601
@@ -21,6 +21,10 @@ class Event < ActiveRecord::Base
 
   def color
     self.event_color || self.calendar.color
+  end
+
+  def availability_status(user)
+    self.availability_statuses.where(user_id: user.id).first
   end
 
   # COLORS = [

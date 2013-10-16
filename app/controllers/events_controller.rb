@@ -15,30 +15,50 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.new(params[:cal_event])
-    @event.creator_id = current_user.id
+    begin
+      Event.transaction do
+        @event = Event.new(params[:cal_event])
+        @event.creator_id = current_user.id
+        @event.save
 
-    if @event.save
+        new_statuses = @event.calendar.users_shared_with.map(&:id).map do |user_id|
+          AvailabilityStatus.new(availability: "free", user_id: user_id)
+        end
+
+        @event.availability_statuses.create(availability: params[:availability], user_id: current_user.id)
+        @event.availability_statuses << new_statuses
+      end
+
+      raise "Invalid input" unless @event.persisted?
+    rescue
+      render json: @event.errors.full_messages, status: 422
+    else
       render json: @event.as_json(
         methods: [:local_start_date, :local_end_date, :color],
         except: [:start_date, :end_date, :event_color]
       )
-    else
-      render json: @event.errors.full_messages, status: 422
     end
   end
 
   def update
     @event = Event.find(params[:id])
+    calendar = @event.calendar
+    @event.update_attributes(params[:cal_event])
+    @event.availability_status(current_user).update_attributes(availability: params[:availability])
 
-    if @event.update_attributes(params[:cal_event])
-      render json: @event.as_json(
-        methods: [:local_start_date, :local_end_date, :color],
-        except: [:start_date, :end_date, :event_color]
-      )
-    else
-      render json: @event.errors.full_messages
+    if @event.calendar_id != calendar
+      @event.availability_statuses.where("availability_statuses.user_id != ?", current_user.id).destroy_all
+
+      new_statuses = @event.calendar.users_shared_with.map(&:id).map do |user_id|
+        AvailabilityStatus.new(availability: "free", user_id: user_id)
+      end
+      @event.availability_statuses << new_statuses
     end
+
+    render json: @event.as_json(
+      methods: [:local_start_date, :local_end_date, :color],
+      except: [:start_date, :end_date, :event_color]
+    )
   end
 
   def destroy
