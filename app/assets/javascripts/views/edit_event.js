@@ -7,6 +7,7 @@ GCalClone.Views.EditEvent = Backbone.View.extend({
 
   render: function () {
     var self = this;
+
     var calendarId = this.model.get("calendar_id");
     var eventsCal = this.options.myCalendars.get(calendarId);
     eventsCal = eventsCal || this.options.subscribedCalendars.get(calendarId);
@@ -45,7 +46,6 @@ GCalClone.Views.EditEvent = Backbone.View.extend({
 
     var formData = $(event.target.form).serializeJSON();
     this.convertDates(formData.cal_event);
-    console.log(formData);
 
     self.model.save(formData, {
       patch: true,

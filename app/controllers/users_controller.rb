@@ -8,8 +8,9 @@ class UsersController < ApplicationController
           except: [:password_digest, :token],
           include: {
             availability_statuses: {},
-            users_that_can_see_availability: {
-              only: [:email]
+            availabilities_shared_with_user: {
+              only: [:id, :color, :title],
+              methods: [:email]
             },
             calendars: {
               include: {

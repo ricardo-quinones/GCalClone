@@ -42,7 +42,6 @@ GCalClone.Views.EditAvailabilityShares = Backbone.View.extend({
         console.log(response);
       }
     });
-
   },
 
   buildExistingShares: function () {

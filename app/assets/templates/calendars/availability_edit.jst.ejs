@@ -1,0 +1,36 @@
+<h1><%= availabilityShare.get("title") %></h1>
+
+<div class="form-box">
+  <form>
+    <label>Title
+      <input type="text" name="availability_share[title]" value="<%= availabilityShare.get("title") %>">
+    </label>
+
+    <ul>
+      <li><strong>Owner Email</strong></li>
+      <li><%= availabilityShare.get("email") %></li>
+    </ul>
+
+    <input type="submit" value="Save changes" id="update-availability-calendar" class="button-lrg">
+  </form>
+</div>
+
+<input
+  type="submit"
+  id="unsubscribe-to-calendar"
+  value="Unsubscribe"
+  data-id="<%= availabilityShare.id %>"
+  class="button-lrg">
+
+<script>
+$(document).ready(function () {
+  $("#form-views").dialog({
+    beforeClose: function () {
+      $("#form-views").empty();
+      $("#form-views").unbind();
+    },
+    modal: true,
+    width: "auto"
+  });
+});
+</script>

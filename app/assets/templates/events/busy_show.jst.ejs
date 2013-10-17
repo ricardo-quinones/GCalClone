@@ -1,18 +1,10 @@
-<h1><%= calEvent.get("title") %></h1>
+<h4><strong>busy</strong></h4>
 
 <h4><%= calEvent.displayEventTime() %></h4>
 <table class="show">
   <tr>
-    <td class="label"><strong>Where</strong></td>
-    <td><%= calEvent.get("location") %></td>
-  </tr>
-  <tr>
     <td class="label"><strong>Calendar</strong></td>
-    <td><%= calendarShare.get("title") %></td>
-  </tr>
-  <tr>
-    <td class="label"><strong>Description</strong></td>
-    <td><%= calEvent.get("description") %></td>
+    <td><%= availabilityShare.get("email") %></td>
   </tr>
 </table>
 

@@ -15,7 +15,11 @@ class AvailabilityShare < ActiveRecord::Base
   end
 
   def save_default_title
-    self.title = "#{self.availability_owner.first_name} #{self.availability_owner.last_name}"
+    self.title = self.availability_subscriber.full_name
+  end
+
+  def email
+    self.availability_subscriber.email
   end
 
   COLORS = [

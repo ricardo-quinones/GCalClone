@@ -12,7 +12,8 @@ GCalClone.Views.Calendars = Backbone.View.extend({
     "click .cal-settings": "editCal",
     "click .cal-share-settings": "editCalShare",
     "click #create-cal": "newCal",
-    "click #share-availability": "editAvailabilityShares"
+    "click #share-availability": "editAvailabilityShares",
+    "click .availability-calendar-settings": "editAvailabilityCalendar"
   },
 
   closePreviousView: function () {
@@ -84,24 +85,42 @@ GCalClone.Views.Calendars = Backbone.View.extend({
   eventClick: function (fcEvent) {
     this.closePreviousView();
 
-    this.currentView = new GCalClone.Views.EditEvent({
-      el: $("#form-views"),
-      model: this.collection.get(fcEvent.id),
-      myCalendars: this.options.myCalendars,
-      subscribedCalendars: this.options.subscribedCalendars,
-      calendarShares: this.options.calendarShares
-    })
+    if (typeof fcEvent.id !== "undefined") {
+      this.currentView = new GCalClone.Views.EditEvent({
+        el: $("#form-views"),
+        model: this.collection.get(fcEvent.id),
+        myCalendars: this.options.myCalendars,
+        subscribedCalendars: this.options.subscribedCalendars,
+        calendarShares: this.options.calendarShares
+      });
 
-    this.currentView.render();
+      this.currentView.render();
+    }
+    else {
+      calEvent = this.collection.findWhere({
+        availability_share_id: fcEvent.availability_share_id,
+        start: fcEvent.start,
+        end: fcEvent.end
+      });
+      var availabilityShare = this.options.availabilityShares.get(fcEvent.availability_share_id)
+      this.currentView = new GCalClone.Views.ShowBusyEvent({
+        el: $("#form-views"),
+        calEvent: calEvent,
+        availabilityShare: availabilityShare
+      });
+
+      this.currentView.render();
+    }
   },
 
   eventDropOrResize: function (fcEvent) {
+    var status = this.collection.get(fcEvent.id).get("availability");
     this.collection.get(fcEvent.id).save(
       {cal_event: {start_date: fcEvent.start, end_date: fcEvent.end, all_day: fcEvent.allDay}}, {
         patch: true,
         wait: true,
         success: function (response) {
-          response.addFullCalendarAttrs();
+          response.addFullCalendarAttrs(status);
           var fcEvent = $("#calendar-views").fullCalendar("clientEvents", response.get('id'))[0];
           _(fcEvent).extend(response.attributes);
           $("#calendar-views").fullCalendar("updateEvent", fcEvent);

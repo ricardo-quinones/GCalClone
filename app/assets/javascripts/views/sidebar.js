@@ -9,7 +9,8 @@ GCalClone.Views.Sidebar = Backbone.View.extend({
     });
     var sidebarBottom = new GCalClone.Views.CalendarsSidebarBottom({
       collection: self.options.calendarShares,
-      calendars: self.options.subscribedCalendars
+      calendars: self.options.subscribedCalendars,
+      availabilityShares: this.options.availabilityShares
     });
 
     self.$el
@@ -100,5 +101,22 @@ GCalClone.Views.Sidebar = Backbone.View.extend({
     });
 
     availabilitySharesView.render();
+  },
+
+  editAvailabilityCalendar: function (event) {
+    event.preventDefault();
+    var availabilityShare = this.options.availabilityShares.findWhere({
+      id: $(event.target).data("id")
+    });
+    var availabilityCalendar = this.options.subscribedCalendars.findWhere({
+      availability_share_id: $(event.target).data("id")
+    });
+    var availabilityCalendarView = new GCalClone.Views.EditAvailabilityCalendar({
+      el: $("#form-views"),
+      model: availabilityCalendar,
+      availabilityShare: availabilityShare
+    });
+
+    availabilityCalendarView.render();
   }
 });

@@ -63,18 +63,31 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
     GCalClone.availabilityStatuses = this.availabilityStatuses;
 
     this.availabilityShares = new GCalClone.Collections.AvailabilityShares(
-      this.currentUser.get("users_that_can_see_availability")
+      this.currentUser.get("availabilities_shared_with_user")
     );
 
     GCalClone.availabilityShares = this.availabilityShares;
 
     this.events = new GCalClone.Collections.Events(eventPojos);
+
     this.events.each(function (calEvent, index) {
       var status = "free"
+      var color;
+
+      if (typeof calEvent.get("availability_share_id") == "undefined") {
+        color = (function () {
+          var calendarShare = GCalClone.calendarShares.findWhere({calendar_id: calEvent.get("calendar_id")});
+          return (typeof calendarShare == "undefined" ? calEvent.get("color") : calendarShare.get("color"));
+        })();
+      }
+      else {
+        color = GCalClone.availabilityShares.get(calEvent.get("availability_share_id")).get("color")
+      }
+
       if (typeof calEvent.get("availability_share_id") == "undefined") {
         status = GCalClone.availabilityStatuses.findWhere({event_id: calEvent.id}).get("availability");
       }
-      calEvent.addFullCalendarAttrs(status);
+      calEvent.addFullCalendarAttrs(status, color);
     });
 
     GCalClone.events = this.events;
