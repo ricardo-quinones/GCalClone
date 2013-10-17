@@ -7,19 +7,19 @@ class AvailabilityShare < ActiveRecord::Base
   validates_presence_of :availability_owner_id, :availability_subscriber_id
   validates :availability_subscriber_id, uniqueness: { scope: :availability_owner_id }
 
-  belongs_to :availability_owner, class_name: "User", foreign_key: :availability_owner_id
-  belongs_to :availability_subscriber, class_name: "User", foreign_key: :availability_subscriber_id
+  belongs_to :owner, class_name: "User", foreign_key: :availability_owner_id
+  belongs_to :subscriber, class_name: "User", foreign_key: :availability_subscriber_id
 
   def set_random_color
     self.color = COLORS.sample
   end
 
   def save_default_title
-    self.title = self.availability_subscriber.full_name
+    self.title = self.owner.full_name
   end
 
   def email
-    self.availability_subscriber.email
+    self.subscriber.email
   end
 
   COLORS = [

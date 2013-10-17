@@ -58,7 +58,6 @@ GCalClone.Views.NewEvent = Backbone.View.extend({
       TIME_ZONES[calEvent.time_zone].tzinfo.identifier
     ).format();
 
-
     calEvent["end_date"] = moment.tz(
       end_date.date + " " + end_date.time,
       TIME_ZONES[calEvent.time_zone].tzinfo.identifier

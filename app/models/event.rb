@@ -2,6 +2,7 @@ class Event < ActiveRecord::Base
   attr_accessible :all_day, :end_date, :location, :start_date, :title,
     :calendar_id, :creator_id, :time_zone, :description, :event_color
 
+  validate :valid_date_range
   validates :all_day, :inclusion => {:in => [true, false]}
   validates_presence_of :calendar_id, :start_date, :end_date,
     :time_zone, :creator_id
@@ -27,19 +28,7 @@ class Event < ActiveRecord::Base
     self.availability_statuses.where(user_id: user.id).first
   end
 
-  # COLORS = [
-  #   "#0099FF",
-  #   "#33CC33",
-  #   "#CC9933",
-  #   "#99CCFF",
-  #   "#CC0000",
-  #   "#FFFF33",
-  #   "#330099",
-  #   "#C0C0C0",
-  #   "#E80000",
-  #   "#9966CC",
-  #   "#990000",
-  #   "#009900",
-  #   "#009999"
-  # ]
+  def valid_date_range
+    errors.add(:start_date, "Invalid date range") unless self.start_date < self.end_date
+  end
 end

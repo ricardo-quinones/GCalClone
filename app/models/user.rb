@@ -7,10 +7,11 @@ class User < ActiveRecord::Base
   before_save :change_time_zone_string, unless: :persisted?
   before_save :generate_default_calendars, unless: :persisted?
 
-  validates_presence_of :name,  on: :create
+  validates_presence_of :name, on: :create
 
   validate :no_middle_names, on: :create
   validates :first_name, :last_name, length: { maximum: 50 }
+  validates :first_name, length: { minimum: 1 }, on: :update
 
   before_validation { email.downcase! }
   EMAIL_REGEX = /\A[^\W_]([\w+\-]|(?<!\.)\.)+@[^\W_]([a-z\d\-]|(?<!\.)\.)+(?<!\.)\.[a-z]+\z/
@@ -42,10 +43,10 @@ class User < ActiveRecord::Base
   )
 
   has_many :shares_of_users_availability, class_name: "AvailabilityShare", foreign_key: :availability_owner_id
-  has_many :users_that_can_see_availability, through: :shares_of_users_availability, source: :availability_subscriber
+  has_many :users_that_can_see_availability, through: :shares_of_users_availability, source: :subscriber
 
   has_many :availabilities_shared_with_user, class_name: "AvailabilityShare", foreign_key: :availability_subscriber_id
-  has_many :users_that_share_their_availability, through: :availabilities_shared_with_user, source: :availability_owner
+  has_many :users_that_share_their_availability, through: :availabilities_shared_with_user, source: :owner
 
   has_many(
     :manage_sharing_calendars,

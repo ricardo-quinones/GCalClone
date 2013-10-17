@@ -32,8 +32,8 @@ class CalendarShare < ActiveRecord::Base
   end
 
   def save_default_title_and_description
-    self.title = Calendar.find(self.calendar_id).owner_name
-    self.description = Calendar.find(self.calendar_id).description
+    self.title = self.calendar.owner_name
+    self.description = self.calendar.description
   end
 
   def owner_email
