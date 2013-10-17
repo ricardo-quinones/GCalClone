@@ -1,7 +1,7 @@
 GCalClone.Views.EditAvailabilityShares = Backbone.View.extend({
 
   initialize: function () {
-    this.emails = this.collection.map(function (share) { return share.get("email"); });
+    this.emails = this.collection.toJSON();
   },
 
   template: JST['availability_shares/edit'],
@@ -25,13 +25,32 @@ GCalClone.Views.EditAvailabilityShares = Backbone.View.extend({
     return self;
   },
 
+  update: function (event) {
+    var self = this;
+    event.preventDefault();
+
+    var shares = {
+      availability_shares: this.emails
+    }
+
+    self.collection.create(shares, {
+      success: function (response) {
+        self.collection.set(response.attributes.availability_shares);
+        self.$el.dialog("close");
+      },
+      error: function (response) {
+        console.log(response);
+      }
+    });
+
+  },
+
   buildExistingShares: function () {
     var self = this;
 
-    _(this.emails).each(function (email, index) {
+    _(this.emails).each(function (emailHash) {
       $buildExistingShare = JST["availability_shares/build_email"]({
-        email: email,
-        index: index
+        email: emailHash.email
       });
 
       $("#listed-availability-shares").append($buildExistingShare);
@@ -44,11 +63,10 @@ GCalClone.Views.EditAvailabilityShares = Backbone.View.extend({
 
       var email = $(event.target.form).serializeJSON().email;
 
-      this.emails.push(email);
+      this.emails.push({email: email});
 
       $buildNewShare = JST["availability_shares/build_email"]({
-        email: email,
-        index: this.emails.length - 1
+        email: email
       });
 
       $("#listed-availability-shares").append($buildNewShare);
@@ -59,45 +77,9 @@ GCalClone.Views.EditAvailabilityShares = Backbone.View.extend({
   removeEmail: function (event) {
     event.preventDefault();
     var email = $(event.target).data("email");
-    _(this.emails).without(email);
-    // var deleteIndex = $(event.target).data("id");
-//     $(event.target).parent().parent().remove();
-//     delete this.newCalendarShares[deleteKey];
+    this.emails = _(this.emails).filter(function (emailHash) {
+      return emailHash.email !==  email;
+    });
+    $(event.target).parent().parent().remove();
   }
-
-  // update: function (event) {
-  //   var self = this;
-  //   event.preventDefault();
-  //
-  //   var formData = $(event.target.form).serializeJSON();
-  //
-  //   self.model.save(formData, {
-  //     patch: true,
-  //     success: function (response) {
-  //       self.$el.dialog("close");
-  //     },
-  //     error: function (response) {
-  //       console.log(response);
-  //     }
-  //   });
-  // },
-  //
-  // destroy: function (event) {
-  //   var self = this;
-  //   event.preventDefault();
-  //
-  //   var calendarId = $(event.target).data('id');
-  //   var reallyDelete = confirm("Are you sure?")
-  //
-  //   if (reallyDelete) {
-  //     self.model.destroy({
-  //       success: function(response) {
-  //         $("#calendar-views").fullCalendar("removeEvents", function (calEvent) {
-  //           return calEvent.calendar_id == self.model.get("calendar_id");
-  //         });
-  //         self.$el.dialog("close");
-  //       }
-  //     });
-  //   }
-  // }
 });

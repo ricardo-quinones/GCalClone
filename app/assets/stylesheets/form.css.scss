@@ -200,7 +200,12 @@ h4 {
 }
 
 #new-availability-input {
- border-bottom: 1px solid #ccc;
+ border-radius: 8px;
+ background: #eee;
+}
+
+#availability-add-person.button-lrg {
+  margin: 0;
 }
 
 #new-availability-input:after {
@@ -224,7 +229,7 @@ h4 {
 }
 
 .listed-availability-share:last-child {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 .listed-availability-share:after {
