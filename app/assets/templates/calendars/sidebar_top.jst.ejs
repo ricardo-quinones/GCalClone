@@ -9,7 +9,11 @@
 
   <% calendars.each(function (calendar) { %>
     <ul class="cal-list-item menu top">
-      <li class="cal-color" data-color="<%= calendar.get("color") %>" data-calendar="<%= calendar.id %>"></li>
+      <li
+        class="color cal-color"
+        data-color="<%= calendar.get("color") %>"
+        data-calendar="<%= calendar.id %>"
+        data-calendartype="see details"></li>
       <li class="menu">
         <a class="calendar menu" href="#"><%= calendar.get("title") %></a>
       </li>

@@ -29,11 +29,13 @@ class CalendarsController < ApplicationController
         @calendar = Calendar.find(params[:id])
         @calendar.update_attributes(params[:calendar])
 
-        attrs = params[:calendar_shares].values.map(&:values)
-        updated_user_ids = User.where(email: attrs.map { |el| el[0] }).map(&:id)
-        AvailabilityStatus.update_statuses(updated_user_ids, @calendar)
+        unless params[:calendar_shares].nil?
+          attrs = params[:calendar_shares].values.map(&:values)
+          updated_user_ids = User.where(email: attrs.map { |el| el[0] }).map(&:id)
+          AvailabilityStatus.update_statuses(updated_user_ids, @calendar)
 
-        @calendar.calendar_shares = CalendarShare.build_from_emails(params)
+          @calendar.calendar_shares = CalendarShare.build_from_emails(params)
+        end
       end
 
       raise "Invalid input" unless @calendar.errors.full_messages.empty?

@@ -28,7 +28,7 @@ class CalendarShare < ActiveRecord::Base
   end
 
   def set_random_color
-    self.color = COLORS.sample
+    self.color = Calendar.colors.sample
   end
 
   def save_default_title_and_description
@@ -48,20 +48,4 @@ class CalendarShare < ActiveRecord::Base
     self.permissions == "Make changes AND manage sharing" ||
       self.permissions == "Make changes to events"
   end
-
-  COLORS = [
-    "#0099FF",
-    "#33CC33",
-    "#CC9933",
-    "#99CCFF",
-    "#CC0000",
-    "#FFFF33",
-    "#330099",
-    "#C0C0C0",
-    "#E80000",
-    "#9966CC",
-    "#990000",
-    "#009900",
-    "#009999"
-  ]
 end

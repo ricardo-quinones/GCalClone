@@ -20,13 +20,13 @@ GCalClone.Views.EditAvailabilityCalendar = Backbone.View.extend({
     event.preventDefault();
 
     var formData = $(event.target.form).serializeJSON();
+    var pojo = self.options.calendar.toJSON();
+    pojo.title = formData.availability_share.title;
 
     this.model.save(formData, {
-      wait: true,
       patch: true,
       success: function (response) {
-        console.log(response);
-        console.log(self.model);
+        self.options.calendar.set(pojo); // trigger is not functioning properly
         self.$el.dialog("close");
       },
       error: function (response) {

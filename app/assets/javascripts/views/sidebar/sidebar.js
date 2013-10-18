@@ -108,15 +108,132 @@ GCalClone.Views.Sidebar = Backbone.View.extend({
     var availabilityShare = this.options.availabilityShares.findWhere({
       id: $(event.target).data("id")
     });
-    // var availabilityCalendar = this.options.subscribedCalendars.findWhere({
-//       availability_share_id: $(event.target).data("id")
-//     });
+    var availabilityCalendar = this.options.subscribedCalendars.findWhere({
+      availability_share_id: $(event.target).data("id")
+    });
     var availabilityCalendarView = new GCalClone.Views.EditAvailabilityCalendar({
       el: $("#form-views"),
       collection: this.options.subscribedCalendars,
-      model: availabilityShare
+      model: availabilityShare,
+      calendar: availabilityCalendar
     });
 
     availabilityCalendarView.render();
+  },
+
+  changeCalColor: function (event) {
+    event.preventDefault();
+    var $el = $(event.target)
+    var calId = $el.data("id"), color = $el.data("color"), calType = $el.data("calendartype");
+
+    if (calType == "cal-settings") {
+      var params = {calendar: {color: color} }
+      this.collection.get(calId).save(params,  {
+        wait: true,
+        patch: true,
+        success: function (response) {
+          var events = $("#calendar-views").fullCalendar("clientEvents", function (fcEvent) {
+            return fcEvent.calendar_id == calId
+          });
+
+          _(events).each(function (fcEvent) {
+            fcEvent.color = color
+            $("#calendar-views").fullCalendar("updateEvent", fcEvent);
+          });
+        },
+        error: function (resonse) {
+          console.log(resonse);
+        }
+      });
+    }
+    else if (calType == "cal-share-settings") {
+      var params = {calendar_share: {color: color} }
+      this.options.calendarShares.findWhere({calendar_id: calId}).save(params,  {
+        wait: true,
+        patch: true,
+        success: function (response) {
+          var events = $("#calendar-views").fullCalendar("clientEvents", function (fcEvent) {
+            return fcEvent.calendar_id == calId
+          });
+
+          _(events).each(function (fcEvent) {
+            fcEvent.color = color
+            $("#calendar-views").fullCalendar("updateEvent", fcEvent);
+          });
+        },
+        error: function (resonse) {
+          console.log(resonse);
+        }
+      });
+    }
+    else {
+      var params = {availability_share: {color: color} }
+      this.options.availabilityShares.get(calId).save(params,  {
+        wait: true,
+        patch: true,
+        success: function (response) {
+          var events = $("#calendar-views").fullCalendar("clientEvents", function (fcEvent) {
+            return fcEvent.availability_share_id == calId
+          });
+
+          _(events).each(function (fcEvent) {
+            fcEvent.color = color
+            $("#calendar-views").fullCalendar("updateEvent", fcEvent);
+          });
+        },
+        error: function (resonse) {
+          console.log(resonse);
+        }
+      });
+    }
+  },
+
+  displayOneCalendar: function (event) {
+    event.preventDefault();
+    var calId = $(event.target).data("id")
+
+    $(".cal-color").each(function () {
+      var $el = $(this);
+      if ($el.data("calendar") == calId) {
+        if ($el.css("background-color") == "rgb(255, 255, 255)") {
+          calEvents = (function () {
+            return _(GCalClone.events.where({calendar_id: $el.data("calendar")})).map(function (calEvent) {
+              return calEvent.toJSON();
+            });
+          })();
+
+          $("#calendar-views").fullCalendar("addEventSource", calEvents);
+
+          $el.css({
+            "background-color": $el.css("border-color"),
+            "border-color": "white"
+          });
+        };
+      }
+      else {
+        if ($el.css("background-color") !== "rgb(255, 255, 255)") {
+          if ($el.data("calendartype") == "see details") {
+            $("#calendar-views").fullCalendar("removeEvents", function (calEvent) {
+              return calEvent.calendar_id == $el.data("calendar");
+            });
+
+            $el.css({
+              "border-color": $el.css("background-color"),
+              "background-color": "white"
+            });
+          }
+          else {
+            $("#calendar-views").fullCalendar("removeEvents", function (calEvent) {
+              return calEvent.availability_share_id == $el.data("calendar");
+            });
+
+            $el.css({
+              "border-color": $el.css("background-color"),
+              "background-color": "white"
+            });
+          };
+        };
+      };
+    });
   }
 });

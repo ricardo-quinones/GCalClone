@@ -58,16 +58,16 @@
   top: 0;
   left: 215px;
   width: 300px;
-  z-index: 9999;
+  z-index: 1000;
 }
 
-.cal-list-item:hover .drop-down {
+.cal-list-item:hover > li > .drop-down {
   position: absolute;
   display: block;
   top: -2px;
   left: 215px;
   width: 300px;
-  z-index: 9999;
+  z-index: 1000;
 }
 
 .cal-list-item> li > a:hover {
@@ -78,11 +78,11 @@
   cursor: default;
 }
 
-.cal-color {
+.color {
   display: block;
   width: 15px;
   height: 15px;
-  border-radius: 3px;
+  border-radius: 4px;
   margin: 5px;
   border: 2px solid white;
   cursor: pointer;
@@ -90,4 +90,34 @@
 
 .calendar {
   padding: 5px;
+}
+
+.color-drop-down {
+  position: absolute;
+  display: none;
+  padding: 7px;
+  width: 165px;
+  left: 300px;
+  bottom: -67px;
+}
+
+.color-drop-down:after {
+  clear: both;
+  display: block;
+  content: "";
+}
+
+.color-select:hover > .color-drop-down {
+  display: block;
+  z-index: 2000;
+}
+
+.color-option {
+  float: left;
+  display: block;
+  border: 1px solid white;
+}
+
+.color-option:hover {
+  border: 1px solid #444;
 }

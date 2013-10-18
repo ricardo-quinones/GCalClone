@@ -8,11 +8,9 @@ GCalClone.Views.CalendarsSidebarBottom = Backbone.View.extend({
     var renderCallback = self.render.bind(self);
 
     self.listenTo(self.collection, 'add', renderCallback);
-    self.listenTo(self.collection, 'change', renderCallback);
+    self.listenTo(self.collection, 'change', renderCallback); // not working for availability calendars
     self.listenTo(self.collection, 'remove', renderCallback);
-    self.listenTo(self.options.availabilityShares, 'add', renderCallback);
-    self.listenTo(self.options.availabilityShares, 'remove', renderCallback);
-    self.listenTo(self.options.availabilityShares, 'change', renderCallback);
+    self.listenTo(self.collection, 'change:title', renderCallback); // not working for availability calendars
   },
 
   render: function () {

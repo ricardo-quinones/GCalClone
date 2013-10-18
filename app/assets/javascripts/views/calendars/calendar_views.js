@@ -13,7 +13,9 @@ GCalClone.Views.Calendars = Backbone.View.extend({
     "click .cal-share-settings": "editCalShare",
     "click #create-cal": "newCal",
     "click #share-availability": "editSharesOfAvailability",
-    "click .availability-calendar-settings": "editAvailabilityCalendar"
+    "click .availability-calendar-settings": "editAvailabilityCalendar",
+    "click .display-only": "displayOneCalendar",
+    "click .color-option": "changeCalColor"
   },
 
   closePreviousView: function () {

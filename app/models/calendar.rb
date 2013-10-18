@@ -19,7 +19,7 @@ class Calendar < ActiveRecord::Base
   end
 
   def set_random_color
-    self.color = COLORS.sample
+    self.color = Calendar.colors.sample
   end
 
   def emails_shared_with
@@ -33,19 +33,10 @@ class Calendar < ActiveRecord::Base
     end
   end
 
-  COLORS = [
-    "#0099FF",
-    "#33CC33",
-    "#CC9933",
-    "#99CCFF",
-    "#CC0000",
-    "#FFFF33",
-    "#330099",
-    "#C0C0C0",
-    "#E80000",
-    "#9966CC",
-    "#990000",
-    "#009900",
-    "#009999"
-  ]
+  def self.colors
+    ["#0099FF", "#33CC33", "#CC9933", "#99CCFF", "#CC0000", "#FFFF33",
+     "#330099", "#C0C0C0", "#E80000", "#9966CC", "#990000", "#009900",
+     "#009999", "#A9715D", "#CC6964", "#96E3BE", "#26AA61", "#B996FF",
+     "#CB6EEA", "#F7D35F", "#5083EA", "#F97334", "#F9EB8C", "#B4DF65"]
+  end
 end

@@ -7,7 +7,7 @@
 
     <ul class="cal-list-item menu bottom">
       <li
-        class="cal-color"
+        class="color cal-color"
         data-color="<%= calendar.get("color") %>"
         data-calendar="<%= calendarId %>"
         data-calendartype="<%= calendarType %>"></li>
@@ -60,6 +60,7 @@ $(document).ready(function () {
         $("#calendar-views").fullCalendar("removeEvents", function (calEvent) {
           return calEvent.calendar_id == $el.data("calendar");
         });
+
         $el.css({
           "border-color": $el.css("background-color"),
           "background-color": "white"
@@ -69,6 +70,7 @@ $(document).ready(function () {
         $("#calendar-views").fullCalendar("removeEvents", function (calEvent) {
           return calEvent.availability_share_id == $el.data("calendar");
         });
+
         $el.css({
           "border-color": $el.css("background-color"),
           "background-color": "white"

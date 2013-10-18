@@ -6,9 +6,30 @@
 
 
 <ul class="drop-down">
-  <li><a class="menu" href="#">Display just this Calendar</a></li>
+  <li><a class="menu display-only" href="#" data-id="<%= calendarId %>">Display just this Calendar</a></li>
   <li><a class="menu <%= calClass %>" href="#" data-id="<%= calendarId %>">Calendar Settings</a></li>
   <% if (canEdit) { %>
     <li><a class="menu new-cal-event" data-id="<%= calendarId %>" href="#">Add event to this Calendar</a></li>
   <% } %>
+  <li class="color-select">
+    <a class="menu" href="#">Change color of Calendar</a>
+    <ul class="drop-down color-drop-down">
+      <% _(COLORS).each(function (color) { %>
+        <li
+          class="color color-option"
+          data-color="<%= color %>"
+          data-id="<%= calendarId %>"
+          data-calendartype="<%= calClass %>"></li>
+      <% }) %>
+    </ul>
+  </li>
 </ul>
+
+<script>
+$(".color-drop-down > .color-option").each(function() {
+  $el = $(this);
+  $el.css("background", function () {
+    return $el.data("color");
+  });
+});
+</script>

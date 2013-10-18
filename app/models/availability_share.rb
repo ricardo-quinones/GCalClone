@@ -11,7 +11,7 @@ class AvailabilityShare < ActiveRecord::Base
   belongs_to :subscriber, class_name: "User", foreign_key: :availability_subscriber_id
 
   def set_random_color
-    self.color = COLORS.sample
+    self.color = Calendar.colors.sample
   end
 
   def save_default_title
@@ -25,20 +25,4 @@ class AvailabilityShare < ActiveRecord::Base
   def owner_email
     self.owner.email
   end
-
-  COLORS = [
-    "#0099FF",
-    "#33CC33",
-    "#CC9933",
-    "#99CCFF",
-    "#CC0000",
-    "#FFFF33",
-    "#330099",
-    "#C0C0C0",
-    "#E80000",
-    "#9966CC",
-    "#990000",
-    "#009900",
-    "#009999"
-  ]
 end
