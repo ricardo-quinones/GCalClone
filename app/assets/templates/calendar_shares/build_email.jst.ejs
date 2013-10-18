@@ -1,11 +1,17 @@
-<ul class="listed-calendar-share">
-  <li><%= calShare.email %></li>
-  <li><%= calShare.permissions %></li>
-  <li>
+<tr class="listed-calendar-share">
+  <td class="td-email"><%= calShare.email %></td>
+  <td class="td-permissions">
+    <select name="permissions" id="permissions">
+      <% _(["Make changes AND manage sharing", "Make changes to events", "See all event details"]).each(function (permissions) { %>
+        <% var selected = (permissions == calShare.permissions ? "selected" : "") %>
+          <option id="<%= selected %>" value="<%= permissions %>" <%= selected %>><%= permissions %></option>
+      <% }) %>
+    </select>
+  </td>
+  <td class="td-delete">
     <input
       type="submit"
       value="Delete"
-      class="remove-share button-lrg"
-      data-id="<%= key %>">
-    </li>
-</ul>
+      class="remove-share button-lrg">
+    </td>
+</tr>

@@ -2,24 +2,27 @@
 
 <div class="form-box">
   <form>
-    <label>Title
-      <input type="text" name="calendar_share[title]" value="<%= calendarShare.get("title") %>">
-    </label>
 
-    <label>Description
+    <div class="form-row">
+      <label>Title</label>
+      <input type="text" name="calendar_share[title]" value="<%= calendarShare.get("title") %>">
+    </div>
+
+    <div class="form-row">
+      <label>Description</label>
       <textarea
         name="calendar_share[description]"><%= calendarShare.get("description") %></textarea>
-    </label>
+    </div>
 
-    <ul>
-      <li>Owner Email</li>
-      <li><%= calendarShare.get("owner_email") %></li>
-    </ul>
+    <div class="form-row">
+      <label><strong>Owner Email</strong></label>
+      <p><%= calendarShare.get("owner_email") %></p>
+    </div>
 
-    <ul>
-      <li>Calendar Time Zone</li>
-      <li><%= calendarShare.get("calendar_time_zone") %></li>
-    </ul>
+    <div class="form-row">
+      <label><strong>Calendar Time Zone</strong></label>
+      <p><%= calendarShare.get("calendar_time_zone") %></p>
+    </div>
 
     <input type="submit" value="Save changes" id="update-calendar-share" class="button-lrg">
   </form>

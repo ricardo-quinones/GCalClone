@@ -31,7 +31,7 @@ GCalClone.Views.EditCalendar = Backbone.View.extend({
     event.preventDefault();
 
     var formData = $(event.target.form).serializeJSON();
-    formData["calendar_shares"] = this.calendarShares;
+    formData["calendar_shares"] = this.createCalendarSharesList();
 
     self.model.save(formData, {
       wait: true,
@@ -75,6 +75,22 @@ GCalClone.Views.EditCalendar = Backbone.View.extend({
 
       $("#listed-calendar-shares").append($buildExistingShare);
     });
+  },
+
+  createCalendarSharesList: function () {
+    var self = this;
+    var newShares = {};
+    $(".listed-calendar-share").each(function () {
+      var key = _(newShares).pairs().length;
+      var newShare = {
+        email: $(this).find(".td-email").text(),
+        permissions: $(this).find("select").val()
+      };
+
+      newShares[key] = newShare;
+    });
+
+    return newShares;
   },
 
   addCalendarShare: function (event) {

@@ -120,6 +120,7 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
       calendarShares: this.calendarShares,
       myCalendars: this.myCalendars,
       availabilityShares: this.availabilityShares,
+      availabilityStatuses: this.availabilityStatuses,
       collection: this.events
     });
 

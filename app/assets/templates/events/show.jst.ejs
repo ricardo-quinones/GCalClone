@@ -15,6 +15,25 @@
     <td><%= calEvent.get("description") %></td>
   </tr>
 </table>
+<form>
+  <div class="form-row">
+    <label>Show me as</label>
+    <% var freeChecked = (calEvent.get("availability") == "free" ? "checked" : "") %>
+    <% var busyChecked = (calEvent.get("availability")  == "busy" ? "checked" : "") %>
+    <input
+      type="radio"
+      name="availability"
+      value="free"
+      <%= freeChecked %>><span class="radio">Free</span class="radio">
+    <input
+      type="radio"
+      name="availability"
+      value="busy"
+      <%= busyChecked %>><span class="radio">Busy</span class="radio">
+  </div>
+
+  <input type="submit" value="Save" id="update-availability"  class="button-lrg">
+</form>
 
 <script>
 $(document).ready(function () {

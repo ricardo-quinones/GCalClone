@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <div class="form-row">
+    <div class="form-row  description">
       <label>Description</label>
       <textarea
         name="calendar[description]"><%= description %></textarea>
@@ -62,7 +62,8 @@ $(document).ready(function () {
       $("#form-views").unbind();
     },
     modal: true,
-    width: "auto"
+    width: "auto",
+    minWidth: 1330
   });
 });
 </script>

@@ -87,13 +87,18 @@ GCalClone.Views.Calendars = Backbone.View.extend({
   eventClick: function (fcEvent) {
     this.closePreviousView();
 
+    var availabilityStatus = this.options.availabilityStatuses.findWhere({
+      event_id: fcEvent.id
+    });
+
     if (typeof fcEvent.id !== "undefined") {
       this.currentView = new GCalClone.Views.EditEvent({
         el: $("#form-views"),
         model: this.collection.get(fcEvent.id),
         myCalendars: this.options.myCalendars,
         subscribedCalendars: this.options.subscribedCalendars,
-        calendarShares: this.options.calendarShares
+        calendarShares: this.options.calendarShares,
+        availabilityStatus: availabilityStatus
       });
 
       this.currentView.render();

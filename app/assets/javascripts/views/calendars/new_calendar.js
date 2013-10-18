@@ -1,9 +1,5 @@
 GCalClone.Views.NewCalendar = Backbone.View.extend({
 
-  initialize: function () {
-    this.newCalendarShares = {};
-  },
-
   template: JST['calendars/new'],
 
   events: {
@@ -26,7 +22,7 @@ GCalClone.Views.NewCalendar = Backbone.View.extend({
     event.preventDefault();
 
     var formData = $(event.target.form).serializeJSON();
-    formData["calendar_shares"] = this.newCalendarShares;
+    formData["calendar_shares"] = this.createCalendarSharesList();
 
     self.collection.create(formData, {
       wait: true,
@@ -39,17 +35,30 @@ GCalClone.Views.NewCalendar = Backbone.View.extend({
     });
   },
 
+  createCalendarSharesList: function () {
+    var self = this;
+    var newShares = {};
+    $(".listed-calendar-share").each(function () {
+      var key = _(newShares).pairs().length;
+      var newShare = {
+        email: $(this).find(".td-email").text(),
+        permissions: $(this).find("select").val()
+      };
+
+      newShares[key] = newShare;
+    });
+
+    return newShares;
+  },
+
   addCalendarShare: function (event) {
     if (event.which === 1 || event.which === 13) {
       event.preventDefault();
 
       var formData = $(event.target.form).serializeJSON();
-      var key = _(this.newCalendarShares).pairs().length;
-      this.newCalendarShares[key] = formData;
 
       $buildNewShare = JST["calendar_shares/build_email"]({
-        calShare: formData,
-        key: key
+        calShare: formData
       });
 
       $("#listed-calendar-shares").append($buildNewShare);
@@ -59,9 +68,6 @@ GCalClone.Views.NewCalendar = Backbone.View.extend({
 
   removeCalendarShare: function (event) {
     event.preventDefault();
-
-    var deleteKey = $(event.target).data("email");
     $(event.target).parent().parent().remove();
-    delete this.newCalendarShares[deleteKey];
   }
 });

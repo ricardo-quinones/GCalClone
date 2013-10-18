@@ -61,6 +61,10 @@ input[type=time]::-webkit-outer-spin-button {
   padding: 10px;
 }
 
+.description {
+  margin-left: 50px;
+}
+
 .ui-widget select {
   font-family: 'Lato', sans-serif;
   font-weight: 300;
@@ -115,50 +119,14 @@ input[type=time]::-webkit-outer-spin-button {
   margin-left: 20px;
 }
 
-.listed-calendar-share {
-  display: block;
-  min-width: 1300px;
-}
-
-.listed-calendar-share:after {
-  display: block;
-  content: "";
-  clear: both;
-}
-
-.listed-calendar-share li {
-  float: left;
-  display: block;
-  font-size: 18px;
-  padding-top: 26px;
-  padding-bottom: 26px;
-  margin-left: 485px;
-}
-
-.listed-calendar-share li:first-child {
-  padding-left: 100px;
-  margin-left: 0;
-}
-
-.listed-calendar-share li:last-child {
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-right: 20px;
-  margin-left: 0;
-  float: right;
-}
-
-.listed-calendar-share > li > input {
-  margin: 0;
-}
-
 h4 {
   margin-bottom: 10px;
 }
 
 .show td.label {
   width: 120px;
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 #delete-calendar {
@@ -176,10 +144,16 @@ h4 {
 }
 
 .calendar-form .form-row-buttons {
-  padding: 40px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
   display: inline-block;
   vertical-align: top;
-  padding-left: 60px;
+}
+
+#update-calendar {
+  margin-left: 100px;
 }
 
 .form-block {
@@ -248,4 +222,29 @@ h4 {
   padding-top: 15px;
   padding-bottom: 15px;
   float: right;
+}
+
+.form-row > p {
+  text-align: left;
+}
+
+#listed-calendar-shares {
+  margin-left: 80px;
+}
+
+.listed-calendar-share {
+
+}
+
+.listed-calendar-share > td {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.td-email {
+  width: 550px;
+}
+
+.td-permissions {
+  width: 480px;
 }

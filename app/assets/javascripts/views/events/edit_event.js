@@ -2,7 +2,8 @@ GCalClone.Views.EditEvent = Backbone.View.extend({
 
   events: {
     'click #update-event': 'update',
-    'click #delete-event': 'destroy'
+    'click #delete-event': 'destroy',
+    'click #update-availability': 'updateAvailability'
   },
 
   render: function () {
@@ -57,6 +58,30 @@ GCalClone.Views.EditEvent = Backbone.View.extend({
         var fcEvent = $("#calendar-views").fullCalendar("clientEvents", response.get('id'))[0];
         _(fcEvent).extend(response.attributes);
         $("#calendar-views").fullCalendar("updateEvent", fcEvent);
+      },
+      error: function (response) {
+        console.log(response);
+      }
+    });
+  },
+
+  updateAvailability: function (event) {
+    var self = this;
+    event.preventDefault();
+
+    var status = $(event.target.form).serializeJSON().availability
+    var formData = {
+      availability_status: {
+        availability: status
+      }
+    };
+
+    this.options.availabilityStatus.save(formData, {
+      wait: true,
+      patch: true,
+      success: function (response) {
+        self.model.set({availability: status});
+        $("#form-views").dialog("close");
       },
       error: function (response) {
         console.log(response);
