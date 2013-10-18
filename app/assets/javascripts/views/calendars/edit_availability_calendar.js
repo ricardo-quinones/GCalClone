@@ -8,18 +8,30 @@ GCalClone.Views.EditAvailabilityCalendar = Backbone.View.extend({
 
   render: function () {
     var self = this;
-    console.log(this.model);
-    console.log(this.options.availabilityShare);
     self.$el.html(self.template({
-      availabilityShare: this.options.availabilityShare
+      availabilityShare: this.model
     }));
 
     return self;
   },
 
   update: function (event) {
+    var self = this;
     event.preventDefault();
 
-    console.log("click")
+    var formData = $(event.target.form).serializeJSON();
+
+    this.model.save(formData, {
+      wait: true,
+      patch: true,
+      success: function (response) {
+        console.log(response);
+        console.log(self.model);
+        self.$el.dialog("close");
+      },
+      error: function (response) {
+        console.log(response);
+      }
+    })
   }
 });

@@ -7,5 +7,5 @@ GCalClone::Application.routes.draw do
   resources :events, except: [:show, :new, :edit]
   resources :calendars, except: [:show, :new, :edit]
   resources :calendar_shares, only: [:create, :update, :destroy]
-  resources :availability_shares, only: [:create]
+  resources :availability_shares, only: [:create, :update]
 end

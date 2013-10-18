@@ -92,15 +92,15 @@ GCalClone.Views.Sidebar = Backbone.View.extend({
     newCalendarView.render();
   },
 
-  editAvailabilityShares: function (event) {
+  editSharesOfAvailability: function (event) {
     event.preventDefault();
 
-    var availabilitySharesView = new GCalClone.Views.EditAvailabilityShares({
+    var sharesOfAvailabilityView = new GCalClone.Views.EditSharesOfAvailability({
       el: $("#form-views"),
       collection: this.options.availabilityShares
     });
 
-    availabilitySharesView.render();
+    sharesOfAvailabilityView.render();
   },
 
   editAvailabilityCalendar: function (event) {
@@ -108,13 +108,13 @@ GCalClone.Views.Sidebar = Backbone.View.extend({
     var availabilityShare = this.options.availabilityShares.findWhere({
       id: $(event.target).data("id")
     });
-    var availabilityCalendar = this.options.subscribedCalendars.findWhere({
-      availability_share_id: $(event.target).data("id")
-    });
+    // var availabilityCalendar = this.options.subscribedCalendars.findWhere({
+//       availability_share_id: $(event.target).data("id")
+//     });
     var availabilityCalendarView = new GCalClone.Views.EditAvailabilityCalendar({
       el: $("#form-views"),
-      model: availabilityCalendar,
-      availabilityShare: availabilityShare
+      collection: this.options.subscribedCalendars,
+      model: availabilityShare
     });
 
     availabilityCalendarView.render();

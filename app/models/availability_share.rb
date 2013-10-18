@@ -22,6 +22,10 @@ class AvailabilityShare < ActiveRecord::Base
     self.subscriber.email
   end
 
+  def owner_email
+    self.owner.email
+  end
+
   COLORS = [
     "#0099FF",
     "#33CC33",

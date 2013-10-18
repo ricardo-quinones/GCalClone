@@ -62,6 +62,8 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
 
     GCalClone.availabilityStatuses = this.availabilityStatuses;
 
+    GCalClone.sharesOfAvailability = this.currentUser.get("shares_of_users_availability")
+
     this.availabilityShares = new GCalClone.Collections.AvailabilityShares(
       this.currentUser.get("availabilities_shared_with_user")
     );
@@ -100,13 +102,7 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
 
   routes: {
     "": "calendarView",
-    "calendars": "calendarsIndex",
-    "calendars/new": "newCalendar",
-    "user_settings": "editUser",
-    "calendars/:calendar_id/events/new": "newEvent",
-    "calendars/:id": "editCalendar",
-    "subscribed_calendars/:id": "editCalendarShare",
-    "events/:id": "editEvent"
+    "user_settings": "editUser"
   },
 
   closePreviousView: function () {
