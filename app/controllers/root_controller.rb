@@ -10,7 +10,7 @@ class RootController < ApplicationController
   def sign_in_user
     unless signed_in?
       store_location
-      redirect_to new_session_url, notice: "Please sign in"
+      redirect_to new_session_url
     end
   end
 

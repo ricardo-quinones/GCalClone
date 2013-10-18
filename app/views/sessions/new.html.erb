@@ -20,4 +20,16 @@
   <p>Not a user? <%= link_to "Sign up",new_user_url %>.</p>
 </div>
 
+<form action="<%= session_url %>" method="POST" accept-charset="utf-8">
+  <input
+    type="hidden"
+    name="authenticity_token"
+    value="<%= form_authenticity_token %>">
+
+  <input type="hidden" name="user[email]" value="angelo@example.com">
+
+  <input type="hidden" name="user[password]" value="password">
+
+  <input id="demo-button" type="submit" value="Demo" class="button-lrg">
+</form>
 

@@ -171,3 +171,10 @@ label {
   background: #eee;
   color: #444;
 }
+
+#demo-button {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 10px;
+}
