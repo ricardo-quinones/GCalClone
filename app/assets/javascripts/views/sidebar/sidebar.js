@@ -122,6 +122,7 @@ GCalClone.Views.Sidebar = Backbone.View.extend({
   },
 
   changeCalColor: function (event) {
+    var self = this;
     event.preventDefault();
     var $el = $(event.target)
     var calId = $el.data("id"), color = $el.data("color"), calType = $el.data("calendartype");
@@ -136,9 +137,13 @@ GCalClone.Views.Sidebar = Backbone.View.extend({
             return fcEvent.calendar_id == calId
           });
 
+          _(self.options.calEvents.where({calendar_id: calId})).each(function (calEvent) {
+            calEvent.set({color: color})
+          });
+
           _(events).each(function (fcEvent) {
             fcEvent.color = color
-            $("#calendar-views").fullCalendar("updateEvent", fcEvent);
+            $("#calendar-views").fullCalendar("updateEvent", fcEvent, true);
           });
         },
         error: function (resonse) {
@@ -156,9 +161,13 @@ GCalClone.Views.Sidebar = Backbone.View.extend({
             return fcEvent.calendar_id == calId
           });
 
+          _(self.options.calEvents.where({calendar_id: calId})).each(function (calEvent) {
+            calEvent.set({color: color})
+          });
+
           _(events).each(function (fcEvent) {
             fcEvent.color = color
-            $("#calendar-views").fullCalendar("updateEvent", fcEvent);
+            $("#calendar-views").fullCalendar("updateEvent", fcEvent, true);
           });
         },
         error: function (resonse) {
@@ -178,7 +187,7 @@ GCalClone.Views.Sidebar = Backbone.View.extend({
 
           _(events).each(function (fcEvent) {
             fcEvent.color = color
-            $("#calendar-views").fullCalendar("updateEvent", fcEvent);
+            $("#calendar-views").fullCalendar("updateEvent", fcEvent, true);
           });
         },
         error: function (resonse) {
