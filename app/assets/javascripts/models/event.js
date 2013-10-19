@@ -4,8 +4,8 @@ GCalClone.Models.Event = Backbone.Model.extend({
   addFullCalendarAttrs: function (status, color) {
     var self = this;
     _(self.attributes).extend({
-      start: new Date(typeof self.get("local_start_date") == "undefined" ? self.get("start_date") : self.get("local_start_date")),
-      end: new Date(typeof self.get("local_end_date") == "undefined" ? self.get("end_date") : self.get("local_end_date")),
+      start: new Date(self.get("start_date")),
+      end: new Date(self.get("end_date")),
       allDay: self.get("all_day"),
       color: (function () {
         var calendarShare = GCalClone.calendarShares.findWhere({calendar_id: self.get("calendar_id")});
@@ -66,10 +66,6 @@ GCalClone.Models.Event = Backbone.Model.extend({
   },
 
   // methods for agenda view
-  allDay: function () {
-    return this.get('all_day');
-  },
-
   startDate: function () {
     if (typeof this.get("start") !== "string") return this.get("start");
     return new Date(this.get("start"));
@@ -132,13 +128,13 @@ GCalClone.Models.Event = Backbone.Model.extend({
     return (minutes < 10 ? (hours + "0" + minutes) : (hours + minutes));
   },
 
-  dayId: function () {
-    return this.startYear() + "-" + this.startMonth() + "-" + this.startDayOfMonth();
-  },
+  // dayId: function () {
+//     return this.startYear() + "-" + this.startMonth() + "-" + this.startDayOfMonth();
+//   },
 
-  timeRange: function () {
-    return this.startTime() + " - " + this.endTime();
-  },
+  // timeRange: function () {
+  //   return this.startTime() + " - " + this.endTime();
+  // },
 
   monthNames: [
     "January",

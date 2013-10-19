@@ -25,7 +25,11 @@ class EventsController < ApplicationController
           AvailabilityStatus.new(availability: "free", user_id: user_id)
         end
 
-        @event.availability_statuses.create(availability: params[:availability], user_id: current_user.id)
+        @event.availability_statuses.create(
+          availability: params[:availability],
+          user_id: current_user.id
+        )
+
         @event.availability_statuses << new_statuses
       end
 
@@ -34,8 +38,8 @@ class EventsController < ApplicationController
       render json: @event.errors.full_messages, status: 422
     else
       render json: @event.as_json(
-        methods: [:local_start_date, :local_end_date, :color],
-        except: [:start_date, :end_date, :event_color]
+        methods: [:color],
+        except: [:event_color]
       )
     end
   end
@@ -44,10 +48,13 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     calendar = @event.calendar
     @event.update_attributes(params[:cal_event])
-    @event.availability_status(current_user).update_attributes(availability: params[:availability])
+    @event.availability_status(current_user)
+      .update_attributes(availability: params[:availability])
 
     if @event.calendar_id != calendar
-      @event.availability_statuses.where("availability_statuses.user_id != ?", current_user.id).destroy_all
+      @event.availability_statuses
+        .where("availability_statuses.user_id != ?", current_user.id)
+        .destroy_all
 
       new_statuses = @event.calendar.users_shared_with.map(&:id).map do |user_id|
         AvailabilityStatus.new(availability: "free", user_id: user_id)
@@ -56,8 +63,8 @@ class EventsController < ApplicationController
     end
 
     render json: @event.as_json(
-      methods: [:local_start_date, :local_end_date, :color],
-      except: [:start_date, :end_date, :event_color]
+      methods: [:color],
+      except: [:event_color]
     )
   end
 
@@ -78,11 +85,15 @@ class EventsController < ApplicationController
     check_if_has_permission = CalendarShare
                                 .where(calendar_id: @event.calendar_id)
                                 .where(user_id: current_user.id)
-                                .where(permissions: ["Make changes AND manage sharing", "Make changes to events"])
+                                .where(permissions: [
+                                  "Make changes AND manage sharing",
+                                  "Make changes to events"
+                                ])
+
     if check_if_has_permission.empty? && is_not_creator?
       render json: @event.as_json(
-        methods: [:local_start_date, :local_end_date, :color],
-        except: [:start_date, :end_date, :event_color]
+        methods: [:color],
+        except: [:event_color]
       )
     end
   end

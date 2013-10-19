@@ -72,8 +72,8 @@ class CalendarsController < ApplicationController
                                 .where(permissions: "Make changes AND manage sharing")
     if check_if_has_permission.empty? && is_not_owner?
       render json: @event.as_json(
-        methods: [:local_start_date, :local_end_date, :color],
-        except: [:start_date, :end_date, :event_color]
+        methods: [:color],
+        except: [:event_color]
       )
     end
   end

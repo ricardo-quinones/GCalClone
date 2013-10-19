@@ -94,7 +94,7 @@ GCalClone.Routers.CalendarRouter = Backbone.Router.extend({
 
     GCalClone.events = this.events;
     this.events.comparator = function(calEvent) {
-      return calEvent.startDate();
+      return calEvent.get("start");
     };
 
     this.events.sort();

@@ -12,14 +12,6 @@ class Event < ActiveRecord::Base
 
   has_many :availability_statuses, dependent: :destroy
 
-  def local_start_date
-    self.start_date.in_time_zone(self.time_zone).iso8601
-  end
-
-  def local_end_date
-    self.end_date.in_time_zone(self.time_zone).iso8601
-  end
-
   def color
     self.event_color || self.calendar.color
   end
@@ -29,6 +21,8 @@ class Event < ActiveRecord::Base
   end
 
   def valid_date_range
-    errors.add(:start_date, "Invalid date range") unless self.start_date < self.end_date
+    unless self.start_date < self.end_date
+      errors.add(:start_date, "Invalid date range")
+    end
   end
 end

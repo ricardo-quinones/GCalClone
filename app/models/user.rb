@@ -35,6 +35,7 @@ class User < ActiveRecord::Base
   has_many :shared_calendars, through: :calendar_shares, source: :calendar
 
   has_many :availability_statuses, dependent: :destroy
+
   has_many(
     :events_labeled_as_busy,
     through: :availability_statuses,
@@ -42,11 +43,29 @@ class User < ActiveRecord::Base
     conditions: ['availability_statuses.availability = ?', 'busy']
   )
 
-  has_many :shares_of_users_availability, class_name: "AvailabilityShare", foreign_key: :availability_owner_id
-  has_many :users_that_can_see_availability, through: :shares_of_users_availability, source: :subscriber
+  has_many(
+    :shares_of_users_availability,
+    class_name: "AvailabilityShare",
+    foreign_key: :availability_owner_id
+  )
 
-  has_many :availabilities_shared_with_user, class_name: "AvailabilityShare", foreign_key: :availability_subscriber_id
-  has_many :users_that_share_their_availability, through: :availabilities_shared_with_user, source: :owner
+  has_many(
+    :users_that_can_see_availability,
+    through: :shares_of_users_availability,
+    source: :subscriber
+  )
+
+  has_many(
+    :availabilities_shared_with_user,
+    class_name: "AvailabilityShare",
+    foreign_key: :availability_subscriber_id
+  )
+
+  has_many(
+    :users_that_share_their_availability,
+    through: :availabilities_shared_with_user,
+    source: :owner
+  )
 
   has_many(
     :manage_sharing_calendars,
