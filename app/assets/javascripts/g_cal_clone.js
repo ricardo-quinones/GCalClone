@@ -18,37 +18,6 @@ window.GCalClone = {
 
 $(document).ready(function(){
   GCalClone.initialize();
-
-  // monthNames = [
-  //   "january",
-  //   "february",
-  //   "march",
-  //   "april",
-  //   "may",
-  //   "june",
-  //   "july",
-  //   "august",
-  //   "september",
-  //   "october",
-  //   "november",
-  //   "december"
-  // ];
-  //
-  // currentDate = function () {
-  //   return new Date();
-  // };
-  //
-  // currentDayOfMonth = function () {
-  //   return currentDate().getDate();
-  // };
-  //
-  // currentMonth = function () {
-  //   return monthNames[currentDate().getMonth()];
-  // };
-  //
-  // currentYear = function () {
-  //   return currentDate().getFullYear();
-  // };
 });
 
 var originalSync = Backbone.sync;
