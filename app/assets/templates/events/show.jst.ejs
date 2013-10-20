@@ -1,6 +1,6 @@
 <h1><%= calEvent.get("title") %></h1>
 
-<h4><%= calEvent.displayEventTime() %></h4>
+<h4><%= calEvent.displayEventTime(calEvent.get("start"), calEvent.get("end")) %></h4>
 <table class="show">
   <tr>
     <td class="label"><strong>Where</strong></td>

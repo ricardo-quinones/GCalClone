@@ -47,7 +47,7 @@ GCalClone.Views.Calendars = Backbone.View.extend({
         right: "agendaDay,agendaWeek,month today prev,next"
       },
       defaultView: "agendaWeek",
-      ignoreTimezone: false,
+      ignoreTimezone: true,
       slotMinutes: 15,
       timeFormat: "h:mm t{ - h:mm t}",
       selectable: true,

@@ -3,6 +3,7 @@ class RootController < ApplicationController
 
   def root
     @user = current_user
+    @timezones = ActiveSupport::TimeZone.zones_map.to_json.html_safe
   end
 
   private

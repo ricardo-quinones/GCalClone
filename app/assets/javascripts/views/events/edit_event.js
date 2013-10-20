@@ -93,14 +93,14 @@ GCalClone.Views.EditEvent = Backbone.View.extend({
     var start_date = calEvent.start_date;
     var end_date = calEvent.end_date;
 
-    calEvent["start_date"] = moment.tz(
-      start_date.date + " " + start_date.time,
-      TIME_ZONES[calEvent.time_zone].tzinfo.identifier
+    calEvent["start_date"] = moment.parseZone(
+      start_date.date + " " + start_date.time + " " +
+        TIME_ZONES[calEvent.time_zone].total_utc_offset
     ).format();
 
-    calEvent["end_date"] = moment.tz(
-      end_date.date + " " + end_date.time,
-      TIME_ZONES[calEvent.time_zone].tzinfo.identifier
+    calEvent["end_date"] = moment.parseZone(
+      end_date.date + " " + end_date.time + " " +
+        TIME_ZONES[calEvent.time_zone].total_utc_offset
     ).format();
   },
 

@@ -57,7 +57,7 @@
             id="start-date"
             name="cal_event[start_date][date]"
             class="datepicker date"
-            value="<%= calEvent.startDateString() %>">
+            value="<%= calEvent.inputDateString(calEvent.get("start")) %>">
 
 
           <input
@@ -65,7 +65,7 @@
             name="cal_event[start_date][time]"
             id="start-time"
             class="time"
-            value="<%= calEvent.startTimeString() %>">
+            value="<%= calEvent.inputTimeString(calEvent.get("start")) %>">
         </div>
 
         <div class="form-row">
@@ -74,14 +74,14 @@
             id="end-date"
             name="cal_event[end_date][date]"
             class="datepicker"
-            value="<%= calEvent.endDateString() %>">
+            value="<%= calEvent.inputDateString(calEvent.get("end")) %>">
 
           <input
             type="time"
             name="cal_event[end_date][time]"
             id="end-time"
             class="time"
-            value="<%= calEvent.endTimeString() %>">
+            value="<%= calEvent.inputTimeString(calEvent.get("end")) %>">
         </div>
       </div>
       <div class="form-row all-day">
