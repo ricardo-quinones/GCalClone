@@ -1,4 +1,4 @@
-#Welcome to GCalClone!
+#Welcome to MyCal!
 
 GCaClone is a Backbone based single-page web app with a Rails backend that emulates Google Calendar and its calendar sharing functionality.
 
